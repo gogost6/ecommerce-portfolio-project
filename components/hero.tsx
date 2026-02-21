@@ -1,44 +1,46 @@
-import { NextLogo } from "./next-logo";
-import { SupabaseLogo } from "./supabase-logo";
+import Image from "next/image";
+import Link from "next/link";
+import { Star } from "./icons/star";
+import { Button } from "./ui/button";
 
-export function Hero() {
+export const Hero = () => {
   return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
+    <section className="bg-gray-100">
+      <div className=" px-4 pt-10">
+        <h1 className="font-black leading-8 text-4xl mb-5">
+          FIND CLOTHES THAT MATCHES YOUR STYLE
+        </h1>
+        <p className="text-sm text-gray-600 mb-6">
+          Browse through our diverse range of meticulously crafted garments,
+          designed to bring out your individuality and cater to your sense of
+          style.
+        </p>
+        <Button asChild className="mb-5 w-full">
+          <Link href="/products">Shop Now</Link>
+        </Button>
+        <div className="flex justify-center flex-col items-center">
+          <div className="flex gap-7 items-center mb-3">
+            <div>
+              <p className="font-black text-2xl">200+</p>
+              <p className="text-xs text-gray-600">International Brands</p>
+            </div>
+            <div className="w-[1px] self-stretch bg-gray-200"></div>
+            <div>
+              <p className="font-black text-2xl">2,000+</p>
+              <p className="text-xs text-gray-600">High-Quality Products</p>
+            </div>
+          </div>
+          <div>
+            <p className="font-black text-2xl">30,000+</p>
+            <p className="text-xs text-gray-600">Happy customers</p>
+          </div>
+        </div>
       </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-    </div>
+      <div className="relative">
+        <Star className="absolute top-36 left-10" />
+        <Star className="absolute top-16 right-10" />
+        <Image src="/hero.png" alt="Hero Image" width={1200} height={600} />
+      </div>
+    </section>
   );
-}
+};
