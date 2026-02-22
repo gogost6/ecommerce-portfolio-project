@@ -1,14 +1,13 @@
-import { CircleUser, Menu, Search, ShoppingCart } from "lucide-react";
+import { CircleUser, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import { NavigationMenuMobile } from "./navigation-menu-mobile";
 import { Button } from "./ui/button";
 
-export const NavigationMobile = () => {
+export const Navigation = () => {
   return (
-    <nav className="flex justify-between items-center px-4 py-5">
+    <nav className="flex justify-between items-center px-4 py-5 relative">
       <div className="flex gap-2 items-center">
-        <Button variant="ghost" size="icon">
-          <Menu />
-        </Button>
+        <NavigationMenuMobile />
         <p className="font-black text-2xl">SHOP.CO</p>
       </div>
       <div className="flex flex-row gap-1 text-2xl">

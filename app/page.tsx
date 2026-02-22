@@ -5,7 +5,7 @@ import { GooglePay } from "@/components/icons/google-pay";
 import { MasterCard } from "@/components/icons/master-card";
 import { Paypal } from "@/components/icons/paypal";
 import { Visa } from "@/components/icons/visa";
-import { NavigationMobile } from "@/components/navigation-mobile";
+import { Navigation } from "@/components/navigation";
 import { ProductsScroll } from "@/components/products-scroll";
 import { PromoBar } from "@/components/promo-bar";
 import { StylesBoxes } from "@/components/styles-boxes";
@@ -59,7 +59,7 @@ export default function Home() {
   return (
     <>
       <PromoBar />
-      <NavigationMobile />
+      <Navigation />
       <Hero />
       <Brands />
       <ProductsScroll products={products} title="NEW ARRIVALS" />
