@@ -3,7 +3,11 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
-export const NavigationMenuMobile = () => {
+export const NavigationMenuMobile = ({
+  links,
+}: {
+  links: { name: string; href: string }[];
+}) => {
   const handleMenuToggle = () => {
     const menu = document.querySelector(".mobile-menu");
     if (menu) {
@@ -30,18 +34,16 @@ export const NavigationMenuMobile = () => {
               <X />
             </Button>
           </div>
-          <Button variant="outline" asChild onClick={handleMenuToggle}>
-            <Link href="#">Home</Link>
-          </Button>
-          <Button variant="outline" asChild onClick={handleMenuToggle}>
-            <Link href="#">Shop</Link>
-          </Button>
-          <Button variant="outline" asChild onClick={handleMenuToggle}>
-            <Link href="#">About</Link>
-          </Button>
-          <Button variant="outline" asChild onClick={handleMenuToggle}>
-            <Link href="#">Contact</Link>
-          </Button>
+          {links.map((link) => (
+            <Button
+              key={link.name}
+              variant="outline"
+              asChild
+              onClick={handleMenuToggle}
+            >
+              <Link href={link.href}>{link.name}</Link>
+            </Button>
+          ))}
         </div>
       </div>
     </>
