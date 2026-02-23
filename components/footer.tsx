@@ -49,7 +49,7 @@ const footerGroups = [
 
 export const Footer = () => {
   return (
-    <footer className="px-4 bg-gray-200 pt-48 pb-20 relative">
+    <footer className="px-4 bg-gray-200 pt-48 md:pt-36 pb-20 relative">
       <SubscribeToNewsletter />
       <h3 className="font-black text-3xl mb-3">SHOP.CO</h3>
       <p className="text-sm text-gray-600 mb-5">
