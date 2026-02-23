@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 const styles = [
   {
@@ -46,9 +47,10 @@ const StyleBox = ({
   imgClass?: string;
 }) => {
   return (
-    <div
+    <Link
+      href="#"
       className={cn(
-        "h-48 md:h-72 w-full relative cursor-pointer group",
+        "h-48 md:h-72 w-full relative cursor-pointer group overflow-hidden",
         colClass,
       )}
     >
@@ -58,12 +60,12 @@ const StyleBox = ({
         fill
         sizes="(min-width: 1024px) 50vw, 100vw"
         className={cn(
-          "object-cover w-full h-full rounded-lg transition",
+          "object-cover w-full h-full rounded-lg transition group-hover:scale-105",
           imgClass,
         )}
       />
       <p className="font-bold text-2xl absolute left-6 top-4">{title}</p>
-    </div>
+    </Link>
   );
 };
 
