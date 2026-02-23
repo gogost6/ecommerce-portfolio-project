@@ -1,54 +1,56 @@
+import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-const styles = [
+const categoryUIConfig: Record<
+  string,
   {
+    src: string;
+    imgClass: string;
+    colClass: string;
+  }
+> = {
+  casual: {
     src: "/casual-style.png",
-    alt: "Casual Style",
-    title: "Casual",
-    colClass: "md:col-span-4",
     imgClass: "object-right",
+    colClass: "md:col-span-4",
   },
-  {
+  formal: {
     src: "/formal-style.png",
-    alt: "Formal Style",
-    title: "Formal",
-    colClass: "md:col-span-8",
     imgClass: "object-left",
-  },
-  {
-    src: "/party-style.png",
-    alt: "Party Style",
-    title: "Party",
     colClass: "md:col-span-8",
+  },
+  party: {
+    src: "/party-style.png",
     imgClass: "object-center",
+    colClass: "md:col-span-8",
   },
-  {
+  gym: {
     src: "/gym-style.png",
-    alt: "Gym Style",
-    title: "Gym",
-    colClass: "md:col-span-4",
     imgClass: "object-right",
+    colClass: "md:col-span-4",
   },
-];
+};
 
 const StyleBox = ({
   src,
   alt,
-  title,
+  name,
+  slug,
   colClass = "",
   imgClass = "",
 }: {
   src: string;
   alt?: string;
-  title: string;
+  name: string;
+  slug: string;
   colClass?: string;
   imgClass?: string;
 }) => {
   return (
     <Link
-      href="#"
+      href={`/categories/${slug}`}
       className={cn(
         "h-48 md:h-72 w-full relative cursor-pointer group overflow-hidden",
         colClass,
@@ -64,21 +66,33 @@ const StyleBox = ({
           imgClass,
         )}
       />
-      <p className="font-bold text-2xl absolute left-6 top-4">{title}</p>
+      <p className="font-bold text-2xl absolute left-6 top-4">{name}</p>
     </Link>
   );
 };
 
-export const StylesBoxes = () => {
+export const StylesBoxes = async () => {
+  const supabase = await createClient();
+
+  const { data: categories } = await supabase
+    .from("categories")
+    .select("*")
+    .order("created_at");
+
   return (
     <section className="mx-4 px-6 md:px-16 pt-10 pb-7 md:py-16 rounded-2xl bg-gray-200 mb-12 max-w-7xl md:mx-auto">
       <h3 className="font-black text-3xl md:text-5xl mb-7 md:mb-16 text-center">
         BROWSE BY DRESS STYLE
       </h3>
+
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
-        {styles.map((style) => (
-          <StyleBox key={style.title} {...style} />
-        ))}
+        {categories?.map((category) => {
+          const ui = categoryUIConfig[category.slug];
+
+          if (!ui) return null; // skip if no UI config
+
+          return <StyleBox key={category.id} {...ui} {...category} />;
+        })}
       </div>
     </section>
   );
