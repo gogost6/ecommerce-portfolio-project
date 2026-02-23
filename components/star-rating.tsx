@@ -16,13 +16,12 @@ export const StarRating = ({
           return (
             <Star
               key={index}
-              size={16}
-              className={index <= rating ? "text-yellow-500" : "text-gray-300"}
+              className={`w-4 h-4 md:w-5 md:h-5 ${index <= rating ? "text-yellow-500" : "text-gray-300"}`}
             />
           );
         })}
       </div>
-      <p className="text-xs text-gray-600">
+      <p className="text-xs md:text-sm text-gray-600">
         {rating}/<span className="text-gray-500">5</span>
       </p>
     </div>
