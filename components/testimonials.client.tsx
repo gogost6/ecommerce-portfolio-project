@@ -35,7 +35,7 @@ export default function Testimonials({
 
   return (
     <section className="mb-44">
-      <div className="mx-auto w-full max-w-6xl">
+      <div className="mx-auto w-full max-w-7xl">
         <div className="flex items-center justify-between mb-6 px-4">
           <div>{title}</div>
           <div className="flex items-center gap-2">
@@ -63,7 +63,7 @@ export default function Testimonials({
         {/* Embla viewport must be client */}
         <div className="overflow-hidden" ref={emblaRef}>
           {/* track */}
-          <div className="flex">{children}</div>
+          <div className="flex items-stretch">{children}</div>
         </div>
       </div>
     </section>
