@@ -14,6 +14,8 @@ export const products = [
     price: 120,
     rating: 4,
     title: "T-SHIRT WITH TAPE DETAILS",
+    discountedPrice: 120 * 0.8,
+    discountedPercentage: 20,
   },
   {
     src: "/t-shirt.png",

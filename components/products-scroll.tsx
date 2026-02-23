@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { StarRating } from "./star-rating";
+import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
 export type ProductCardParams = {
@@ -9,11 +10,21 @@ export type ProductCardParams = {
   title: string;
   rating: number;
   price: number;
+  discountedPrice?: number;
+  discountedPercentage?: number;
 };
 
-const ProductCard = ({ src, alt, title, rating, price }: ProductCardParams) => {
+const ProductCard = ({
+  src,
+  alt,
+  title,
+  rating,
+  price,
+  discountedPrice,
+  discountedPercentage,
+}: ProductCardParams) => {
   return (
-    <div>
+    <div className="flex-shrink-0 max-w-48 md:max-w-72">
       <Image
         src={src}
         alt={alt || src.split(".")[0]}
@@ -23,7 +34,15 @@ const ProductCard = ({ src, alt, title, rating, price }: ProductCardParams) => {
       />
       <h3 className="font-bold text-base md:text-xl mb-1 md:mb-2">{title}</h3>
       <StarRating rating={rating} />
-      <p className="font-bold text-xl md:text-2xl mt-1 md:mt-2">${price}</p>
+      {discountedPrice ? (
+        <div className="font-bold text-xl md:text-2xl mt-1 md:mt-2 flex items-center justify-start gap-2.5">
+          <span>${discountedPrice}</span>
+          <span className="line-through text-gray-500">${price}</span>{" "}
+          <Badge variant={"red"}>-{discountedPercentage}%</Badge>
+        </div>
+      ) : (
+        <p className="font-bold text-xl md:text-2xl mt-1 md:mt-2">${price}</p>
+      )}
     </div>
   );
 };
