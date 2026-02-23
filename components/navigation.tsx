@@ -16,7 +16,9 @@ export const Navigation = () => {
     <nav className="flex justify-between items-center px-4 py-5 relative max-w-7xl mx-auto">
       <div className="flex gap-2 items-center">
         <NavigationMenuMobile links={LINKS} />
-        <p className="font-black text-2xl md:text-3xl">SHOP.CO</p>
+        <Link href={"/"} className="font-black text-2xl md:text-3xl">
+          SHOP.CO
+        </Link>
       </div>
       <div className="hidden md:flex gap-6 items-center flex-1 justify-center">
         {LINKS.map((link) => (
