@@ -1,6 +1,9 @@
+import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/navigation";
+import { PromoBar } from "@/components/promo-bar";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -33,7 +36,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <PromoBar />
+          <Navigation />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
