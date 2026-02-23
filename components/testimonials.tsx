@@ -61,7 +61,7 @@ export default function TestimonialsSection() {
       {TESTIMONIALS.map((t, i) => (
         <div
           key={i}
-          className="flex-[0_0_100%] md:flex-[1_1_33.333%] px-4 flex"
+          className="flex-[0_0_100%] md:flex-[0_0_33.333%] px-4 flex"
         >
           <div className="border border-gray-200 rounded-[32px] p-8 sm:p-10 bg-white h-full">
             <StarRating rating={t.rating} className="mb-5" />
