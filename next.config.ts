@@ -3,7 +3,16 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   cacheComponents: true,
   images: {
-    domains: ["images.unsplash.com", "tmfbysibhlpkahvvpoeu.supabase.co"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "tmfbysibhlpkahvvpoeu.supabase.co",
+      },
+    ],
   },
 };
 
