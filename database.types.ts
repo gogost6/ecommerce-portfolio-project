@@ -35,6 +35,44 @@ export type Database = {
         }
         Relationships: []
       }
+      product_images: {
+        Row: {
+          alt: string | null
+          created_at: string
+          id: number
+          is_primary: boolean
+          product_id: number
+          sort_order: number
+          url: string
+        }
+        Insert: {
+          alt?: string | null
+          created_at?: string
+          id?: never
+          is_primary?: boolean
+          product_id: number
+          sort_order?: number
+          url: string
+        }
+        Update: {
+          alt?: string | null
+          created_at?: string
+          id?: never
+          is_primary?: boolean
+          product_id?: number
+          sort_order?: number
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_images_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           created_at: string

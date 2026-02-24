@@ -7,15 +7,15 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
 type ProductCardParams = Database["public"]["Tables"]["products"]["Row"] & {
-  src: string;
+  url: string;
   alt?: string;
 };
 
 const ProductCard = ({
-  src,
-  alt,
   title,
   rating,
+  url,
+  alt,
   price,
   discounted_price,
   percent_discount,
@@ -23,8 +23,8 @@ const ProductCard = ({
   return (
     <div className="flex-shrink-0 max-w-48 md:max-w-72">
       <Image
-        src={src}
-        alt={alt || src.split(".")[0]}
+        src={url}
+        alt={alt || url.split(".")[0]}
         width={298}
         height={298}
         className="mb-2.5 md:mb-4 w-48 h-48 md:w-72 md:h-72 rounded-2xl object-cover"
@@ -59,6 +59,14 @@ export const ProductsScroll = async ({ title }: ProductsScrollParams) => {
 
   if (!products) return null;
 
+  const images = await supabase
+    .from("product_images")
+    .select("*")
+    .in(
+      "product_id",
+      products.map((p) => p.id),
+    );
+
   return (
     <section className="pt-12 md:pt-16 max-w-7xl mx-auto">
       <div className="px-4">
@@ -71,7 +79,14 @@ export const ProductsScroll = async ({ title }: ProductsScrollParams) => {
           <ProductCard
             key={p.title + index}
             {...p}
-            src="https://images.unsplash.com/photo-1634839325124-e69977f01b98?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            url={
+              images.data?.find((img) => img.product_id === p.id)?.url ||
+              "https://tmfbysibhlpkahvvpoeu.supabase.co/storage/v1/object/public/shop.me/default-product.jpg"
+            }
+            alt={
+              images.data?.find((img) => img.product_id === p.id)?.alt ||
+              p.title
+            }
           />
         ))}
       </div>
