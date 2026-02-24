@@ -1,10 +1,10 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/client";
 import { CircleCheck } from "lucide-react";
 import { StarRating } from "./star-rating";
 import Testimonials from "./testimonials.client";
 
 export default async function TestimonialsSection() {
-  const supabase = await createClient();
+  const supabase = createClient();
   const { data } = await supabase
     .from("testimonials")
     .select()

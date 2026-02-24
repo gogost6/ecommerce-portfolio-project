@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -72,7 +72,7 @@ const StyleBox = ({
 };
 
 export const StylesBoxes = async () => {
-  const supabase = await createClient();
+  const supabase = createClient();
 
   const { data: categories } = await supabase
     .from("categories")

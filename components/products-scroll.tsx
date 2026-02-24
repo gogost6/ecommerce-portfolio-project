@@ -1,5 +1,5 @@
 import { Database } from "@/database.types";
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
 import Link from "next/link";
 import { StarRating } from "./star-rating";
@@ -50,7 +50,7 @@ type ProductsScrollParams = {
 };
 
 export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
-  const supabase = await createClient();
+  const supabase = createClient();
   const { data: products } = await supabase
     .from("products")
     .select("*")
