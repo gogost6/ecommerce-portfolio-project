@@ -9,9 +9,9 @@ export default function Home() {
     <>
       <Hero />
       <Brands />
-      <ProductsScroll title="NEW ARRIVALS" />
+      <ProductsScroll title="NEW ARRIVALS" type="new-arrivals" />
       <div className="h-[1px] bg-gray-100 mx-4"></div>
-      <ProductsScroll title="TOP SELLING" />
+      <ProductsScroll title="TOP SELLING" type="top-selling" />
       <StylesBoxes />
       <TestimonialsSection />
     </>

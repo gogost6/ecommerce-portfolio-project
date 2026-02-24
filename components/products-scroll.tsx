@@ -46,15 +46,16 @@ const ProductCard = ({
 
 type ProductsScrollParams = {
   title: string;
+  type: "new-arrivals" | "top-selling";
 };
 
-export const ProductsScroll = async ({ title }: ProductsScrollParams) => {
+export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
   const supabase = await createClient();
   const { data: products } = await supabase
     .from("products")
     .select("*")
     .eq("is_active", true)
-    .order("created_at", { ascending: false })
+    .order("created_at", { ascending: type === "new-arrivals" })
     .limit(4);
 
   if (!products) return null;
