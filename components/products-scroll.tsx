@@ -60,13 +60,14 @@ export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
 
   if (!products) return null;
 
-  const images = await supabase
+  const { data: images } = await supabase
     .from("product_images")
-    .select("*")
+    .select("product_id,url,alt")
     .in(
       "product_id",
       products.map((p) => p.id),
-    );
+    )
+    .eq("is_primary", true);
 
   return (
     <section className="pt-12 md:pt-16 max-w-7xl mx-auto">
@@ -81,13 +82,10 @@ export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
             key={p.title + index}
             {...p}
             url={
-              images.data?.find((img) => img.product_id === p.id)?.url ||
+              images?.find((img) => img.product_id === p.id)?.url ||
               "https://tmfbysibhlpkahvvpoeu.supabase.co/storage/v1/object/public/shop.me/default-product.jpg"
             }
-            alt={
-              images.data?.find((img) => img.product_id === p.id)?.alt ||
-              p.title
-            }
+            alt={images?.find((img) => img.product_id === p.id)?.alt || p.title}
           />
         ))}
       </div>
