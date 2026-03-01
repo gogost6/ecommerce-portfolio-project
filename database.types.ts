@@ -38,21 +38,21 @@ export type Database = {
       colors: {
         Row: {
           created_at: string
-          hex: string | null
+          hex: string
           id: number
           name: string
           slug: string
         }
         Insert: {
           created_at?: string
-          hex?: string | null
+          hex: string
           id?: never
           name: string
           slug: string
         }
         Update: {
           created_at?: string
-          hex?: string | null
+          hex?: string
           id?: never
           name?: string
           slug?: string
