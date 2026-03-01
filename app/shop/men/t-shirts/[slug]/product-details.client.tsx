@@ -160,7 +160,7 @@ export default function ProductDetailsClient({
 
   return (
     <>
-      <h1 className="text-2xl font-black mt-20 mb-3">{product.title}</h1>
+      <h1 className="text-2xl font-black my-3">{product.title}</h1>
       <StarRating rating={product.rating} />
 
       <div className="flex flex-row gap-2.5 mt-2.5 mb-5 items-center">
