@@ -11,7 +11,7 @@ export function Sizes({
 }) {
   return (
     <div className="flex flex-col gap-4 mb-6">
-      <p className="text-gray-600 text-sm">Choose size</p>
+      <p className="text-gray-600 text-sm md:text-base">Choose size</p>
       <div className="flex flex-row gap-3 flex-wrap">
         {sizes.map((s) => {
           const active = s.id === selectedSizeId;

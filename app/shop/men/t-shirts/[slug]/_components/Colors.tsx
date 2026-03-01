@@ -9,7 +9,7 @@ export function Colors({
 }) {
   return (
     <div className="flex flex-col gap-4 mb-6">
-      <p className="text-gray-600 text-sm">Select Colors</p>
+      <p className="text-gray-600 text-sm md:text-base">Select Colors</p>
       <div className="flex flex-row gap-3">
         {colors.map((c) => {
           const active = c.id === selectedColorId;

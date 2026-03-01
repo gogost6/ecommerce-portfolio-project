@@ -18,7 +18,9 @@ export function ReviewsList({ reviews }: { reviews: Review[] }) {
           <StarRating rating={review.rating} />
 
           <div className="flex flex-row gap-1 items-center justify-center w-fit mt-3 mb-2">
-            <h4 className="text-lg font-bold">{review.reviewer_name}</h4>
+            <h4 className="text-lg font-bold md:text-xl">
+              {review.reviewer_name}
+            </h4>
             <div className="w-5 h-5 bg-green-500 relative rounded-full">
               <Check
                 size={10}

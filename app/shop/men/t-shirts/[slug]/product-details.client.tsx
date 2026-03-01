@@ -100,16 +100,16 @@ export default function ProductDetailsClient({
   const outOfStock = display.stock !== null ? display.stock <= 0 : false;
 
   return (
-    <>
-      <h1 className="text-2xl font-black my-3">{product.title}</h1>
+    <div className="md:flex md:flex-col">
+      <h1 className="text-2xl md:text-4xl font-black my-3">{product.title}</h1>
       <StarRating rating={product.rating} />
 
       <div className="flex flex-row gap-2.5 mt-2.5 mb-5 items-center">
-        <p className="text-2xl font-medium">{display.basePrice}$</p>
+        <p className="text-2xl md:text-3xl font-medium">{display.basePrice}$</p>
 
         {display.hasDiscount && (
           <>
-            <p className="text-gray-600 line-through text-2xl font-medium">
+            <p className="text-gray-600 line-through text-2xl md:text-3xl font-medium">
               {display.discounted_price}$
             </p>
             <Badge variant={"red"}>{display.percent_discount}%</Badge>
@@ -122,7 +122,9 @@ export default function ProductDetailsClient({
           </span>
         )}
       </div>
-      <p className="text-sm text-gray-600 mb-6">{product.description}</p>
+      <p className="text-sm md:text-base text-gray-600 mb-6">
+        {product.description}
+      </p>
       <div className="h-[1px] bg-gray-100 mb-6" />
       <Colors
         colors={colors}
@@ -142,6 +144,6 @@ export default function ProductDetailsClient({
         decQty={decQty}
         outOfStock={outOfStock}
       />
-    </>
+    </div>
   );
 }

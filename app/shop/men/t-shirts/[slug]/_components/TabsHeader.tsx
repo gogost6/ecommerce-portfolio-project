@@ -1,7 +1,7 @@
 export function TabsHeader() {
   return (
     <div className="w-full border-b mb-5">
-      <div className="flex justify-center gap-12 text-gray-400 text-sm">
+      <div className="flex justify-center gap-12 text-gray-400 text-sm md:text-xl">
         <button className="pb-4">Product Details</button>
         <button className="pb-4 text-black relative">
           Rating & Reviews
