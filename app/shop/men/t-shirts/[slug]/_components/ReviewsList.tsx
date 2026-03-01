@@ -12,7 +12,7 @@ const formatDate = (iso: string) =>
 
 export function ReviewsList({ reviews }: { reviews: Review[] }) {
   return (
-    <div className="flex flex-col gap-4 mb-5">
+    <div className="flex flex-col gap-4 md:gap-5 mb-5 md:grid md:grid-cols-2">
       {reviews.map((review) => (
         <div key={review.id} className="border border-gray-100 rounded-lg p-4">
           <StarRating rating={review.rating} />
