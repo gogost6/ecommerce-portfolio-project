@@ -106,12 +106,12 @@ export default function ProductDetailsClient({
       </h1>
       <StarRating rating={product.rating} />
       <div className="flex flex-row gap-2.5 mt-2.5 md:mt-3.5 mb-5 items-center">
-        <p className="text-2xl md:text-3xl font-medium">{display.basePrice}$</p>
+        <p className="text-2xl md:text-3xl font-medium">${display.basePrice}</p>
 
         {display.hasDiscount && (
           <>
             <p className="text-gray-600 line-through text-2xl md:text-3xl font-medium">
-              {display.discounted_price}$
+              ${display.discounted_price}
             </p>
             <Badge variant={"red"}>{display.percent_discount}%</Badge>
           </>
