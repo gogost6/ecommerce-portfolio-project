@@ -7,6 +7,8 @@ import { Reviews } from "./_components/Reviews";
 import { TabsHeader } from "./_components/TabsHeader";
 import ProductDetailsClient from "./product-details.client";
 
+export const REVIEWS_PAGE_SIZE = 4;
+
 export default async function Page({
   params,
 }: {
@@ -72,7 +74,7 @@ export default async function Page({
     .eq("is_verified_purchase", true)
     .eq("is_published", true)
     .order("created_at", { ascending: false })
-    .limit(3);
+    .limit(REVIEWS_PAGE_SIZE);
 
   const { count: reviewsCount } = await supabase
     .from("product_reviews")

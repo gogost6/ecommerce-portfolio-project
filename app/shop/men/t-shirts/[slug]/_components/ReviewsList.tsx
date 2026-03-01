@@ -14,10 +14,13 @@ export function ReviewsList({ reviews }: { reviews: Review[] }) {
   return (
     <div className="flex flex-col gap-4 md:gap-5 mb-5 md:grid md:grid-cols-2">
       {reviews.map((review) => (
-        <div key={review.id} className="border border-gray-100 rounded-lg p-4">
+        <div
+          key={review.id}
+          className="border border-gray-100 rounded-lg p-4 md:px-8 md:py-7"
+        >
           <StarRating rating={review.rating} />
 
-          <div className="flex flex-row gap-1 items-center justify-center w-fit mt-3 mb-2">
+          <div className="flex flex-row gap-1 items-center justify-center w-fit mt-3 md:mt-4 mb-2 md:mb-3">
             <h4 className="text-lg font-bold md:text-xl">
               {review.reviewer_name}
             </h4>
@@ -30,7 +33,7 @@ export function ReviewsList({ reviews }: { reviews: Review[] }) {
             </div>
           </div>
 
-          <p className="text-gray-600 text-base mb-4">{review.body}</p>
+          <p className="text-gray-600 text-base mb-4 md:mb-6">{review.body}</p>
           <span className="font-medium text-base text-gray-600">
             Posted on {formatDate(review.created_at)}
           </span>

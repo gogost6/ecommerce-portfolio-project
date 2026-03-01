@@ -101,10 +101,11 @@ export default function ProductDetailsClient({
 
   return (
     <div className="md:flex md:flex-col">
-      <h1 className="text-2xl md:text-4xl font-black my-3">{product.title}</h1>
+      <h1 className="text-2xl md:text-4xl font-black my-3 md:mt-0 md:mb-3.5">
+        {product.title}
+      </h1>
       <StarRating rating={product.rating} />
-
-      <div className="flex flex-row gap-2.5 mt-2.5 mb-5 items-center">
+      <div className="flex flex-row gap-2.5 mt-2.5 md:mt-3.5 mb-5 items-center">
         <p className="text-2xl md:text-3xl font-medium">{display.basePrice}$</p>
 
         {display.hasDiscount && (

@@ -16,7 +16,7 @@ export type Review = {
   is_published: boolean;
 };
 
-const REVIEWS_PAGE_SIZE = 3;
+const REVIEWS_PAGE_SIZE = 4;
 
 export function Reviews({
   initialReviews,
@@ -64,9 +64,35 @@ export function Reviews({
     });
   };
 
+  const sortReviews = (criteria: string) => {
+    const sortedReviews = [...reviews];
+
+    switch (criteria) {
+      case "latest":
+        sortedReviews.sort(
+          (a, b) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+        );
+        break;
+      case "oldest":
+        sortedReviews.sort(
+          (a, b) =>
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+        );
+        break;
+      case "highest":
+        sortedReviews.sort((a, b) => b.rating - a.rating);
+        break;
+      case "lowest":
+        sortedReviews.sort((a, b) => a.rating - b.rating);
+        break;
+    }
+    setReviews(sortedReviews);
+  };
+
   return (
     <>
-      <ReviewsHeader reviewsCount={reviewsCount} />
+      <ReviewsHeader reviewsCount={reviewsCount} sortCb={sortReviews} />
       <ReviewsList reviews={reviews} />
 
       {canLoadMore && (
