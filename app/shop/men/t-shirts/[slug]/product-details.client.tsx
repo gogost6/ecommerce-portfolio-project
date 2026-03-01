@@ -169,7 +169,7 @@ export default function ProductDetailsClient({
         {display.hasDiscount && (
           <>
             <p className="text-gray-600 line-through text-2xl font-medium">
-              {display.discounted_price}$ {/* (this is your “old price”) */}
+              {display.discounted_price}$
             </p>
             <Badge variant={"red"}>{display.percent_discount}%</Badge>
           </>
