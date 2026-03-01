@@ -1,6 +1,6 @@
 import { StarRating } from "@/components/star-rating";
 import { Check } from "lucide-react";
-import { Review } from "../product-details.client";
+import { Review } from "./Reviews";
 
 const formatDate = (iso: string) =>
   new Intl.DateTimeFormat("en-GB", {

@@ -2,15 +2,10 @@
 
 import { StarRating } from "@/components/star-rating";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/client";
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useState } from "react";
 import { AddToCard } from "./_components/AddToCart";
 import { Colors } from "./_components/Colors";
-import { ReviewsHeader } from "./_components/ReviewsHeader";
-import { ReviewsList } from "./_components/ReviewsList";
 import { Sizes } from "./_components/Sizes";
-import { TabsHeader } from "./_components/TabsHeader";
 
 type Variant = {
   id: number;
@@ -37,26 +32,10 @@ type Product = {
   product_variants: Variant[];
 };
 
-export type Review = {
-  id: number;
-  reviewer_name: string | null;
-  rating: number;
-  body: string | null;
-  created_at: string;
-  is_verified_purchase: boolean;
-  is_published: boolean;
-};
-
-const REVIEWS_PAGE_SIZE = 3;
-
 export default function ProductDetailsClient({
   product,
-  initialReviews,
-  reviewsCount,
 }: {
   product: Product;
-  initialReviews: Review[];
-  reviewsCount: number;
 }) {
   const [selectedColorId, setSelectedColorId] = useState<number | null>(() => {
     const first = product.product_variants.find((v) => v.colors?.id)?.colors
@@ -115,44 +94,6 @@ export default function ProductDetailsClient({
     };
   }, [selectedVariant, product.price, product.discounted_price]);
 
-  // ---- Reviews pagination ----
-  const [reviews, setReviews] = useState<Review[]>(initialReviews);
-  const [loadingMore, startTransition] = useTransition();
-
-  const canLoadMore = reviews.length < reviewsCount;
-
-  const loadMoreReviews = () => {
-    startTransition(async () => {
-      const supabase = createClient();
-
-      const from = reviews.length;
-      const to = from + REVIEWS_PAGE_SIZE - 1;
-
-      const { data } = await supabase
-        .from("product_reviews")
-        .select(
-          `
-          id,
-          reviewer_name,
-          rating,
-          body,
-          created_at,
-          is_verified_purchase,
-          is_published
-        `,
-        )
-        .eq("product_id", product.id)
-        .eq("is_verified_purchase", true)
-        .eq("is_published", true)
-        .order("created_at", { ascending: false })
-        .range(from, to);
-
-      if (data?.length) {
-        setReviews((prev) => [...prev, ...(data as Review[])]);
-      }
-    });
-  };
-
   const decQty = () => setQty((q) => Math.max(1, q - 1));
   const incQty = () => setQty((q) => q + 1);
 
@@ -201,20 +142,6 @@ export default function ProductDetailsClient({
         decQty={decQty}
         outOfStock={outOfStock}
       />
-      <TabsHeader />
-      <ReviewsHeader reviewsCount={reviewsCount} />
-      <ReviewsList reviews={reviews} />
-
-      {canLoadMore && (
-        <Button
-          variant={"outline"}
-          className="block mx-auto mb-12"
-          onClick={loadMoreReviews}
-          disabled={loadingMore}
-        >
-          {loadingMore ? "Loading..." : "Load More Reviews"}
-        </Button>
-      )}
     </>
   );
 }

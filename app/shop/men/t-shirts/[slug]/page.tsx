@@ -3,6 +3,8 @@ import ProductGallery from "@/components/product-gallery";
 import { ProductsScroll } from "@/components/products-scroll";
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
+import { Reviews } from "./_components/Reviews";
+import { TabsHeader } from "./_components/TabsHeader";
 import ProductDetailsClient from "./product-details.client";
 
 export default async function Page({
@@ -82,14 +84,16 @@ export default async function Page({
   return (
     <div className="mx-auto px-4 w-full max-w-7xl">
       <Breadcrumbs />
-      <ProductGallery images={product.product_images} />
-
-      <ProductDetailsClient
-        product={product}
+      <div>
+        <ProductGallery images={product.product_images} />
+        <ProductDetailsClient product={product} />
+      </div>
+      <TabsHeader />
+      <Reviews
         initialReviews={initialReviews ?? []}
         reviewsCount={reviewsCount ?? 0}
+        productId={product.id}
       />
-
       <ProductsScroll title="YOU MIGHT ALSO LIKE" type="new-arrivals" />
     </div>
   );
