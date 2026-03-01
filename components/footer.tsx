@@ -49,7 +49,7 @@ const footerGroups = [
 
 export const Footer = () => {
   return (
-    <footer className="px-4 bg-gray-200 pt-48 md:pt-36 mt-20 pb-20 relative">
+    <footer className="px-4 bg-gray-200 pt-48 md:pt-36 mt-44 pb-20 relative">
       <SubscribeToNewsletter />
       <div className="max-w-7xl mx-auto">
         <div className="md:hidden">
