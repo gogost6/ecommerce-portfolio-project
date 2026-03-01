@@ -18,7 +18,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
   const sortedImages = [...images].sort((a, b) => a.sort_order - b.sort_order);
 
   return (
-    <section className="w-full px-4 max-w-4xl md:flex md:flex-row-reverse md:gap-4">
+    <section className="w-full max-w-4xl md:flex md:flex-row-reverse md:gap-4">
       {/* Main image */}
       <div className="relative mx-auto aspect-[1/1] w-full md:h-[530px] md:aspect-auto">
         <Image
