@@ -222,6 +222,7 @@ export type Database = {
           created_at: string
           description: string | null
           discounted_price: number | null
+          gender: string
           id: number
           is_active: boolean
           percent_discount: number | null
@@ -229,12 +230,14 @@ export type Database = {
           rating: number
           slug: string
           title: string
+          type: string
           updated_at: string
         }
         Insert: {
           created_at?: string
           description?: string | null
           discounted_price?: number | null
+          gender?: string
           id?: never
           is_active?: boolean
           percent_discount?: number | null
@@ -242,12 +245,14 @@ export type Database = {
           rating?: number
           slug: string
           title: string
+          type?: string
           updated_at?: string
         }
         Update: {
           created_at?: string
           description?: string | null
           discounted_price?: number | null
+          gender?: string
           id?: never
           is_active?: boolean
           percent_discount?: number | null
@@ -255,6 +260,7 @@ export type Database = {
           rating?: number
           slug?: string
           title?: string
+          type?: string
           updated_at?: string
         }
         Relationships: []

@@ -20,10 +20,12 @@ const ProductCard = ({
   discounted_price,
   percent_discount,
   slug,
+  type,
+  gender,
 }: ProductCardParams) => {
   return (
     <div className="flex-shrink-0 max-w-48 md:max-w-72">
-      <Link href={`/shop/men/t-shirts/${slug}`}>
+      <Link href={`/shop/${gender}/${type}/${slug}`}>
         <Image
           src={url}
           alt={alt || url.split(".")[0]}
@@ -89,7 +91,6 @@ export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
               "https://tmfbysibhlpkahvvpoeu.supabase.co/storage/v1/object/public/shop.me/default-product.jpg"
             }
             alt={images?.find((img) => img.product_id === p.id)?.alt || p.title}
-            slug={p.slug}
           />
         ))}
       </div>
