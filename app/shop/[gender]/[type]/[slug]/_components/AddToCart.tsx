@@ -12,7 +12,7 @@ export function AddToCard({
   outOfStock: boolean;
 }) {
   return (
-    <div className="flex items-stretch justify-center gap-3 mb-12">
+    <div className="flex items-stretch justify-center gap-3">
       <div className="bg-gray-100 rounded-2xl flex items-stretch">
         <button
           type="button"

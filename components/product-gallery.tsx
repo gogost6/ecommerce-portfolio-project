@@ -22,6 +22,12 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
     [active, sortedImages],
   );
 
+  if (sortedImages.length === 1 && sortedImages.length < 4) {
+    sortedImages.push(
+      ...[...Array(3)].map(() => ({ ...primary, is_primary: false })),
+    );
+  }
+
   return (
     <section className="w-full max-w-4xl md:flex md:flex-row-reverse md:gap-4">
       {/* Main image */}
@@ -45,7 +51,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
 
             return (
               <button
-                key={img.url}
+                key={img.url + idx}
                 type="button"
                 onClick={() => setActive(img.id)}
                 className={[

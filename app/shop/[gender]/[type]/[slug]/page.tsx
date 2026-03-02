@@ -86,7 +86,7 @@ export default async function Page({
   return (
     <div className="mx-auto px-4 w-full max-w-7xl">
       <Breadcrumbs />
-      <div className="md:flex md:gap-10">
+      <div className="md:flex md:gap-10 mb-12">
         <ProductGallery images={product.product_images} />
         <ProductDetailsClient product={product} />
       </div>
