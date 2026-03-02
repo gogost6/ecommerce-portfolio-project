@@ -18,11 +18,13 @@ const ProductCard = ({
   alt,
   price,
   discounted_price,
-  percent_discount,
   slug,
   type,
   gender,
 }: ProductCardParams) => {
+  const discountPercentage = discounted_price
+    ? Math.round(((price - discounted_price) / price) * 100)
+    : null;
   return (
     <div className="flex-shrink-0 max-w-48 md:max-w-72">
       <Link href={`/shop/${gender}/${type}/${slug}`}>
@@ -40,7 +42,7 @@ const ProductCard = ({
         <div className="font-bold text-xl md:text-2xl mt-1 md:mt-2 flex items-center justify-start gap-2.5">
           <span>${discounted_price}</span>
           <span className="line-through text-gray-500">${price}</span>{" "}
-          <Badge variant={"red"}>-{percent_discount}%</Badge>
+          <Badge variant={"red"}>-{discountPercentage}%</Badge>
         </div>
       ) : (
         <p className="font-bold text-xl md:text-2xl mt-1 md:mt-2">${price}</p>
