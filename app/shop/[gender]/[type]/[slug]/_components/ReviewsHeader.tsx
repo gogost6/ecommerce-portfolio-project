@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ArrowDown, SlidersVertical } from "lucide-react";
 import { useState } from "react";
+import { ReviewWriteDialog } from "./ReviewWriteDialog";
 
 type SortOption = "latest" | "oldest" | "highest" | "lowest";
 
@@ -20,9 +21,11 @@ const mapping = {
 export function ReviewsHeader({
   reviewsCount,
   sortCb,
+  productId,
 }: {
   reviewsCount: number;
   sortCb: (criteria: SortOption) => void;
+  productId: number;
 }) {
   const [option, setOption] = useState<
     "latest" | "oldest" | "highest" | "lowest"
@@ -66,7 +69,7 @@ export function ReviewsHeader({
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button>Write a Review</Button>
+        <ReviewWriteDialog productId={productId} />
       </div>
     </div>
   );

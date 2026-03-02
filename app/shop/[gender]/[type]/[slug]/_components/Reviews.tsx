@@ -92,7 +92,11 @@ export function Reviews({
 
   return (
     <>
-      <ReviewsHeader reviewsCount={reviewsCount} sortCb={sortReviews} />
+      <ReviewsHeader
+        reviewsCount={reviewsCount}
+        sortCb={sortReviews}
+        productId={productId}
+      />
       <ReviewsList reviews={reviews} />
 
       {canLoadMore && (

@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { PromoBar } from "@/components/promo-bar";
+import ToastProvider from "@/components/toast-provider";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist } from "next/font/google";
@@ -36,10 +37,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <PromoBar />
-          <Navigation />
-          {children}
-          <Footer />
+          <ToastProvider>
+            <PromoBar />
+            <Navigation />
+            {children}
+            <Footer />
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>
