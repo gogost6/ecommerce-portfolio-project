@@ -13,6 +13,11 @@ const formatDate = (iso: string) =>
 export function ReviewsList({ reviews }: { reviews: Review[] }) {
   return (
     <div className="flex flex-col gap-4 md:gap-5 mb-5 md:grid md:grid-cols-2">
+      {reviews.length === 0 && (
+        <p className="text-gray-600 text-center col-span-full mt-4">
+          No reviews yet. Be the first to review this product!
+        </p>
+      )}
       {reviews.map((review) => (
         <div
           key={review.id}
