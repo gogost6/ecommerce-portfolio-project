@@ -45,10 +45,12 @@ export function ReviewsHeader({
 
       <div className="flex flex-row gap-2.5 justify-center items-center">
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger asChild>
             <Button variant={"outline"} size={"icon"} className="md:hidden">
               <SlidersVertical size={12} />
             </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuTrigger asChild>
             <Button variant={"outline"} className="hidden md:inline-flex">
               {mapping[option]}
               <ArrowDown className="!w-4 !h-4" />
