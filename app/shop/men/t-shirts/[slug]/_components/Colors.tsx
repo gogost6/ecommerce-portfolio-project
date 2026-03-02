@@ -1,3 +1,5 @@
+import { Check } from "lucide-react";
+
 export function Colors({
   colors,
   selectedColorId,
@@ -19,14 +21,21 @@ export function Colors({
               type="button"
               onClick={() => setSelectedColorId(c.id)}
               className={[
-                "w-8 h-8 rounded-full border-2 transition-colors focus:outline-none",
+                "w-8 h-8 rounded-full border-2 transition-colors focus:outline-none flex items-center justify-center",
                 active
                   ? "border-gray-900"
                   : "border-gray-300 hover:border-gray-600",
               ].join(" ")}
               style={{ backgroundColor: c.hex }}
               aria-label={`Select color: ${c.name}`}
-            />
+            >
+              {active && (
+                <Check
+                  className={c.name === "White" ? "text-black" : "text-white"}
+                  size={20}
+                />
+              )}
+            </button>
           );
         })}
       </div>
