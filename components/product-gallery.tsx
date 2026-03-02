@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 type ProductGalleryProps = {
   images: {
@@ -14,16 +14,21 @@ type ProductGalleryProps = {
 };
 
 export default function ProductGallery({ images }: ProductGalleryProps) {
-  const [active, setActive] = useState(0);
   const sortedImages = [...images].sort((a, b) => a.sort_order - b.sort_order);
+  const primary = sortedImages.find((img) => img.is_primary) || sortedImages[0];
+  const [active, setActive] = useState(primary.id);
+  const activeImage = useMemo(
+    () => sortedImages.find((img) => img.id === active),
+    [active, sortedImages],
+  );
 
   return (
     <section className="w-full max-w-4xl md:flex md:flex-row-reverse md:gap-4">
       {/* Main image */}
       <div className="relative mx-auto aspect-[1/1] w-full md:h-[530px] md:aspect-auto">
         <Image
-          src={sortedImages[active]!.url}
-          alt={sortedImages[active]!.alt || "Product image"}
+          src={activeImage!.url}
+          alt={activeImage!.alt || "Product image"}
           fill
           priority
           className="object-cover rounded-xl"
@@ -42,7 +47,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
               <button
                 key={img.url}
                 type="button"
-                onClick={() => setActive(idx)}
+                onClick={() => setActive(img.id)}
                 className={[
                   "group relative rounded-xl md:w-40 md:h-[167px]",
                   "transition",
