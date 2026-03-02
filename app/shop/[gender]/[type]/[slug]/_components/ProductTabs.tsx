@@ -1,6 +1,7 @@
 "use client";
 
 import * as Tabs from "@radix-ui/react-tabs";
+import { FAQ } from "./Faq";
 import { Review, Reviews } from "./Reviews";
 
 export function ProductTabs({
@@ -55,7 +56,7 @@ export function ProductTabs({
       </Tabs.Content>
 
       <Tabs.Content value="faq">
-        <div className="py-6">FAQs Content</div>
+        <FAQ />
       </Tabs.Content>
     </Tabs.Root>
   );
