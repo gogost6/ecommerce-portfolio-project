@@ -123,21 +123,33 @@ export default function ProductDetailsClient({
           </span>
         )}
       </div>
-      <p className="text-sm md:text-base text-gray-600 mb-6">
-        {product.description}
-      </p>
-      <div className="h-[1px] bg-gray-100 mb-6" />
-      <Colors
-        colors={colors}
-        selectedColorId={selectedColorId}
-        setSelectedColorId={setSelectedColorId}
-      />
-      <div className="h-[1px] bg-gray-100 mb-6" />
-      <Sizes
-        sizes={sizes}
-        selectedSizeId={selectedSizeId}
-        setSelectedSizeId={setSelectedSizeId}
-      />
+      {product.description && (
+        <p className="text-sm md:text-base text-gray-600 mb-6">
+          {product.description}
+        </p>
+      )}
+
+      {colors.length > 0 && (
+        <>
+          <div className="h-[1px] bg-gray-100 mb-6" />
+          <Colors
+            colors={colors}
+            selectedColorId={selectedColorId}
+            setSelectedColorId={setSelectedColorId}
+          />
+        </>
+      )}
+      {sizes.length > 0 && (
+        <>
+          <div className="h-[1px] bg-gray-100 mb-6" />
+          <Sizes
+            sizes={sizes}
+            selectedSizeId={selectedSizeId}
+            setSelectedSizeId={setSelectedSizeId}
+          />
+        </>
+      )}
+
       <div className="h-[1px] bg-gray-100 mb-6" />
       <AddToCard
         qty={qty}
