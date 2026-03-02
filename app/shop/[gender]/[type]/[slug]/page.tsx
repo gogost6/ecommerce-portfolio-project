@@ -3,8 +3,7 @@ import ProductGallery from "@/components/product-gallery";
 import { ProductsScroll } from "@/components/products-scroll";
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
-import { Reviews } from "./_components/Reviews";
-import { TabsHeader } from "./_components/TabsHeader";
+import { ProductTabs } from "./_components/ProductTabs";
 import ProductDetailsClient from "./product-details.client";
 
 export const REVIEWS_PAGE_SIZE = 4;
@@ -90,8 +89,7 @@ export default async function Page({
         <ProductGallery images={product.product_images} />
         <ProductDetailsClient product={product} />
       </div>
-      <TabsHeader />
-      <Reviews
+      <ProductTabs
         initialReviews={initialReviews ?? []}
         reviewsCount={reviewsCount ?? 0}
         productId={product.id}
