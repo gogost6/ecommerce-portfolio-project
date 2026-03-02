@@ -10,14 +10,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/text-area";
 import { createClient } from "@/lib/supabase/client";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import validator from "validator";
 
 type Props = {
   productId: number;
@@ -28,29 +26,24 @@ export function ReviewWriteDialog({ productId }: Props) {
 
   const [rating, setRating] = useState(5);
   const [body, setBody] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [nameError, setNameError] = useState<string | null>(null);
-  const [emailError, setEmailError] = useState<string | null>(null);
   const [bodyError, setBodyError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
-    setNameError(null);
-    setEmailError(null);
     setBodyError(null);
 
-    if (!name || !email || !body) {
-      setNameError(name ? null : "Name is required");
-      setEmailError(email ? null : "Email is required");
-      setBodyError(body ? null : "Review body is required");
-      toast("Please fill all required fields", { type: "error" });
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      toast("Please sign in to write a review.", { type: "error" });
       return;
     }
 
-    if (validator.isEmail(email)) {
-      setEmailError("Invalid email address");
-      toast("Please enter a valid email", { type: "error" });
+    if (!body) {
+      setBodyError("Review body is required");
+      toast("Please write your review", { type: "error" });
       return;
     }
 
@@ -59,23 +52,20 @@ export function ReviewWriteDialog({ productId }: Props) {
 
       const { error } = await supabase.from("product_reviews").insert({
         product_id: productId,
-        reviewer_name: name,
-        reviewer_email: email,
+        user_id: user.id,
+        reviewer_name: user.user_metadata?.full_name ?? user.email ?? "User",
+        reviewer_email: user.email,
         rating,
         body,
         is_verified_purchase: false,
-        is_published: true,
+        is_published: false,
       });
 
       if (error) throw error;
 
-      toast("Review submitted successfully!", { type: "success" });
-
-      // reset form
+      toast("Review submitted!", { type: "success" });
       setRating(5);
       setBody("");
-      setName("");
-      setEmail("");
     } catch (err) {
       console.error(err);
       toast("Something went wrong", { type: "error" });
@@ -143,20 +133,6 @@ export function ReviewWriteDialog({ productId }: Props) {
                 </DropdownMenu>
               </div>
             </div>
-
-            <Input
-              placeholder="Your name*"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              error={nameError}
-            />
-
-            <Input
-              placeholder="Your email*"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              error={emailError}
-            />
 
             <Textarea
               placeholder="Write your review..."
