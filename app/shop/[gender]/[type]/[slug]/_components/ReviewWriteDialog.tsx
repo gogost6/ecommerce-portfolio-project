@@ -53,7 +53,7 @@ export function ReviewWriteDialog({ productId }: Props) {
       const { error } = await supabase.from("product_reviews").insert({
         product_id: productId,
         user_id: user.id,
-        reviewer_name: user.user_metadata?.full_name ?? user.email ?? "User",
+        reviewer_name: user.user_metadata?.fullName ?? user.email ?? "User",
         reviewer_email: user.email,
         rating,
         body,
