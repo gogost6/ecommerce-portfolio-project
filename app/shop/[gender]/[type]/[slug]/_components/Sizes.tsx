@@ -4,10 +4,12 @@ export function Sizes({
   sizes,
   selectedSizeId,
   setSelectedSizeId,
+  isSizeOutOfStock,
 }: {
   sizes: { id: number; name: string; slug: string }[];
   selectedSizeId: number | null;
   setSelectedSizeId: (id: number) => void;
+  isSizeOutOfStock: (sizeId: number) => boolean;
 }) {
   return (
     <div className="flex flex-col gap-4 mb-6">
@@ -20,6 +22,8 @@ export function Sizes({
               key={s.id}
               variant={active ? "default" : "outline"}
               onClick={() => setSelectedSizeId(s.id)}
+              disabled={isSizeOutOfStock(s.id)}
+              className={isSizeOutOfStock(s.id) ? "line-through" : ""}
             >
               {s.name}
             </Button>

@@ -76,6 +76,29 @@ export default function ProductDetailsClient({
     });
   }, [product.product_variants, selectedColorId, selectedSizeId]);
 
+  const sizeAvailability = useMemo(() => {
+    // sizeId -> inStock?
+    const map = new Map<number, boolean>();
+
+    // init all sizes to false (out of stock until proven otherwise)
+    for (const s of sizes) map.set(s.id, false);
+
+    for (const v of product.product_variants) {
+      if (!v.is_active) continue;
+      if (!v.sizes?.id) continue;
+
+      // if a color is selected, only count variants of that color
+      if (selectedColorId && v.colors?.id !== selectedColorId) continue;
+
+      const inStock = v.stock > 0;
+      if (inStock) map.set(v.sizes.id, true);
+    }
+
+    return map; // Map<sizeId, boolean>
+  }, [product.product_variants, sizes, selectedColorId]);
+
+  const isSizeOutOfStock = (sizeId: number) => !sizeAvailability.get(sizeId);
+
   // ---- Price displayed (variant overrides product) ----
   const display = useMemo(() => {
     const basePrice = selectedVariant?.price ?? product.price;
@@ -146,6 +169,7 @@ export default function ProductDetailsClient({
             sizes={sizes}
             selectedSizeId={selectedSizeId}
             setSelectedSizeId={setSelectedSizeId}
+            isSizeOutOfStock={isSizeOutOfStock}
           />
         </>
       )}
