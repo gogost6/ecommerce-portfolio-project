@@ -44,7 +44,26 @@ export function ProductTabs({
 
       {/* Content */}
       <Tabs.Content value="details">
-        <div className="py-6">Product Details Content</div>
+        <div className="prose max-w-none">
+          <p>
+            This is a high-quality product made from the finest materials. It
+            features a sleek design and is built to last. Perfect for everyday
+            use or special occasions.
+          </p>
+          <ul>
+            <li>Material: 100% Cotton</li>
+            <li>Available Sizes: XS, S, M, L, XL, XXL</li>
+            <li>
+              Care Instructions: Machine wash cold, tumble dry low. Do not
+              bleach. Iron on low heat if needed.{" "}
+            </li>
+          </ul>
+          <p>
+            Experience the perfect blend of comfort and style with this
+            must-have addition to your wardrobe. Whether you&apos;re dressing up
+            or keeping it casual, this product has got you covered.
+          </p>
+        </div>
       </Tabs.Content>
 
       <Tabs.Content value="reviews">
