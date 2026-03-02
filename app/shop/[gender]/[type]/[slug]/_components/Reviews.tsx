@@ -17,6 +17,15 @@ export type Review = {
 };
 
 const REVIEWS_PAGE_SIZE = 4;
+const SELECT_REVIEWS_FIELDS = `
+  id,
+  reviewer_name,
+  rating,
+  body,
+  created_at,
+  is_verified_purchase,
+  is_published
+`;
 
 export function Reviews({
   initialReviews,
@@ -27,6 +36,8 @@ export function Reviews({
   reviewsCount: number;
   productId: number;
 }) {
+  const [order, setOrder] = useState<"asc" | "desc">("asc");
+  const [orderBy, setOrderBy] = useState<"created_at" | "rating">("created_at");
   const [reviews, setReviews] = useState<Review[]>(initialReviews);
   const [loadingMore, startTransition] = useTransition();
 
@@ -41,21 +52,12 @@ export function Reviews({
 
       const { data } = await supabase
         .from("product_reviews")
-        .select(
-          `
-          id,
-          reviewer_name,
-          rating,
-          body,
-          created_at,
-          is_verified_purchase,
-          is_published
-        `,
-        )
+        .select(SELECT_REVIEWS_FIELDS)
         .eq("product_id", productId)
         .eq("is_verified_purchase", true)
         .eq("is_published", true)
-        .order("created_at", { ascending: false })
+        .order(orderBy, { ascending: order === "asc" })
+        .order("id", { ascending: true })
         .range(from, to);
 
       if (data?.length) {
@@ -64,30 +66,47 @@ export function Reviews({
     });
   };
 
-  const sortReviews = (criteria: string) => {
-    const sortedReviews = [...reviews];
+  const sortReviews = async (criteria: string) => {
+    const supabase = createClient();
+
+    let order: "asc" | "desc" = "desc";
+    let orderBy: "created_at" | "rating" = "created_at";
 
     switch (criteria) {
       case "latest":
-        sortedReviews.sort(
-          (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-        );
+        orderBy = "created_at";
+        order = "desc";
         break;
       case "oldest":
-        sortedReviews.sort(
-          (a, b) =>
-            new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
-        );
+        orderBy = "created_at";
+        order = "asc";
         break;
       case "highest":
-        sortedReviews.sort((a, b) => b.rating - a.rating);
+        orderBy = "rating";
+        order = "desc";
         break;
       case "lowest":
-        sortedReviews.sort((a, b) => a.rating - b.rating);
+        orderBy = "rating";
+        order = "asc";
         break;
     }
-    setReviews(sortedReviews);
+
+    setOrder(order);
+    setOrderBy(orderBy);
+
+    const { data } = await supabase
+      .from("product_reviews")
+      .select(SELECT_REVIEWS_FIELDS)
+      .eq("product_id", productId)
+      .eq("is_verified_purchase", true)
+      .eq("is_published", true)
+      .order(orderBy, { ascending: order === "asc" })
+      .order("id", { ascending: true })
+      .limit(reviews.length);
+
+    if (data) {
+      setReviews(data as Review[]);
+    }
   };
 
   return (

@@ -72,7 +72,7 @@ export default async function Page({
     .eq("product_id", product.id)
     .eq("is_verified_purchase", true)
     .eq("is_published", true)
-    .order("created_at", { ascending: false })
+    .order("created_at", { ascending: true })
     .limit(REVIEWS_PAGE_SIZE);
 
   const { count: reviewsCount } = await supabase
