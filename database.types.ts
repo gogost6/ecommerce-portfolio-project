@@ -109,6 +109,7 @@ export type Database = {
           reviewer_email: string | null
           reviewer_name: string | null
           updated_at: string
+          user_id: string
         }
         Insert: {
           body?: string | null
@@ -121,6 +122,7 @@ export type Database = {
           reviewer_email?: string | null
           reviewer_name?: string | null
           updated_at?: string
+          user_id: string
         }
         Update: {
           body?: string | null
@@ -133,6 +135,7 @@ export type Database = {
           reviewer_email?: string | null
           reviewer_name?: string | null
           updated_at?: string
+          user_id?: string
         }
         Relationships: [
           {
@@ -143,6 +146,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      product_types: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: never
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: never
+          name?: string
+          slug?: string
+        }
+        Relationships: []
       }
       product_variants: {
         Row: {
@@ -224,10 +251,10 @@ export type Database = {
           is_active: boolean
           percent_discount: number | null
           price: number
+          product_type_id: number | null
           rating: number
           slug: string
           title: string
-          type: string
           updated_at: string
         }
         Insert: {
@@ -239,10 +266,10 @@ export type Database = {
           is_active?: boolean
           percent_discount?: number | null
           price?: number
+          product_type_id?: number | null
           rating?: number
           slug: string
           title: string
-          type?: string
           updated_at?: string
         }
         Update: {
@@ -254,13 +281,21 @@ export type Database = {
           is_active?: boolean
           percent_discount?: number | null
           price?: number
+          product_type_id?: number | null
           rating?: number
           slug?: string
           title?: string
-          type?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "products_product_type_id_fkey"
+            columns: ["product_type_id"]
+            isOneToOne: false
+            referencedRelation: "product_types"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       sizes: {
         Row: {

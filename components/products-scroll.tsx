@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 type ProductCardParams = Database["public"]["Tables"]["products"]["Row"] & {
   url: string;
   alt?: string;
+  product_types: { id: number; name: string; slug: string };
 };
 
 const ProductCard = ({
@@ -18,8 +19,8 @@ const ProductCard = ({
   alt,
   price,
   discounted_price,
+  product_types,
   slug,
-  type,
   gender,
 }: ProductCardParams) => {
   const discountPercentage = discounted_price
@@ -27,7 +28,7 @@ const ProductCard = ({
     : null;
   return (
     <div className="flex-shrink-0 max-w-48 md:max-w-72">
-      <Link href={`/shop/${gender}/${type}/${slug}`}>
+      <Link href={`/shop/${gender}/${product_types.slug}/${slug}`}>
         <Image
           src={url}
           alt={alt || url.split(".")[0]}
@@ -60,7 +61,16 @@ export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
   const supabase = createClient();
   const { data: products } = await supabase
     .from("products")
-    .select("*")
+    .select(
+      `
+        *,
+        product_types (
+          id,
+          name,
+          slug
+        )
+      `,
+    )
     .eq("is_active", true)
     .order("created_at", { ascending: type === "new-arrivals" })
     .limit(4);
