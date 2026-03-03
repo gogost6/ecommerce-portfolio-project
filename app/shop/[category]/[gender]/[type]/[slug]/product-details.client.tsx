@@ -180,6 +180,7 @@ export default function ProductDetailsClient({
         incQty={incQty}
         decQty={decQty}
         outOfStock={outOfStock}
+        variantId={selectedVariant?.id ?? null}
       />
     </div>
   );
