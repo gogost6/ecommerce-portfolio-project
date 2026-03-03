@@ -1,24 +1,77 @@
-import { createClient } from "@/lib/supabase/server";
-import Link from "next/link";
-import { DropdownMenuContent, DropdownMenuItem } from "./ui/dropdown-menu";
+"use client";
 
-export async function NavigationCategoriesDropdown({
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+import * as React from "react";
+
+type Category = { slug: string; name: string };
+
+export function NavigationCategoriesDropdown({
+  label,
   gender,
+  categories,
 }: {
-  gender: string;
+  label: string;
+  gender: "men" | "women";
+  categories: Category[];
 }) {
-  const supabase = await createClient();
-  const { data: categories } = await supabase
-    .from("categories")
-    .select("slug, name");
+  const [open, setOpen] = React.useState(false);
+  const closeTimer = React.useRef<number | null>(null);
+
+  const clearCloseTimer = () => {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const openNow = () => {
+    clearCloseTimer();
+    setOpen(true);
+  };
+
+  const closeSoon = () => {
+    clearCloseTimer();
+    // small delay prevents flicker when moving between trigger and content
+    closeTimer.current = window.setTimeout(() => setOpen(false), 120);
+  };
 
   return (
-    <DropdownMenuContent align="center" className="w-48">
-      {categories?.map((category) => (
-        <DropdownMenuItem key={category.slug} asChild>
-          <Link href={`/shop/${category.slug}/${gender}`}>{category.name}</Link>
-        </DropdownMenuItem>
-      ))}
-    </DropdownMenuContent>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
+      <DropdownMenuTrigger asChild>
+        <button
+          onMouseEnter={openNow}
+          onMouseLeave={closeSoon}
+          className="text-base hover:underline underline-offset-4 font-light flex items-center gap-1"
+        >
+          {label} <ChevronDown size={12} />
+        </button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent
+        align="center"
+        className="w-48"
+        forceMount
+        onMouseEnter={openNow}
+        onMouseLeave={closeSoon}
+      >
+        {categories.map((category) => (
+          <DropdownMenuItem key={category.slug} asChild>
+            <Link
+              href={`/shop/${category.slug}/${gender}`}
+              className="cursor-pointer"
+            >
+              {category.name}
+            </Link>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

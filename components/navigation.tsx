@@ -1,9 +1,9 @@
-import { ChevronDown, CircleUser, Search, ShoppingCart } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+import { CircleUser, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { NavigationCategoriesDropdown } from "./navigation-categories-dropdown";
 import { NavigationMenuMobile } from "./navigation-menu-mobile";
 import { Button } from "./ui/button";
-import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Input } from "./ui/input";
 
 const LINKS = [
@@ -14,7 +14,15 @@ const LINKS = [
   { name: "Contact", href: "#" },
 ];
 
-export const Navigation = () => {
+export const Navigation = async () => {
+  const supabase = await createClient();
+  const { data: categories } = await supabase
+    .from("categories")
+    .select("slug, name")
+    .order("name", { ascending: true });
+
+  const safeCategories = categories ?? [];
+
   return (
     <nav className="flex justify-between items-center px-4 py-5 relative max-w-7xl mx-auto">
       <div className="flex gap-2 items-center">
@@ -23,20 +31,28 @@ export const Navigation = () => {
           SHOP.CO
         </Link>
       </div>
+
       <div className="hidden md:flex gap-6 items-center flex-1 justify-center">
         {LINKS.map((link) => {
-          if (["Men", "Women"].includes(link.name)) {
+          if (link.name === "Men") {
             return (
-              <DropdownMenu key={link.name}>
-                <DropdownMenuTrigger asChild>
-                  <button className="text-base hover:underline underline-offset-4 font-light flex items-center gap-1">
-                    {link.name} <ChevronDown size={12} />
-                  </button>
-                </DropdownMenuTrigger>
-                <NavigationCategoriesDropdown
-                  gender={link.name.toLowerCase()}
-                />
-              </DropdownMenu>
+              <NavigationCategoriesDropdown
+                key={link.name}
+                label="Men"
+                gender="men"
+                categories={safeCategories}
+              />
+            );
+          }
+
+          if (link.name === "Women") {
+            return (
+              <NavigationCategoriesDropdown
+                key={link.name}
+                label="Women"
+                gender="women"
+                categories={safeCategories}
+              />
             );
           }
 
@@ -51,10 +67,12 @@ export const Navigation = () => {
           );
         })}
       </div>
+
       <div className="flex flex-row gap-1 text-2xl flex-1 justify-end">
         <Button variant="ghost" size="icon" className="md:hidden">
           <Search />
         </Button>
+
         <form className="max-w-[577px] w-full mx-4 hidden md:block">
           <Input
             startIcon={<Search size={24} />}
@@ -62,11 +80,13 @@ export const Navigation = () => {
             name="search"
           />
         </form>
+
         <Button variant="ghost" size="icon" asChild>
           <Link href="/cart">
             <ShoppingCart />
           </Link>
         </Button>
+
         <Button variant="ghost" size="icon" asChild>
           <Link href="/protected">
             <CircleUser />
