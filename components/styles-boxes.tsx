@@ -50,7 +50,7 @@ const StyleBox = ({
 }) => {
   return (
     <Link
-      href={`/categories/${slug}`}
+      href={`/shop/${slug}`}
       className={cn(
         "h-48 md:h-72 w-full relative cursor-pointer group overflow-hidden",
         colClass,
