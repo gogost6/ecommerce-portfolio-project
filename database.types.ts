@@ -243,7 +243,7 @@ export type Database = {
       }
       products: {
         Row: {
-          category_type_id: number | null
+          category_type_id: number
           created_at: string
           description: string | null
           discounted_price: number | null
@@ -252,14 +252,14 @@ export type Database = {
           is_active: boolean
           percent_discount: number | null
           price: number
-          product_type_id: number | null
+          product_type_id: number
           rating: number
           slug: string
           title: string
           updated_at: string
         }
         Insert: {
-          category_type_id?: number | null
+          category_type_id: number
           created_at?: string
           description?: string | null
           discounted_price?: number | null
@@ -268,14 +268,14 @@ export type Database = {
           is_active?: boolean
           percent_discount?: number | null
           price?: number
-          product_type_id?: number | null
+          product_type_id: number
           rating?: number
           slug: string
           title: string
           updated_at?: string
         }
         Update: {
-          category_type_id?: number | null
+          category_type_id?: number
           created_at?: string
           description?: string | null
           discounted_price?: number | null
@@ -284,7 +284,7 @@ export type Database = {
           is_active?: boolean
           percent_discount?: number | null
           price?: number
-          product_type_id?: number | null
+          product_type_id?: number
           rating?: number
           slug?: string
           title?: string

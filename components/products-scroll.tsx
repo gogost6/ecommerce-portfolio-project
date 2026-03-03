@@ -9,7 +9,8 @@ import { Button } from "./ui/button";
 type ProductCardParams = Database["public"]["Tables"]["products"]["Row"] & {
   url: string;
   alt?: string;
-  product_types: { id: number; name: string; slug: string };
+  product_types: { slug: string };
+  categories: { slug: string };
 };
 
 const ProductCard = ({
@@ -20,6 +21,7 @@ const ProductCard = ({
   price,
   discounted_price,
   product_types,
+  categories,
   slug,
   gender,
 }: ProductCardParams) => {
@@ -28,7 +30,9 @@ const ProductCard = ({
     : null;
   return (
     <div className="flex-shrink-0 max-w-48 md:max-w-72">
-      <Link href={`/shop/${gender}/${product_types.slug}/${slug}`}>
+      <Link
+        href={`/shop/${categories.slug}/${gender}/${product_types.slug}/${slug}`}
+      >
         <Image
           src={url}
           alt={alt || url.split(".")[0]}
@@ -65,8 +69,9 @@ export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
       `
         *,
         product_types (
-          id,
-          name,
+          slug
+        ),
+        categories (
           slug
         )
       `,
