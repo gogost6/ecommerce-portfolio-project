@@ -1,12 +1,15 @@
-import { CircleUser, Search, ShoppingCart } from "lucide-react";
+import { ChevronDown, CircleUser, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import { NavigationCategoriesDropdown } from "./navigation-categories-dropdown";
 import { NavigationMenuMobile } from "./navigation-menu-mobile";
 import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Input } from "./ui/input";
 
 const LINKS = [
-  { name: "Home", href: "#" },
-  { name: "Shop", href: "#" },
+  { name: "Shop", href: "/shop" },
+  { name: "Men", href: "#" },
+  { name: "Women", href: "#" },
   { name: "About", href: "#" },
   { name: "Contact", href: "#" },
 ];
@@ -21,15 +24,32 @@ export const Navigation = () => {
         </Link>
       </div>
       <div className="hidden md:flex gap-6 items-center flex-1 justify-center">
-        {LINKS.map((link) => (
-          <Link
-            key={link.name}
-            href={link.href}
-            className="text-base hover:underline underline-offset-4 font-light"
-          >
-            {link.name}
-          </Link>
-        ))}
+        {LINKS.map((link) => {
+          if (["Men", "Women"].includes(link.name)) {
+            return (
+              <DropdownMenu key={link.name}>
+                <DropdownMenuTrigger asChild>
+                  <button className="text-base hover:underline underline-offset-4 font-light flex items-center gap-1">
+                    {link.name} <ChevronDown size={12} />
+                  </button>
+                </DropdownMenuTrigger>
+                <NavigationCategoriesDropdown
+                  gender={link.name.toLowerCase()}
+                />
+              </DropdownMenu>
+            );
+          }
+
+          return (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-base hover:underline underline-offset-4 font-light"
+            >
+              {link.name}
+            </Link>
+          );
+        })}
       </div>
       <div className="flex flex-row gap-1 text-2xl flex-1 justify-end">
         <Button variant="ghost" size="icon" className="md:hidden">
