@@ -243,6 +243,7 @@ export type Database = {
       }
       products: {
         Row: {
+          category_type_id: number | null
           created_at: string
           description: string | null
           discounted_price: number | null
@@ -258,6 +259,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          category_type_id?: number | null
           created_at?: string
           description?: string | null
           discounted_price?: number | null
@@ -273,6 +275,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          category_type_id?: number | null
           created_at?: string
           description?: string | null
           discounted_price?: number | null
@@ -288,6 +291,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "products_category_type_id_fkey"
+            columns: ["category_type_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "products_product_type_id_fkey"
             columns: ["product_type_id"]
