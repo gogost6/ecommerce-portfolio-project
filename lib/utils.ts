@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { v4 as uuidv4 } from "uuid";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,4 +13,15 @@ export const hasEnvVars =
 
 export function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+export function ensureCartSessionCookie() {
+  const hasCookie = document.cookie
+    .split("; ")
+    .some((c) => c.startsWith("cart_session_id="));
+
+  if (!hasCookie) {
+    const id = uuidv4();
+    document.cookie = `cart_session_id=${encodeURIComponent(id)}; Path=/; Max-Age=31536000; SameSite=Lax`;
+  }
 }

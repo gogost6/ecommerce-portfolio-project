@@ -9,11 +9,17 @@ import { Database } from "../../database.types";
  */
 export async function createClient() {
   const cookieStore = await cookies();
+  const cartSessionId = cookieStore.get("cart_session_id")?.value ?? "";
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
     {
+      global: {
+        headers: {
+          "x-cart-session": cartSessionId,
+        },
+      },
       cookies: {
         getAll() {
           return cookieStore.getAll();

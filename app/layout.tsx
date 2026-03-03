@@ -1,3 +1,4 @@
+import { CartSessionInit } from "@/components/cart-session-init";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { PromoBar } from "@/components/promo-bar";
@@ -44,6 +45,7 @@ export default function RootLayout({
             <Footer />
           </ToastProvider>
         </ThemeProvider>
+        <CartSessionInit />
       </body>
     </html>
   );
