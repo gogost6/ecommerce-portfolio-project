@@ -26,11 +26,15 @@ export const ProductCard = ({
   const discountPercentage = discounted_price
     ? Math.round(((price - discounted_price) / price) * 100)
     : null;
+  let href = "/shop";
+  if (categories?.slug) href += `/${categories.slug}`;
+  if (gender) href += `/${gender}`;
+  if (product_types?.slug) href += `/${product_types.slug}`;
+  href += `/${slug}`;
+
   return (
     <div className="flex-shrink-0 max-w-48 md:max-w-72">
-      <Link
-        href={`/shop/${categories.slug}/${gender}/${product_types.slug}/${slug}`}
-      >
+      <Link href={href}>
         <Image
           src={url}
           alt={alt || url.split(".")[0]}
