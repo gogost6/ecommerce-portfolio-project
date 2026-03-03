@@ -1,4 +1,3 @@
-import Breadcrumbs from "@/components/breadcrumb";
 import ProductGallery from "@/components/product-gallery";
 import { ProductsScroll } from "@/components/products-scroll";
 import { createClient } from "@/lib/supabase/server";
@@ -84,7 +83,6 @@ export default async function Page({
 
   return (
     <div className="mx-auto px-4 w-full max-w-7xl">
-      <Breadcrumbs />
       <div className="md:flex md:gap-10 mb-12">
         <ProductGallery images={product.product_images} />
         <ProductDetailsClient product={product} />
