@@ -8,42 +8,47 @@ const PAGE_SIZE = 6;
 
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: Promise<{
-    category: string;
-    page: string;
-    gender: "men" | "women";
-    type: string;
+    slug: string[];
   }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { category, page, gender, type } = await params;
+  const { slug } = await params;
+  const [category, gender, type] = slug;
+  const p = (await searchParams).p;
+  const safePage = Math.max(1, Number(p) || 1);
 
-  const safePage = Math.max(1, Number(page) || 1);
   const from = (safePage - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
+  let select = ``;
+  if (category) select += `categories!inner ( slug )`;
+  if (type) select += `,product_types!inner ( slug )`;
+  if (gender) select += `,gender`;
+
   const supabase = await createClient();
-  const { count, error } = await supabase
+  const query = supabase
     .from("products")
-    .select(
-      `
-        categories!inner ( slug ),
-        product_types!inner ( slug ),
-        gender
-      `,
-      { count: "exact" },
-    )
-    .eq("is_active", true)
-    .eq("categories.slug", category)
-    .eq("product_types.slug", type)
-    .eq("gender", gender)
-    .range(from, to);
+    .select(select, { count: "exact" })
+    .eq("is_active", true);
+
+  if (category) query.eq("categories.slug", category);
+  if (type) query.eq("product_types.slug", type);
+  if (gender) query.eq("gender", gender).range(from, to);
+
+  const { count, error } = await query;
 
   if (error) notFound();
 
   const total = count ?? 0;
   const showingFrom = total === 0 ? 0 : from + 1;
   const showingTo = Math.min(to + 1, total);
+  let basePath = "/shop";
+  if (category) basePath += `/${category}`;
+  if (gender) basePath += `/${gender}`;
+  if (type) basePath += `/${type}`;
 
   return (
     <section className="max-w-7xl px-3">
@@ -55,7 +60,7 @@ export default async function Page({
       />
       <ProductsListing
         page={safePage}
-        basePath={`/shop/${category}/${gender}/${type}`}
+        basePath={basePath}
         category={category}
         gender={gender}
         type={type}

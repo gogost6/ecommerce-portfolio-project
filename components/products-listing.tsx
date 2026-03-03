@@ -4,7 +4,7 @@ import { ProductCard } from "./product-card";
 
 type ProductsListingProps = {
   category?: string;
-  gender?: "men" | "women";
+  gender?: string;
   type?: string;
   page?: number;
   basePath: string; // e.g. "/shop/casual/men/t-shirt"
@@ -63,7 +63,7 @@ export const ProductsListing = async ({
   const total = count ?? 0;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
-  const pageHref = (p: number) => (p <= 1 ? basePath : `${basePath}/page/${p}`);
+  const pageHref = (p: number) => (p <= 1 ? basePath : `${basePath}?p=${p}`);
 
   return (
     <section className="max-w-7xl px-3">
