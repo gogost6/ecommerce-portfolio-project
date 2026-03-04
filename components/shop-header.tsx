@@ -1,5 +1,4 @@
-import { SlidersVertical } from "lucide-react";
-import { Button } from "./ui/button";
+import { ShopHeaderFiltersBtn } from "./shop-header-filters-btn";
 
 export default function ShopHeader({
   title,
@@ -22,9 +21,7 @@ export default function ShopHeader({
         </p>
       </div>
 
-      <Button variant={"secondary"} size={"icon"}>
-        <SlidersVertical />
-      </Button>
+      <ShopHeaderFiltersBtn />
     </div>
   );
 }

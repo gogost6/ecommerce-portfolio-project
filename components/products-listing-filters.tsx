@@ -1,22 +1,40 @@
-import { createClient } from "@/lib/supabase/server";
+"use client";
+
+import { cn } from "@/lib/utils";
+import { useFiltersOpenerStore } from "@/store/filters-opener-store";
 import * as Slider from "@radix-ui/react-slider";
 import { ChevronDown, ChevronRight, X } from "lucide-react";
 import { Button } from "./ui/button";
 
-export async function ProductsListingFilters() {
-  const supabase = await createClient();
-  const { data: productTypes } = await supabase
-    .from("product_types")
-    .select("*");
-  const { data: colors } = await supabase.from("colors").select("*");
-  const { data: sizes } = await supabase.from("sizes").select("*");
-  const { data: categories } = await supabase.from("categories").select("*");
+type ProductsListingFiltersProps = {
+  productTypes: { id: number; name: string; slug: string }[] | null;
+  colors: { id: number; name: string; hex: string }[] | null;
+  sizes: { id: number; name: string }[] | null;
+  categories: { id: number; name: string; slug: string }[] | null;
+};
+
+export function ProductsListingFilters({
+  productTypes,
+  colors,
+  sizes,
+  categories,
+}: ProductsListingFiltersProps) {
+  const { isOpen, setIsOpen } = useFiltersOpenerStore();
 
   return (
-    <div className="p-5 bg-white rounded-t-2xl absolute z-20 w-full left-0 transform translate-y-full shadow-lg">
+    <div
+      className={cn(
+        "p-5 bg-white rounded-t-2xl absolute z-20 w-full left-0 transform translate-y-full shadow-lg",
+        { "translate-y-0": isOpen },
+      )}
+    >
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-bold text-xl">Filters</h2>
-        <X size={24} />
+        <X
+          size={24}
+          onClick={() => setIsOpen(false)}
+          className="cursor-pointer"
+        />
       </div>
       <div className="h-[1px] bg-gray-100 mb-5"></div>
       <div className="flex flex-col gap-5 justify-between items-center mb-6">

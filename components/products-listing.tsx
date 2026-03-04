@@ -66,9 +66,21 @@ export const ProductsListing = async ({
 
   const pageHref = (p: number) => (p <= 1 ? basePath : `${basePath}?p=${p}`);
 
+  const { data: productTypes } = await supabase
+    .from("product_types")
+    .select("*");
+  const { data: colors } = await supabase.from("colors").select("*");
+  const { data: sizes } = await supabase.from("sizes").select("*");
+  const { data: categories } = await supabase.from("categories").select("*");
+
   return (
     <section className="max-w-7xl px-3">
-      <ProductsListingFilters />
+      <ProductsListingFilters
+        productTypes={productTypes}
+        colors={colors}
+        sizes={sizes}
+        categories={categories}
+      />
       <div className="flex flex-row gap-4 flex-wrap justify-center">
         {products.map((p) => {
           const img = images?.find((i) => i.product_id === p.id);
