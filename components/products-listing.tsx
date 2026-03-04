@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { ProductCard } from "./product-card";
+import { ProductsListingFilters } from "./products-listing-filters";
 
 type ProductsListingProps = {
   category?: string;
@@ -67,6 +68,7 @@ export const ProductsListing = async ({
 
   return (
     <section className="max-w-7xl px-3">
+      <ProductsListingFilters />
       <div className="flex flex-row gap-4 flex-wrap justify-center">
         {products.map((p) => {
           const img = images?.find((i) => i.product_id === p.id);

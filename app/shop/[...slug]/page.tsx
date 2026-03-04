@@ -51,7 +51,7 @@ export default async function Page({
   if (type) basePath += `/${type}`;
 
   return (
-    <section className="max-w-7xl px-3">
+    <section className="max-w-7xl px-3 relative">
       <ShopHeader
         title={capitalize(category)}
         showingFrom={showingFrom}
