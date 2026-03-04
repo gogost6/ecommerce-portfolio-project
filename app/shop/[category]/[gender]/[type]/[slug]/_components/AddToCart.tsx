@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { useCartStore } from "@/store/cart-store";
 import { useTransition } from "react";
 import { toast } from "react-toastify";
 
@@ -17,6 +18,7 @@ export function AddToCard({
   variantId: number | null;
 }) {
   const [pending, startTransition] = useTransition();
+  const incBy = useCartStore((s) => s.incBy);
 
   const handleAddToCart = async () => {
     if (outOfStock || !variantId) return;
@@ -30,6 +32,7 @@ export function AddToCard({
       toast.error("Failed to add to cart");
     } else {
       toast.success("Added to cart");
+      incBy(qty);
     }
   };
 
