@@ -2,6 +2,7 @@ import { CartSessionInit } from "@/components/cart-session-init";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
 import { PromoBar } from "@/components/promo-bar";
+import { ScreenDim } from "@/components/screen-dim";
 import ToastProvider from "@/components/toast-provider";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
@@ -43,6 +44,7 @@ export default function RootLayout({
             <Navigation />
             {children}
             <Footer />
+            <ScreenDim />
           </ToastProvider>
         </ThemeProvider>
         <CartSessionInit />
