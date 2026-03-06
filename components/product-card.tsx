@@ -4,6 +4,11 @@ import { ProductCardParams } from "./products-listing";
 import { StarRating } from "./star-rating";
 import { Badge } from "./ui/badge";
 
+type ProductCardProps = ProductCardParams & {
+  url: string;
+  alt: string;
+};
+
 export const ProductCard = ({
   title,
   rating,
@@ -15,7 +20,7 @@ export const ProductCard = ({
   categories,
   slug,
   gender,
-}: ProductCardParams) => {
+}: ProductCardProps) => {
   const discountPercentage = discounted_price
     ? Math.round(((price - discounted_price) / price) * 100)
     : null;

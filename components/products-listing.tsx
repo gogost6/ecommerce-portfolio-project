@@ -6,7 +6,6 @@ import { ProductsListingFilters } from "./products-listing-filters";
 
 export type ProductCardParams =
   Database["public"]["Tables"]["products"]["Row"] & {
-    url: string;
     alt?: string;
     product_types: { slug: string };
     categories: { slug: string };
