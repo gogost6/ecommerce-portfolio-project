@@ -184,12 +184,8 @@ export function ProductsListingFilters({
             <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-sm transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
           </Slider.Root>
           <div className="flex items-center justify-between mt-4">
-            <span className="text-sm font-medium text-gray-600 pl-4">
-              ${price[0]}
-            </span>
-            <span className="text-sm font-medium text-gray-600 pr-4">
-              ${price[1]}
-            </span>
+            <span className="text-sm font-medium pl-9">${price[0]}</span>
+            <span className="text-sm font-medium pr-9">${price[1]}</span>
           </div>
         </div>
         <div className="h-[1px] bg-gray-100 mb-5"></div>
