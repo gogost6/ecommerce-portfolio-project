@@ -25,3 +25,15 @@ export function ensureCartSessionCookie() {
     document.cookie = `cart_session_id=${encodeURIComponent(id)}; Path=/; Max-Age=31536000; SameSite=Lax`;
   }
 }
+
+export const getFirst = (v: string | string[] | undefined) =>
+  Array.isArray(v) ? v[0] : v;
+
+export function parseIds(v?: string | string[]) {
+  const s = getFirst(v);
+  if (!s) return [];
+  return s
+    .split(",")
+    .map((x) => Number(x))
+    .filter((n) => Number.isFinite(n));
+}

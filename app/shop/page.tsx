@@ -1,6 +1,7 @@
 import { ProductsListing } from "@/components/products-listing";
 import ShopHeader from "@/components/shop-header";
 import { createClient } from "@/lib/supabase/server";
+import { getFirst, parseIds } from "@/lib/utils";
 import { notFound } from "next/navigation";
 
 const PAGE_SIZE = 6;
@@ -10,18 +11,57 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const p = (await searchParams).p;
+  const sp = await searchParams;
+  const p = sp.p;
   const safePage = Math.max(1, Number(p) || 1);
   const from = (safePage - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
   const supabase = await createClient();
+
+  const colorIds = parseIds(sp?.colors);
+  const sizeIds = parseIds(sp?.sizes);
+  const minPrice = getFirst(sp?.min) ? Number(getFirst(sp?.min)) : null;
+  const maxPrice = getFirst(sp?.max) ? Number(getFirst(sp?.max)) : null;
+
+  let filteredProductIds: number[] | null = null;
+
+  const needsVariantFilter =
+    colorIds.length || sizeIds.length || minPrice !== null || maxPrice !== null;
+
+  if (needsVariantFilter) {
+    let vq = supabase.from("product_variants").select("product_id");
+
+    if (colorIds.length) vq = vq.in("color_id", colorIds);
+    if (sizeIds.length) vq = vq.in("size_id", sizeIds);
+    if (minPrice !== null) vq = vq.gte("price", minPrice);
+    if (maxPrice !== null) vq = vq.lte("price", maxPrice);
+
+    const { data } = await vq;
+
+    const ids = Array.from(new Set((data ?? []).map((r) => r.product_id)));
+
+    if (!ids.length) return null;
+
+    filteredProductIds = ids;
+  }
+
   const query = supabase
     .from("products")
-    .select("", { count: "exact" })
+    .select(
+      `*,
+      categories!inner ( slug ),
+      product_types!inner ( slug ),
+      gender
+      `,
+      { count: "exact" },
+    )
     .eq("is_active", true);
 
-  const { count, error } = await query;
+  if (filteredProductIds) query.in("id", filteredProductIds);
+  query.range(from, to);
+
+  const { count, error, data: products } = await query;
 
   if (error) notFound();
 
@@ -37,7 +77,13 @@ export default async function Page({
         showingTo={showingTo}
         total={total}
       />
-      <ProductsListing page={safePage} basePath={`/shop`} />
+      <ProductsListing
+        safePage={safePage}
+        basePath={`/shop`}
+        sp={sp}
+        totalPages={Math.ceil(total / PAGE_SIZE)}
+        products={products}
+      />
     </section>
   );
 }
