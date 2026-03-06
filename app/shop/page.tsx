@@ -12,6 +12,7 @@ export default async function Page({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const sp = await searchParams;
+
   const p = sp.p;
   const safePage = Math.max(1, Number(p) || 1);
   const from = (safePage - 1) * PAGE_SIZE;
@@ -40,8 +41,6 @@ export default async function Page({
     const { data } = await vq;
 
     const ids = Array.from(new Set((data ?? []).map((r) => r.product_id)));
-
-    if (!ids.length) return null;
 
     filteredProductIds = ids;
   }

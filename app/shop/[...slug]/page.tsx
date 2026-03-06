@@ -46,8 +46,6 @@ export default async function Page({
 
     const ids = Array.from(new Set((data ?? []).map((r) => r.product_id)));
 
-    if (!ids.length) return null;
-
     filteredProductIds = ids;
   }
 
