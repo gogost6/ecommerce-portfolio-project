@@ -3,10 +3,11 @@
 import { cn, parseIds } from "@/lib/utils";
 import { useFiltersOpenerStore } from "@/store/filters-opener-store";
 import * as Slider from "@radix-ui/react-slider";
-import { ChevronDown, ChevronRight, X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
+import { Checkbox } from "./ui/checkbox";
 
 type ProductsListingFiltersProps = {
   productTypes: { id: number; name: string; slug: string }[] | null;
@@ -30,11 +31,15 @@ export function ProductsListingFilters({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const [selectedTypes, setSelectedTypes] = useState<number[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedColors, setSelectedColors] = useState<number[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<number[]>([]);
   const [price, setPrice] = useState<number[]>([0, 500]);
 
   useEffect(() => {
+    setSelectedTypes(parseIds(searchParams.get("types")));
+    setSelectedCategories(parseIds(searchParams.get("categories")));
     setSelectedColors(parseIds(searchParams.get("colors")));
     setSelectedSizes(parseIds(searchParams.get("sizes")));
 
@@ -65,6 +70,13 @@ export function ProductsListingFilters({
 
     sp.delete("p");
 
+    if (selectedTypes.length) sp.set("types", selectedTypes.join(","));
+    else sp.delete("types");
+
+    if (selectedCategories.length)
+      sp.set("categories", selectedCategories.join(","));
+    else sp.delete("categories");
+
     if (selectedColors.length) sp.set("colors", selectedColors.join(","));
     else sp.delete("colors");
 
@@ -74,7 +86,8 @@ export function ProductsListingFilters({
     sp.set("min", String(price[0]));
     sp.set("max", String(price[1]));
 
-    router.push(`${pathname}?${sp}`);
+    const query = sp.toString();
+    router.push(query ? `${pathname}?${query}` : pathname);
     setIsOpen(false);
   };
 
@@ -82,12 +95,15 @@ export function ProductsListingFilters({
     const sp = new URLSearchParams(searchParams.toString());
 
     sp.delete("p");
+    sp.delete("types");
+    sp.delete("categories");
     sp.delete("colors");
     sp.delete("sizes");
     sp.delete("min");
     sp.delete("max");
 
-    router.push(`${pathname}?${sp}`);
+    const query = sp.toString();
+    router.push(query ? `${pathname}?${query}` : pathname);
     setIsOpen(false);
   };
 
@@ -128,12 +144,20 @@ export function ProductsListingFilters({
         </div>
         <div className="flex flex-col gap-5 justify-between items-center mb-6">
           {productTypes?.map((type) => (
-            <div
-              key={type.id}
-              className="flex items-center justify-between w-full"
-            >
-              <p className="text-base text-gray-600">{type.name}</p>
-              <ChevronRight size={16} />
+            <div key={type.id} className="flex items-center gap-2 w-full">
+              <Checkbox
+                id={`type-${type.id}`}
+                checked={selectedTypes.includes(type.id)}
+                onCheckedChange={() =>
+                  setSelectedTypes((prev) => toggleId(prev, type.id))
+                }
+              />
+              <label
+                htmlFor={`type-${type.id}`}
+                className="text-base text-gray-600 cursor-pointer"
+              >
+                {type.name}
+              </label>
             </div>
           ))}
         </div>
@@ -166,6 +190,7 @@ export function ProductsListingFilters({
           {colors?.map((color) => (
             <button
               key={color.id}
+              type="button"
               className={cn(
                 "w-8 h-8 rounded-full ring-1 ring-gray-200",
                 selectedColors.includes(color.id) && "ring-2 ring-black",
@@ -205,12 +230,20 @@ export function ProductsListingFilters({
         </div>
         <div className="flex flex-col gap-5 justify-between items-center mb-6">
           {categories?.map((cat) => (
-            <div
-              key={cat.id}
-              className="flex items-center justify-between w-full"
-            >
-              <p className="text-base text-gray-600">{cat.name}</p>
-              <ChevronRight size={16} />
+            <div key={cat.id} className="flex items-center gap-2 w-full">
+              <Checkbox
+                id={`cat-${cat.id}`}
+                checked={selectedCategories.includes(cat.id)}
+                onCheckedChange={() =>
+                  setSelectedCategories((prev) => toggleId(prev, cat.id))
+                }
+              />
+              <label
+                htmlFor={`cat-${cat.id}`}
+                className="text-base text-gray-600 cursor-pointer"
+              >
+                {cat.name}
+              </label>
             </div>
           ))}
         </div>

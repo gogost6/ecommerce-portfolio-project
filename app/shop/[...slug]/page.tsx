@@ -26,13 +26,20 @@ export default async function Page({
   const supabase = await createClient();
   const colorIds = parseIds(sp?.colors);
   const sizeIds = parseIds(sp?.sizes);
+  const types = parseIds(sp?.types);
+  const categories = parseIds(sp?.categories);
   const minPrice = getFirst(sp?.min) ? Number(getFirst(sp?.min)) : null;
   const maxPrice = getFirst(sp?.max) ? Number(getFirst(sp?.max)) : null;
 
   let filteredProductIds: number[] | null = null;
 
   const needsVariantFilter =
-    colorIds.length || sizeIds.length || minPrice !== null || maxPrice !== null;
+    colorIds.length ||
+    sizeIds.length ||
+    minPrice !== null ||
+    maxPrice !== null ||
+    types.length ||
+    categories.length;
 
   if (needsVariantFilter) {
     let vq = supabase.from("product_variants").select("product_id");
@@ -65,6 +72,8 @@ export default async function Page({
   if (type) query.eq("product_types.slug", type);
   if (gender) query.eq("gender", gender).range(from, to);
   if (filteredProductIds) query.in("id", filteredProductIds);
+  if (categories.length) query.in("categories.id", categories);
+  if (types.length) query.in("product_types.id", types);
   query.range(from, to);
 
   const { count, error, data: products } = await query;
