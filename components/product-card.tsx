@@ -1,15 +1,8 @@
-import { Database } from "@/database.types";
 import Image from "next/image";
 import Link from "next/link";
+import { ProductCardParams } from "./products-listing";
 import { StarRating } from "./star-rating";
 import { Badge } from "./ui/badge";
-
-type ProductCardParams = Database["public"]["Tables"]["products"]["Row"] & {
-  url: string;
-  alt?: string;
-  product_types: { slug: string };
-  categories: { slug: string };
-};
 
 export const ProductCard = ({
   title,

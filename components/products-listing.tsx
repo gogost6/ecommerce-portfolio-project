@@ -1,14 +1,23 @@
+import { Database } from "@/database.types";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { ProductCard } from "./product-card";
 import { ProductsListingFilters } from "./products-listing-filters";
+
+export type ProductCardParams =
+  Database["public"]["Tables"]["products"]["Row"] & {
+    url: string;
+    alt?: string;
+    product_types: { slug: string };
+    categories: { slug: string };
+  };
 
 type ProductsListingProps = {
   basePath: string;
   sp: Record<string, string | string[] | undefined>;
   safePage: number;
   totalPages: number;
-  products: any[];
+  products: ProductCardParams[];
 };
 
 export const ProductsListing = async ({
