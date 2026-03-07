@@ -15,6 +15,10 @@ export function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+export const DEFAULT_PRODUCT_IMAGE_URL =
+  process.env.NEXT_PUBLIC_SUPABASE_URL +
+  "/storage/v1/object/public/shop.me/default-product.jpg";
+
 export function ensureCartSessionCookie() {
   const hasCookie = document.cookie
     .split("; ")

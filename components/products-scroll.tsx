@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/client";
+import { DEFAULT_PRODUCT_IMAGE_URL } from "@/lib/utils";
 import Link from "next/link";
 import { ProductCard } from "./product-card";
 import { Button } from "./ui/button";
@@ -52,7 +53,7 @@ export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
             {...p}
             url={
               images?.find((img) => img.product_id === p.id)?.url ||
-              "https://tmfbysibhlpkahvvpoeu.supabase.co/storage/v1/object/public/shop.me/default-product.jpg"
+              DEFAULT_PRODUCT_IMAGE_URL
             }
             alt={images?.find((img) => img.product_id === p.id)?.alt || p.title}
           />

@@ -1,5 +1,6 @@
 "use client";
 
+import { DEFAULT_PRODUCT_IMAGE_URL } from "@/lib/utils";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
@@ -18,7 +19,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
   if (sortedImages.length === 0) {
     sortedImages.push({
       id: 0,
-      url: "https://tmfbysibhlpkahvvpoeu.supabase.co/storage/v1/object/public/shop.me/default-product.jpg",
+      url: DEFAULT_PRODUCT_IMAGE_URL,
       alt: "Default product image",
       sort_order: 0,
       is_primary: true,

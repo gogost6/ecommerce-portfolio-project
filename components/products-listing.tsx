@@ -1,5 +1,6 @@
 import { Database } from "@/database.types";
 import { createClient } from "@/lib/supabase/server";
+import { DEFAULT_PRODUCT_IMAGE_URL } from "@/lib/utils";
 import Link from "next/link";
 import { ProductCard } from "./product-card";
 import { ProductsListingFilters } from "./products-listing-filters";
@@ -80,10 +81,7 @@ export const ProductsListing = async ({
               <ProductCard
                 key={p.id}
                 {...p}
-                url={
-                  img?.url ||
-                  "https://tmfbysibhlpkahvvpoeu.supabase.co/storage/v1/object/public/shop.me/default-product.jpg"
-                }
+                url={img?.url || DEFAULT_PRODUCT_IMAGE_URL}
                 alt={img?.alt || p.title}
               />
             );
