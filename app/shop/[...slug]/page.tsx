@@ -88,6 +88,8 @@ export default async function Page({
   if (gender) basePath += `/${gender}`;
   if (type) basePath += `/${type}`;
 
+  const title = category ? capitalize(category) : "All Products";
+
   return (
     <section className="relative max-w-7xl px-3">
       <ShopHeader
@@ -95,8 +97,15 @@ export default async function Page({
         showingFrom={showingFrom}
         showingTo={showingTo}
         total={total}
+        className="md:hidden"
       />
       <ProductsListing
+        header={{
+          title,
+          showingFrom,
+          showingTo,
+          total,
+        }}
         safePage={safePage}
         basePath={basePath}
         sp={sp}

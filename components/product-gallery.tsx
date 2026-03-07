@@ -55,7 +55,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
                 type="button"
                 onClick={() => setActive(img.id)}
                 className={[
-                  "group relative rounded-xl md:h-[167px] md:w-40",
+                  "group relative rounded-xl md:h-41.75 md:w-40",
                   "transition",
                   isActive
                     ? "ring-1 ring-black"

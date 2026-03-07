@@ -76,16 +76,24 @@ export default async function Page({
   const total = count ?? 0;
   const showingFrom = total === 0 ? 0 : from + 1;
   const showingTo = Math.min(to + 1, total);
+  const title = "Home";
 
   return (
     <section className="relative max-w-7xl px-3">
       <ShopHeader
-        title={"Home"}
+        title={title}
         showingFrom={showingFrom}
         showingTo={showingTo}
         total={total}
+        className="md:hidden"
       />
       <ProductsListing
+        header={{
+          title,
+          showingFrom,
+          showingTo,
+          total,
+        }}
         safePage={safePage}
         basePath={`/shop`}
         sp={sp}

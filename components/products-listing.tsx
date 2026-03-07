@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { ProductCard } from "./product-card";
 import { ProductsListingFilters } from "./products-listing-filters";
+import ShopHeader from "./shop-header";
 
 export type ProductCardParams =
   Database["public"]["Tables"]["products"]["Row"] & {
@@ -12,6 +13,12 @@ export type ProductCardParams =
   };
 
 type ProductsListingProps = {
+  header: {
+    title: string;
+    showingFrom: number;
+    showingTo: number;
+    total: number;
+  };
   basePath: string;
   sp: Record<string, string | string[] | undefined>;
   safePage: number;
@@ -20,6 +27,7 @@ type ProductsListingProps = {
 };
 
 export const ProductsListing = async ({
+  header,
   basePath,
   sp,
   safePage,
@@ -63,6 +71,7 @@ export const ProductsListing = async ({
         categories={categories}
       />
       <div className="mx-auto w-fit">
+        <ShopHeader {...header} className="hidden md:block" />
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
           {products.map((p) => {
             const img = images?.find((i) => i.product_id === p.id);
