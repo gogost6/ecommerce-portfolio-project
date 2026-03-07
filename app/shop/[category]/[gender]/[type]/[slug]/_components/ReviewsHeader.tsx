@@ -37,13 +37,13 @@ export function ReviewsHeader({
   };
 
   return (
-    <div className="flex flex-row justify-between items-center mb-5">
-      <div className="flex flex-row gap-2.5 justify-center items-center">
-        <h3 className="font-bold text-xl md:text-2xl">All Reviews</h3>
-        <p className="text-gray-600 text-base">({reviewsCount})</p>
+    <div className="mb-5 flex flex-row items-center justify-between">
+      <div className="flex flex-row items-center justify-center gap-2.5">
+        <h3 className="text-xl font-bold md:text-2xl">All Reviews</h3>
+        <p className="text-base text-gray-600">({reviewsCount})</p>
       </div>
 
-      <div className="flex flex-row gap-2.5 justify-center items-center">
+      <div className="flex flex-row items-center justify-center gap-2.5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant={"outline"} size={"icon"} className="md:hidden">
@@ -53,7 +53,7 @@ export function ReviewsHeader({
           <DropdownMenuTrigger asChild>
             <Button variant={"outline"} className="hidden md:inline-flex">
               {mapping[option]}
-              <ArrowDown className="w-4! h-4!" />
+              <ArrowDown className="h-4! w-4!" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>

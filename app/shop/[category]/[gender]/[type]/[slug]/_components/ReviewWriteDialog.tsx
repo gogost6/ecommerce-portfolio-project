@@ -83,13 +83,13 @@ export function ReviewWriteDialog({ productId }: Props) {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/40" />
 
-        <Dialog.Content className="fixed top-1/2 left-1/2 w-[95%] max-w-md -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-2xl shadow-xl">
-          <div className="flex justify-between items-center mb-4">
+        <Dialog.Content className="fixed top-1/2 left-1/2 w-[95%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
+          <div className="mb-4 flex items-center justify-between">
             <Dialog.Title className="text-xl font-bold">
               Write a Review
             </Dialog.Title>
             <Dialog.Close>
-              <X className="w-5 h-5" />
+              <X className="h-5 w-5" />
             </Dialog.Close>
           </div>
 
@@ -97,7 +97,7 @@ export function ReviewWriteDialog({ productId }: Props) {
             {/* Rating */}
             <div>
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label className="mb-1 block text-sm font-medium">
                   Rating (1-5)
                 </label>
 
@@ -105,7 +105,7 @@ export function ReviewWriteDialog({ productId }: Props) {
                   <DropdownMenuTrigger asChild>
                     <button
                       type="button"
-                      className="w-full border rounded-lg px-3 py-2 text-left flex items-center justify-between"
+                      className="flex w-full items-center justify-between rounded-lg border px-3 py-2 text-left"
                     >
                       <span>{rating}</span>
                       <ChevronRight className="rotate-90" />

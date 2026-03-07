@@ -12,11 +12,11 @@ export default function ShopHeader({
   total: number;
 }) {
   return (
-    <div className="flex items-end justify-between gap-4 mt-3 mb-6">
+    <div className="mt-3 mb-6 flex items-end justify-between gap-4">
       <div className="min-w-0">
-        <h1 className="text-3xl font-extrabold leading-tight">{title}</h1>
+        <h1 className="text-3xl leading-tight font-extrabold">{title}</h1>
 
-        <p className="text-gray-500 mt-2">
+        <p className="mt-2 text-gray-500">
           Showing {showingFrom}-{showingTo} of {total} Products
         </p>
       </div>

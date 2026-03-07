@@ -31,19 +31,19 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
   return (
     <section className="w-full max-w-4xl md:flex md:flex-row-reverse md:gap-4">
       {/* Main image */}
-      <div className="relative mx-auto aspect-square w-full md:h-132.5 md:aspect-auto">
+      <div className="relative mx-auto aspect-square w-full md:aspect-auto md:h-132.5">
         <Image
           src={activeImage!.url}
           alt={activeImage!.alt || "Product image"}
           fill
           priority
-          className="object-cover rounded-xl"
+          className="rounded-xl object-cover"
           sizes="(min-width: 768px) 520px, 100vw"
         />
       </div>
 
       {/* Thumbnails */}
-      <div className="mt-3 grid grid-cols-3 gap-4 md:flex md:flex-col md:w-fit md:mt-0">
+      <div className="mt-3 grid grid-cols-3 gap-4 md:mt-0 md:flex md:w-fit md:flex-col">
         {sortedImages
           .filter((img) => !img.is_primary)
           .map((img, idx) => {
@@ -55,7 +55,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
                 type="button"
                 onClick={() => setActive(img.id)}
                 className={[
-                  "group relative rounded-xl md:w-40 md:h-[167px]",
+                  "group relative rounded-xl md:h-[167px] md:w-40",
                   "transition",
                   isActive
                     ? "ring-1 ring-black"
@@ -68,7 +68,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
                     src={img.url}
                     alt={img.alt || "Product image"}
                     fill
-                    className="object-cover rounded-xl"
+                    className="rounded-xl object-cover"
                     sizes="(min-width: 768px) 170px, 30vw"
                   />
                 </div>

@@ -38,22 +38,22 @@ export function AddToCard({
 
   return (
     <div className="flex items-stretch justify-center gap-3">
-      <div className="bg-gray-100 rounded-2xl flex items-stretch">
+      <div className="flex items-stretch rounded-2xl bg-gray-100">
         <button
           type="button"
           onClick={decQty}
-          className="px-4 text-2xl flex items-center"
+          className="flex items-center px-4 text-2xl"
           aria-label="Decrease quantity"
         >
           -
         </button>
 
-        <span className="px-3 flex items-center">{qty}</span>
+        <span className="flex items-center px-3">{qty}</span>
 
         <button
           type="button"
           onClick={incQty}
-          className="px-4 text-2xl flex items-center"
+          className="flex items-center px-4 text-2xl"
           aria-label="Increase quantity"
         >
           +

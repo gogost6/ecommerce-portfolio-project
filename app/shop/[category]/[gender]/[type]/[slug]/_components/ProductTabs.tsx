@@ -16,29 +16,29 @@ export function ProductTabs({
   return (
     <Tabs.Root defaultValue="reviews" className="w-full">
       {/* Header */}
-      <Tabs.List className="w-full border-b mb-5 flex justify-center gap-12 text-gray-400 text-sm md:text-xl">
+      <Tabs.List className="mb-5 flex w-full justify-center gap-12 border-b text-sm text-gray-400 md:text-xl">
         <Tabs.Trigger
           value="details"
-          className="pb-4 relative data-[state=active]:text-black"
+          className="relative pb-4 data-[state=active]:text-black"
         >
           Product Details
-          <span className="absolute left-0 bottom-0 w-full h-[2px] bg-black scale-x-0 transition-transform duration-200 data-[state=active]:scale-x-100 origin-left" />
+          <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-black transition-transform duration-200 data-[state=active]:scale-x-100" />
         </Tabs.Trigger>
 
         <Tabs.Trigger
           value="reviews"
-          className="pb-4 relative data-[state=active]:text-black"
+          className="relative pb-4 data-[state=active]:text-black"
         >
           Rating & Reviews
-          <span className="absolute left-0 bottom-0 w-full h-[2px] bg-black scale-x-0 transition-transform duration-200 data-[state=active]:scale-x-100 origin-left" />
+          <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-black transition-transform duration-200 data-[state=active]:scale-x-100" />
         </Tabs.Trigger>
 
         <Tabs.Trigger
           value="faq"
-          className="pb-4 relative data-[state=active]:text-black"
+          className="relative pb-4 data-[state=active]:text-black"
         >
           FAQs
-          <span className="absolute left-0 bottom-0 w-full h-[2px] bg-black scale-x-0 transition-transform duration-200 data-[state=active]:scale-x-100 origin-left" />
+          <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-black transition-transform duration-200 data-[state=active]:scale-x-100" />
         </Tabs.Trigger>
       </Tabs.List>
 

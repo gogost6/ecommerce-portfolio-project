@@ -39,13 +39,13 @@ export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
     .eq("is_primary", true);
 
   return (
-    <section className="pt-12 md:pt-16 max-w-7xl mx-auto">
+    <section className="mx-auto max-w-7xl pt-12 md:pt-16">
       <div className="px-4">
-        <h2 className="text-4xl md:text-5xl font-black text-center mb-8 md:mb-14">
+        <h2 className="mb-8 text-center text-4xl font-black md:mb-14 md:text-5xl">
           {title}
         </h2>
       </div>
-      <div className="flex flex-row gap-4 overflow-scroll mb-5 md:mb-9 pl-4">
+      <div className="mb-5 flex flex-row gap-4 overflow-scroll pl-4 md:mb-9">
         {products.map((p, index) => (
           <ProductCard
             key={p.title + index}
@@ -58,7 +58,7 @@ export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
           />
         ))}
       </div>
-      <div className="px-4 md:w-56 md:mx-auto mb-10 md:mb-16">
+      <div className="mb-10 px-4 md:mx-auto md:mb-16 md:w-56">
         <Button variant="outline" asChild className="w-full">
           <Link href="/products?sort=new-releases">View all</Link>
         </Button>

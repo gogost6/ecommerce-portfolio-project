@@ -46,16 +46,16 @@ export function FAQ() {
     <Accordion.Root
       type="single"
       collapsible
-      className="w-full max-w-2xl mx-auto space-y-3"
+      className="mx-auto w-full max-w-2xl space-y-3"
     >
       {faqs.map((faq) => (
         <Accordion.Item
           key={faq.id}
           value={faq.id}
-          className="border rounded-md overflow-hidden"
+          className="overflow-hidden rounded-md border"
         >
           <Accordion.Header>
-            <Accordion.Trigger className="flex justify-between items-center w-full px-4 py-3 text-left font-medium text-lg bg-gray-100 hover:bg-gray-200 transition">
+            <Accordion.Trigger className="flex w-full items-center justify-between bg-gray-100 px-4 py-3 text-left text-lg font-medium transition hover:bg-gray-200">
               {faq.question}
               <span className="transition-transform duration-200 data-[state=open]:rotate-180">
                 ▼
@@ -63,7 +63,7 @@ export function FAQ() {
             </Accordion.Trigger>
           </Accordion.Header>
 
-          <Accordion.Content className="px-4 py-3 text-gray-700 bg-white">
+          <Accordion.Content className="bg-white px-4 py-3 text-gray-700">
             {faq.answer}
           </Accordion.Content>
         </Accordion.Item>

@@ -3,10 +3,10 @@ import { PromoBarCloseBtn } from "./promo-bar-close-btn";
 
 export const PromoBar = () => {
   return (
-    <div className="promo-bar bg-black hidden opacity-0 transition-opacity">
-      <p className=" mx-auto max-w-7xl text-center py-2 text-white text-xs relative">
+    <div className="promo-bar hidden bg-black opacity-0 transition-opacity">
+      <p className="relative mx-auto max-w-7xl py-2 text-center text-xs text-white">
         Sign up and get 20% off to your first order.{" "}
-        <Link className="underline bold" href="/auth/login">
+        <Link className="bold underline" href="/auth/login">
           Sign Up Now
         </Link>
         <PromoBarCloseBtn />

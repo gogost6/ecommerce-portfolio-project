@@ -134,29 +134,29 @@ export function ProductsListingFilters({
     <>
       {isOpen && isMobile && (
         <div
-          className="fixed inset-0 bg-black/40 z-10 md:hidden"
+          className="fixed inset-0 z-10 bg-black/40 md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       <div
         className={cn(
-          "p-5 pt-0 pb-8 bg-white pointer-events-none rounded-t-2xl opacity-0 absolute z-20 w-full left-0 transform translate-y-full shadow-lg max-h-[85vh] overflow-y-auto md:block md:relative md:translate-y-0 md:shadow-none md:max-w-80 md:pointer-events-auto md:opacity-100 md:border md:rounded-lg md:border-gray-100",
+          "pointer-events-none absolute left-0 z-20 max-h-[85vh] w-full translate-y-full transform overflow-y-auto rounded-t-2xl bg-white p-5 pt-0 pb-8 opacity-0 shadow-lg md:pointer-events-auto md:relative md:block md:max-w-80 md:translate-y-0 md:rounded-lg md:border md:border-gray-100 md:opacity-100 md:shadow-none",
           {
-            "-translate-y-16 opacity-100 pointer-events-auto":
+            "pointer-events-auto -translate-y-16 opacity-100":
               isOpen && isMobile,
           },
         )}
       >
-        <div className="sticky top-0 bg-white z-30 pt-5 mb-5">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="font-bold text-xl">Filters</h2>
+        <div className="sticky top-0 z-30 mb-5 bg-white pt-5">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-bold">Filters</h2>
             <X
               size={24}
               onClick={() => setIsOpen(false)}
               className="cursor-pointer md:hidden"
             />
-            <SlidersVertical className="hidden md:block text-gray-600" />
+            <SlidersVertical className="hidden text-gray-600 md:block" />
           </div>
 
           <div className="flex gap-2">
@@ -167,13 +167,13 @@ export function ProductsListingFilters({
               Clear
             </Button>
           </div>
-          <div className="h-px bg-gray-100 mt-5"></div>
+          <div className="mt-5 h-px bg-gray-100"></div>
         </div>
 
         <FilterSection title="Types">
-          <div className="flex flex-col gap-5 justify-between items-center">
+          <div className="flex flex-col items-center justify-between gap-5">
             {productTypes?.map((type) => (
-              <div key={type.id} className="flex items-center gap-2 w-full">
+              <div key={type.id} className="flex w-full items-center gap-2">
                 <Checkbox
                   id={`type-${type.id}`}
                   checked={selectedTypes.includes(type.id)}
@@ -183,7 +183,7 @@ export function ProductsListingFilters({
                 />
                 <label
                   htmlFor={`type-${type.id}`}
-                  className="text-base text-gray-600 cursor-pointer"
+                  className="cursor-pointer text-base text-gray-600"
                 >
                   {type.name}
                 </label>
@@ -200,32 +200,32 @@ export function ProductsListingFilters({
               max={500}
               step={1}
               onValueChange={setPrice}
-              className="relative flex w-full touch-none select-none items-center h-6"
+              className="relative flex h-6 w-full touch-none items-center select-none"
             >
               <Slider.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-gray-200">
                 <Slider.Range className="absolute h-full rounded-full bg-black" />
               </Slider.Track>
 
-              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-xs transition hover:scale-105 focus-visible:outline-hidden focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
-              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-xs transition hover:scale-105 focus-visible:outline-hidden focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
+              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-xs transition hover:scale-105 focus-visible:ring-4 focus-visible:ring-black/20 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50" />
+              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-xs transition hover:scale-105 focus-visible:ring-4 focus-visible:ring-black/20 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50" />
             </Slider.Root>
 
-            <div className="flex items-center justify-between mt-4">
-              <span className="text-sm font-medium pl-9">${price[0]}</span>
-              <span className="text-sm font-medium pr-9">${price[1]}</span>
+            <div className="mt-4 flex items-center justify-between">
+              <span className="pl-9 text-sm font-medium">${price[0]}</span>
+              <span className="pr-9 text-sm font-medium">${price[1]}</span>
             </div>
           </div>
         </FilterSection>
 
         <FilterSection title="Colors">
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex flex-wrap gap-4">
             {colors?.map((color) => (
               <button
                 key={color.id}
                 type="button"
                 aria-label={color.name}
                 className={cn(
-                  "w-8 h-8 rounded-full ring-1 ring-gray-200",
+                  "h-8 w-8 rounded-full ring-1 ring-gray-200",
                   selectedColors.includes(color.id) && "ring-2 ring-black",
                 )}
                 style={{ backgroundColor: color.hex }}
@@ -238,7 +238,7 @@ export function ProductsListingFilters({
         </FilterSection>
 
         <FilterSection title="Size">
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex flex-wrap gap-2">
             {sizes?.map((size) => (
               <Button
                 key={size.id}
@@ -258,9 +258,9 @@ export function ProductsListingFilters({
         </FilterSection>
 
         <FilterSection title="Dress Style" defaultOpen={false}>
-          <div className="flex flex-col gap-5 justify-between items-center">
+          <div className="flex flex-col items-center justify-between gap-5">
             {categories?.map((cat) => (
-              <div key={cat.id} className="flex items-center gap-2 w-full">
+              <div key={cat.id} className="flex w-full items-center gap-2">
                 <Checkbox
                   id={`cat-${cat.id}`}
                   checked={selectedCategories.includes(cat.id)}
@@ -270,7 +270,7 @@ export function ProductsListingFilters({
                 />
                 <label
                   htmlFor={`cat-${cat.id}`}
-                  className="text-base text-gray-600 cursor-pointer"
+                  className="cursor-pointer text-base text-gray-600"
                 >
                   {cat.name}
                 </label>
@@ -295,9 +295,9 @@ function FilterSection({
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex w-full items-center justify-between mb-4 text-left"
+        className="mb-4 flex w-full items-center justify-between text-left"
       >
-        <h2 className="font-bold text-xl">{title}</h2>
+        <h2 className="text-xl font-bold">{title}</h2>
         <ChevronDown
           size={16}
           className={cn("transition-transform duration-200", {
@@ -310,14 +310,14 @@ function FilterSection({
         className={cn(
           "grid transition-all duration-200 ease-in-out",
           isOpen
-            ? "grid-rows-[1fr] opacity-100 mb-6"
+            ? "mb-6 grid-rows-[1fr] opacity-100"
             : "grid-rows-[0fr] opacity-0",
         )}
       >
         <div className="overflow-hidden">{children}</div>
       </div>
 
-      <div className="h-px bg-gray-100 mb-5" />
+      <div className="mb-5 h-px bg-gray-100" />
     </div>
   );
 }

@@ -10,8 +10,8 @@ export function Colors({
   setSelectedColorId: (id: number) => void;
 }) {
   return (
-    <div className="flex flex-col gap-4 mb-6">
-      <p className="text-gray-600 text-sm md:text-base">Select Colors</p>
+    <div className="mb-6 flex flex-col gap-4">
+      <p className="text-sm text-gray-600 md:text-base">Select Colors</p>
       <div className="flex flex-row gap-3">
         {colors.map((c) => {
           const active = c.id === selectedColorId;
@@ -21,7 +21,7 @@ export function Colors({
               type="button"
               onClick={() => setSelectedColorId(c.id)}
               className={[
-                "w-8 h-8 rounded-full border-2 transition-colors focus:outline-hidden flex items-center justify-center",
+                "flex h-8 w-8 items-center justify-center rounded-full border-2 transition-colors focus:outline-hidden",
                 active
                   ? "border-gray-900"
                   : "border-gray-300 hover:border-gray-600",

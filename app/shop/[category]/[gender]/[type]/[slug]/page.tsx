@@ -82,8 +82,8 @@ export default async function Page({
     .eq("is_published", true);
 
   return (
-    <div className="mx-auto px-4 w-full max-w-7xl">
-      <div className="md:flex md:gap-10 mb-12">
+    <div className="mx-auto w-full max-w-7xl px-4">
+      <div className="mb-12 md:flex md:gap-10">
         <ProductGallery images={product.product_images} />
         <ProductDetailsClient product={product} />
       </div>

@@ -124,16 +124,16 @@ export default function ProductDetailsClient({
 
   return (
     <div className="md:flex md:flex-col">
-      <h1 className="text-2xl md:text-4xl font-black my-3 md:mt-0 md:mb-3.5">
+      <h1 className="my-3 text-2xl font-black md:mt-0 md:mb-3.5 md:text-4xl">
         {product.title}
       </h1>
       <StarRating rating={product.rating} />
-      <div className="flex flex-row gap-2.5 mt-2.5 md:mt-3.5 mb-5 items-center">
-        <p className="text-2xl md:text-3xl font-medium">${display.basePrice}</p>
+      <div className="mt-2.5 mb-5 flex flex-row items-center gap-2.5 md:mt-3.5">
+        <p className="text-2xl font-medium md:text-3xl">${display.basePrice}</p>
 
         {display.hasDiscount && (
           <>
-            <p className="text-gray-600 line-through text-2xl md:text-3xl font-medium">
+            <p className="text-2xl font-medium text-gray-600 line-through md:text-3xl">
               ${display.discounted_price}
             </p>
             <Badge variant={"red"}>{display.percent_discount}%</Badge>
@@ -141,20 +141,20 @@ export default function ProductDetailsClient({
         )}
 
         {selectedVariant?.sku && (
-          <span className="text-xs text-gray-400 ml-2">
+          <span className="ml-2 text-xs text-gray-400">
             SKU: {selectedVariant.sku}
           </span>
         )}
       </div>
       {product.description && (
-        <p className="text-sm md:text-base text-gray-600 mb-6">
+        <p className="mb-6 text-sm text-gray-600 md:text-base">
           {product.description}
         </p>
       )}
 
       {colors.length > 0 && (
         <>
-          <div className="h-px bg-gray-100 mb-6" />
+          <div className="mb-6 h-px bg-gray-100" />
           <Colors
             colors={colors}
             selectedColorId={selectedColorId}
@@ -164,7 +164,7 @@ export default function ProductDetailsClient({
       )}
       {sizes.length > 0 && (
         <>
-          <div className="h-px bg-gray-100 mb-6" />
+          <div className="mb-6 h-px bg-gray-100" />
           <Sizes
             sizes={sizes}
             selectedSizeId={selectedSizeId}
@@ -174,7 +174,7 @@ export default function ProductDetailsClient({
         </>
       )}
 
-      <div className="h-px bg-gray-100 mb-6" />
+      <div className="mb-6 h-px bg-gray-100" />
       <AddToCard
         qty={qty}
         incQty={incQty}

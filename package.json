@@ -5,6 +5,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "format": "prettier --write .",
     "gen:types": "npx supabase gen types typescript --schema public > database.types.ts"
   },
   "dependencies": {
@@ -43,7 +44,10 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "postcss": "^8",
+    "prettier": "^3.8.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "supabase": "^2.76.16",
+    "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.2.1",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"

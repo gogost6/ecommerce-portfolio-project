@@ -15,7 +15,7 @@ export default function Breadcrumbs() {
   const segments = pathname.split("/").filter(Boolean);
 
   return (
-    <nav className="text-sm md:text-base text-gray-500 mb-4 px-4">
+    <nav className="mb-4 px-4 text-sm text-gray-500 md:text-base">
       <ol className="flex flex-wrap items-center gap-2">
         {segments.map((segment, index) => {
           const href = "/" + segments.slice(0, index + 1).join("/");
@@ -29,7 +29,7 @@ export default function Breadcrumbs() {
               ) : (
                 <Link
                   href={href}
-                  className="hover:text-black transition-colors"
+                  className="transition-colors hover:text-black"
                 >
                   {formatLabel(segment)}
                 </Link>

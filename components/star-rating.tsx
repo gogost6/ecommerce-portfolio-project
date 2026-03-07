@@ -19,7 +19,7 @@ export const StarRating = ({
             return (
               <Star
                 key={index}
-                className="w-4 h-4 md:w-5 md:h-5 text-yellow-500"
+                className="h-4 w-4 text-yellow-500 md:h-5 md:w-5"
               />
             );
           }
@@ -29,19 +29,19 @@ export const StarRating = ({
             return (
               <StarHalf
                 key={index}
-                className="w-4 h-4 md:w-5 md:h-5 text-yellow-500"
+                className="h-4 w-4 text-yellow-500 md:h-5 md:w-5"
               />
             );
           }
 
           // Empty star
           return (
-            <Star key={index} className="w-4 h-4 md:w-5 md:h-5 text-gray-300" />
+            <Star key={index} className="h-4 w-4 text-gray-300 md:h-5 md:w-5" />
           );
         })}
       </div>
 
-      <p className="text-xs md:text-sm text-gray-600">
+      <p className="text-xs text-gray-600 md:text-sm">
         {rating.toFixed(1)}/<span className="text-gray-500">5</span>
       </p>
     </div>

@@ -55,7 +55,7 @@ export const ProductsListing = async ({
   const { data: categories } = await supabase.from("categories").select("*");
 
   return (
-    <section className="max-w-7xl px-3 w-full flex gap-5">
+    <section className="flex w-full max-w-7xl gap-5 px-3">
       <ProductsListingFilters
         productTypes={productTypes}
         colors={colors}
@@ -63,7 +63,7 @@ export const ProductsListing = async ({
         categories={categories}
       />
       <div className="mx-auto w-fit">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
           {products.map((p) => {
             const img = images?.find((i) => i.product_id === p.id);
 
@@ -82,7 +82,7 @@ export const ProductsListing = async ({
         </div>
         <div className="mt-8 flex items-center justify-center gap-2">
           <Link
-            className={`px-3 py-2 rounded-lg border ${safePage <= 1 ? "pointer-events-none opacity-50" : ""}`}
+            className={`rounded-lg border px-3 py-2 ${safePage <= 1 ? "pointer-events-none opacity-50" : ""}`}
             href={pageHref(safePage - 1)}
           >
             Prev
@@ -94,7 +94,7 @@ export const ProductsListing = async ({
           </div>
 
           <Link
-            className={`px-3 py-2 rounded-lg border ${safePage >= totalPages ? "pointer-events-none opacity-50" : ""}`}
+            className={`rounded-lg border px-3 py-2 ${safePage >= totalPages ? "pointer-events-none opacity-50" : ""}`}
             href={pageHref(safePage + 1)}
           >
             Next

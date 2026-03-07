@@ -26,10 +26,10 @@ export const NavigationMenuMobile = ({
       >
         <Menu />
       </Button>
-      <div className="mobile-menu w-screen h-screen md:hidden z-10 transition-all -top-8 left-0 absolute opacity-0 -translate-x-full bg-white">
+      <div className="mobile-menu absolute -top-8 left-0 z-10 h-screen w-screen -translate-x-full bg-white opacity-0 transition-all md:hidden">
         <div className="flex flex-col gap-4 p-4">
-          <div className="flex flex-row justify-between items-center mt-4 mb-2">
-            <p className="font-black text-2xl">SHOP.CO</p>
+          <div className="mt-4 mb-2 flex flex-row items-center justify-between">
+            <p className="text-2xl font-black">SHOP.CO</p>
             <Button variant="ghost" size="icon" onClick={handleMenuToggle}>
               <X />
             </Button>

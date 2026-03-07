@@ -36,7 +36,7 @@ export default function Testimonials({
   return (
     <section className="mb-44">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex items-center justify-between mb-6 px-4">
+        <div className="mb-6 flex items-center justify-between px-4">
           <div>{title}</div>
           <div className="flex items-center gap-2">
             <Button

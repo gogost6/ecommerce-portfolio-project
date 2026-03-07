@@ -25,15 +25,15 @@ export const Navigation = async () => {
   const safeCategories = categories ?? [];
 
   return (
-    <nav className="flex justify-between items-center px-4 py-5 relative max-w-7xl mx-auto">
-      <div className="flex gap-2 items-center">
+    <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
+      <div className="flex items-center gap-2">
         <NavigationMenuMobile links={LINKS} />
-        <Link href={"/"} className="font-black text-2xl md:text-3xl">
+        <Link href={"/"} className="text-2xl font-black md:text-3xl">
           SHOP.CO
         </Link>
       </div>
 
-      <div className="hidden md:flex gap-6 items-center flex-1 justify-center">
+      <div className="hidden flex-1 items-center justify-center gap-6 md:flex">
         {LINKS.map((link) => {
           if (link.name === "Men") {
             return (
@@ -61,7 +61,7 @@ export const Navigation = async () => {
             <Link
               key={link.name}
               href={link.href}
-              className="text-base hover:underline underline-offset-4 font-light"
+              className="text-base font-light underline-offset-4 hover:underline"
             >
               {link.name}
             </Link>
@@ -69,12 +69,12 @@ export const Navigation = async () => {
         })}
       </div>
 
-      <div className="flex flex-row gap-1 text-2xl flex-1 justify-end">
+      <div className="flex flex-1 flex-row justify-end gap-1 text-2xl">
         <Button variant="ghost" size="icon" className="md:hidden">
           <Search />
         </Button>
 
-        <form className="max-w-[577px] w-full mx-4 hidden md:block">
+        <form className="mx-4 hidden w-full max-w-[577px] md:block">
           <Input
             startIcon={<Search size={24} />}
             placeholder="Search for products..."

@@ -49,16 +49,16 @@ const footerGroups = [
 
 export const Footer = () => {
   return (
-    <footer className="px-4 bg-gray-200 pt-48 md:pt-36 mt-44 pb-20 relative">
+    <footer className="relative mt-44 bg-gray-200 px-4 pt-48 pb-20 md:pt-36">
       <SubscribeToNewsletter />
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto max-w-7xl">
         <div className="md:hidden">
-          <h3 className="font-black text-3xl mb-3">SHOP.CO</h3>
-          <p className="text-sm text-gray-600 mb-5">
+          <h3 className="mb-3 text-3xl font-black">SHOP.CO</h3>
+          <p className="mb-5 text-sm text-gray-600">
             We have clothes that suits your style and which you’re proud to
             wear. From women to men.
           </p>
-          <div className="flex flex-row gap-3 mb-6">
+          <div className="mb-6 flex flex-row gap-3">
             <Button variant="outline" size="icon" asChild>
               <Link href="https://www.facebook.com/" target="_blank">
                 <Twitter />
@@ -81,16 +81,16 @@ export const Footer = () => {
             </Button>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-x-20 gap-y-12 md:flex md:justify-between mb-10">
+        <div className="mb-10 grid grid-cols-2 gap-x-20 gap-y-12 md:flex md:justify-between">
           <div className="hidden md:block">
-            <h3 className="font-black text-4xl mb-6 md:leading-5">SHOP.CO</h3>
-            <p className="text-sm text-gray-600 mb-9">
+            <h3 className="mb-6 text-4xl font-black md:leading-5">SHOP.CO</h3>
+            <p className="mb-9 text-sm text-gray-600">
               We have clothes that suits your style and{" "}
               <br className="hidden md:block" /> which you’re proud to wear.{" "}
               <br className="hidden md:block" />
               From women to men.
             </p>
-            <div className="flex flex-row gap-3 mb-6">
+            <div className="mb-6 flex flex-row gap-3">
               <Button variant="outline" size="icon" asChild>
                 <Link href="https://www.facebook.com/" target="_blank">
                   <Twitter />
@@ -115,13 +115,13 @@ export const Footer = () => {
           </div>
           {footerGroups.map((group) => (
             <div key={group.title}>
-              <h4 className="text-sm text-black mb-4 md:mb-6">{group.title}</h4>
+              <h4 className="mb-4 text-sm text-black md:mb-6">{group.title}</h4>
               <ul className="space-y-3">
                 {group.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-600 hover:text-gray-800 transition-colors"
+                      className="text-sm text-gray-600 transition-colors hover:text-gray-800"
                     >
                       {link.label}
                     </Link>
@@ -131,12 +131,12 @@ export const Footer = () => {
             </div>
           ))}
         </div>
-        <div className="h-px bg-gray-300 mb-4"></div>
-        <div className="flex flex-col justify-between md:flex-row mx-auto max-w-7xl">
-          <p className="text-sm text-gray-600 mb-4 text-center">
+        <div className="mb-4 h-px bg-gray-300"></div>
+        <div className="mx-auto flex max-w-7xl flex-col justify-between md:flex-row">
+          <p className="mb-4 text-center text-sm text-gray-600">
             Shop.co © 2000-2021, All rights reserved
           </p>
-          <div className="flex flex-row gap-2.5 justify-center items-center">
+          <div className="flex flex-row items-center justify-center gap-2.5">
             <Visa />
             <MasterCard />
             <Paypal />

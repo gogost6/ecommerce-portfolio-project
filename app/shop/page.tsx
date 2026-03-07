@@ -78,7 +78,7 @@ export default async function Page({
   const showingTo = Math.min(to + 1, total);
 
   return (
-    <section className="max-w-7xl px-3 relative">
+    <section className="relative max-w-7xl px-3">
       <ShopHeader
         title={"Home"}
         showingFrom={showingFrom}

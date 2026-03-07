@@ -9,7 +9,7 @@ export function ScreenDim() {
   return (
     <div
       className={cn(
-        "screen-dim fixed inset-0 bg-black/50 z-10 opacity-0 transition-opacity pointer-events-none",
+        "screen-dim pointer-events-none fixed inset-0 z-10 bg-black/50 opacity-0 transition-opacity",
         isOpen && "opacity-100",
       )}
     />

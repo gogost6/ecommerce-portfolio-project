@@ -48,7 +48,7 @@ export function NavigationCategoriesDropdown({
         <button
           onMouseEnter={openNow}
           onMouseLeave={closeSoon}
-          className="text-base hover:underline underline-offset-4 font-light flex items-center gap-1"
+          className="flex items-center gap-1 text-base font-light underline-offset-4 hover:underline"
         >
           {label} <ChevronDown size={12} />
         </button>

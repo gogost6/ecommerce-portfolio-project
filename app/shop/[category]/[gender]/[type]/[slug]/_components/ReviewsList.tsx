@@ -12,24 +12,24 @@ const formatDate = (iso: string) =>
 
 export function ReviewsList({ reviews }: { reviews: Review[] }) {
   return (
-    <div className="flex flex-col gap-4 md:gap-5 mb-5 md:grid md:grid-cols-2">
+    <div className="mb-5 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
       {reviews.length === 0 && (
-        <p className="text-gray-600 text-center col-span-full mt-4">
+        <p className="col-span-full mt-4 text-center text-gray-600">
           No reviews yet. Be the first to review this product!
         </p>
       )}
       {reviews.map((review) => (
         <div
           key={review.id}
-          className="border border-gray-100 rounded-lg p-4 md:px-8 md:py-7"
+          className="rounded-lg border border-gray-100 p-4 md:px-8 md:py-7"
         >
           <StarRating rating={review.rating} />
 
-          <div className="flex flex-row gap-1 items-center justify-center w-fit mt-3 md:mt-4 mb-2 md:mb-3">
+          <div className="mt-3 mb-2 flex w-fit flex-row items-center justify-center gap-1 md:mt-4 md:mb-3">
             <h4 className="text-lg font-bold md:text-xl">
               {review.reviewer_name}
             </h4>
-            <div className="w-5 h-5 bg-green-500 relative rounded-full">
+            <div className="relative h-5 w-5 rounded-full bg-green-500">
               <Check
                 size={10}
                 color="white"
@@ -38,8 +38,8 @@ export function ReviewsList({ reviews }: { reviews: Review[] }) {
             </div>
           </div>
 
-          <p className="text-gray-600 text-base mb-4 md:mb-6">{review.body}</p>
-          <span className="font-medium text-base text-gray-600">
+          <p className="mb-4 text-base text-gray-600 md:mb-6">{review.body}</p>
+          <span className="text-base font-medium text-gray-600">
             Posted on {formatDate(review.created_at)}
           </span>
         </div>

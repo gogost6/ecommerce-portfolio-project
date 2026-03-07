@@ -12,9 +12,9 @@ export function Sizes({
   isSizeOutOfStock: (sizeId: number) => boolean;
 }) {
   return (
-    <div className="flex flex-col gap-4 mb-6">
-      <p className="text-gray-600 text-sm md:text-base">Choose size</p>
-      <div className="flex flex-row gap-3 flex-wrap">
+    <div className="mb-6 flex flex-col gap-4">
+      <p className="text-sm text-gray-600 md:text-base">Choose size</p>
+      <div className="flex flex-row flex-wrap gap-3">
         {sizes.map((s) => {
           const active = s.id === selectedSizeId;
           return (

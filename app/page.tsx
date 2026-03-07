@@ -12,13 +12,13 @@ export default function Home() {
       <Brands />
       <Suspense
         fallback={
-          <div className="h-96 flex items-center justify-center">
+          <div className="flex h-96 items-center justify-center">
             Loading...
           </div>
         }
       >
         <ProductsScroll title="NEW ARRIVALS" type="new-arrivals" />
-        <div className="h-px bg-gray-100 mx-4"></div>
+        <div className="mx-4 h-px bg-gray-100"></div>
         <ProductsScroll title="TOP SELLING" type="top-selling" />
         <StylesBoxes />
         <TestimonialsSection />

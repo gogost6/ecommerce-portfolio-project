@@ -52,7 +52,7 @@ const StyleBox = ({
     <Link
       href={`/shop/${slug}`}
       className={cn(
-        "h-48 md:h-72 w-full relative cursor-pointer group overflow-hidden",
+        "group relative h-48 w-full cursor-pointer overflow-hidden md:h-72",
         colClass,
       )}
     >
@@ -62,11 +62,11 @@ const StyleBox = ({
         fill
         sizes="(min-width: 1024px) 50vw, 100vw"
         className={cn(
-          "object-cover w-full h-full rounded-lg transition group-hover:scale-105",
+          "h-full w-full rounded-lg object-cover transition group-hover:scale-105",
           imgClass,
         )}
       />
-      <p className="font-bold text-2xl absolute left-6 top-4">{name}</p>
+      <p className="absolute top-4 left-6 text-2xl font-bold">{name}</p>
     </Link>
   );
 };
@@ -80,12 +80,12 @@ export const StylesBoxes = async () => {
     .order("created_at");
 
   return (
-    <section className="mx-4 px-6 md:px-16 pt-10 pb-7 md:py-16 rounded-2xl bg-gray-200 mb-12 max-w-7xl md:mx-auto">
-      <h3 className="font-black text-3xl md:text-5xl mb-7 md:mb-16 text-center">
+    <section className="mx-4 mb-12 max-w-7xl rounded-2xl bg-gray-200 px-6 pt-10 pb-7 md:mx-auto md:px-16 md:py-16">
+      <h3 className="mb-7 text-center text-3xl font-black md:mb-16 md:text-5xl">
         BROWSE BY DRESS STYLE
       </h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-5">
         {categories?.map((category) => {
           const ui = categoryUIConfig[category.slug];
 

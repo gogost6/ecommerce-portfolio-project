@@ -121,7 +121,7 @@ export function Reviews({
       {canLoadMore && (
         <Button
           variant={"outline"}
-          className="block mx-auto mb-12"
+          className="mx-auto mb-12 block"
           onClick={loadMoreReviews}
           disabled={loadingMore}
         >
