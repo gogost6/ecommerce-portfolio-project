@@ -141,7 +141,7 @@ export function ProductsListingFilters({
 
       <div
         className={cn(
-          "pointer-events-none absolute left-0 z-20 max-h-[85vh] w-full translate-y-full transform overflow-y-auto rounded-t-2xl bg-white p-5 pt-0 pb-8 opacity-0 shadow-lg md:pointer-events-auto md:relative md:block md:max-w-80 md:translate-y-0 md:rounded-lg md:border md:border-gray-100 md:opacity-100 md:shadow-none",
+          "scrollbar-thin pointer-events-none absolute left-0 z-20 max-h-[85vh] w-full translate-y-full transform overflow-y-auto rounded-t-2xl bg-white p-5 pt-0 pb-8 opacity-0 shadow-lg md:pointer-events-auto md:relative md:block md:max-w-80 md:translate-y-0 md:rounded-lg md:border md:border-gray-100 md:opacity-100 md:shadow-none",
           {
             "pointer-events-auto -translate-y-16 opacity-100":
               isOpen && isMobile,
