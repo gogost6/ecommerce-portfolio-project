@@ -84,7 +84,7 @@ export default async function Page({
   const title = "Home";
 
   return (
-    <section className="relative max-w-7xl px-3">
+    <section className="relative mx-auto max-w-7xl px-3">
       <ShopHeader
         title={title}
         showingFrom={showingFrom}

@@ -96,7 +96,7 @@ export default async function Page({
   const title = category ? capitalize(category) : "All Products";
 
   return (
-    <section className="relative max-w-7xl px-3">
+    <section className="relative mx-auto max-w-7xl px-3">
       <ShopHeader
         title={capitalize(category)}
         showingFrom={showingFrom}

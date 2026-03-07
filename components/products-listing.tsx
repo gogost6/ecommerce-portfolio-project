@@ -63,7 +63,7 @@ export const ProductsListing = async ({
   const { data: categories } = await supabase.from("categories").select("*");
 
   return (
-    <section className="flex w-full max-w-7xl gap-5 px-3">
+    <section className="flex w-full gap-5 px-3">
       <ProductsListingFilters
         productTypes={productTypes}
         colors={colors}
