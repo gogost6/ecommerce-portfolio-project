@@ -16,6 +16,12 @@ type ProductsListingFiltersProps = {
   categories: { id: number; name: string; slug: string }[] | null;
 };
 
+type FilterSectionProps = {
+  title: string;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+};
+
 function toggleId(list: number[], id: number) {
   return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
 }
@@ -38,10 +44,12 @@ export function ProductsListingFilters({
   const [price, setPrice] = useState<number[]>([0, 500]);
 
   useEffect(() => {
-    setSelectedTypes(parseIds(searchParams.get("types")));
-    setSelectedCategories(parseIds(searchParams.get("categories")));
-    setSelectedColors(parseIds(searchParams.get("colors")));
-    setSelectedSizes(parseIds(searchParams.get("sizes")));
+    setSelectedTypes(parseIds(searchParams.get("types") ?? undefined));
+    setSelectedCategories(
+      parseIds(searchParams.get("categories") ?? undefined),
+    );
+    setSelectedColors(parseIds(searchParams.get("colors") ?? undefined));
+    setSelectedSizes(parseIds(searchParams.get("sizes") ?? undefined));
 
     const min = Number(searchParams.get("min") ?? 0);
     const max = Number(searchParams.get("max") ?? 500);
@@ -142,119 +150,155 @@ export function ProductsListingFilters({
           </div>
           <div className="h-[1px] bg-gray-100 mt-5"></div>
         </div>
-        <div className="flex flex-col gap-5 justify-between items-center mb-6">
-          {productTypes?.map((type) => (
-            <div key={type.id} className="flex items-center gap-2 w-full">
-              <Checkbox
-                id={`type-${type.id}`}
-                checked={selectedTypes.includes(type.id)}
-                onCheckedChange={() =>
-                  setSelectedTypes((prev) => toggleId(prev, type.id))
-                }
-              />
-              <label
-                htmlFor={`type-${type.id}`}
-                className="text-base text-gray-600 cursor-pointer"
-              >
-                {type.name}
-              </label>
-            </div>
-          ))}
-        </div>
-        <div className="h-[1px] bg-gray-100 mb-5" />
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold text-xl">Price</h2>
-          <ChevronDown size={16} />
-        </div>
 
-        <div className="mb-6">
-          <Slider.Root
-            value={price}
-            min={0}
-            max={500}
-            step={1}
-            onValueChange={setPrice}
-            className="relative flex w-full touch-none select-none items-center h-6"
-          >
-            <Slider.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-gray-200">
-              <Slider.Range className="absolute h-full rounded-full bg-black" />
-            </Slider.Track>
-
-            <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-sm transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
-            <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-sm transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
-          </Slider.Root>
-          <div className="flex items-center justify-between mt-4">
-            <span className="text-sm font-medium pl-9">${price[0]}</span>
-            <span className="text-sm font-medium pr-9">${price[1]}</span>
+        <FilterSection title="Types">
+          <div className="flex flex-col gap-5 justify-between items-center">
+            {productTypes?.map((type) => (
+              <div key={type.id} className="flex items-center gap-2 w-full">
+                <Checkbox
+                  id={`type-${type.id}`}
+                  checked={selectedTypes.includes(type.id)}
+                  onCheckedChange={() =>
+                    setSelectedTypes((prev) => toggleId(prev, type.id))
+                  }
+                />
+                <label
+                  htmlFor={`type-${type.id}`}
+                  className="text-base text-gray-600 cursor-pointer"
+                >
+                  {type.name}
+                </label>
+              </div>
+            ))}
           </div>
-        </div>
-        <div className="h-[1px] bg-gray-100 mb-5"></div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold text-xl">Colors</h2>
-          <ChevronDown size={16} />
-        </div>
-        <div className="flex gap-4 flex-wrap mb-6">
-          {colors?.map((color) => (
-            <button
-              key={color.id}
-              type="button"
-              className={cn(
-                "w-8 h-8 rounded-full ring-1 ring-gray-200",
-                selectedColors.includes(color.id) && "ring-2 ring-black",
-              )}
-              style={{ backgroundColor: color.hex }}
-              onClick={() =>
-                setSelectedColors((prev) => toggleId(prev, color.id))
-              }
-            />
-          ))}
-        </div>
-        <div className="h-[1px] bg-gray-100 mb-5"></div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold text-xl">Size</h2>
-          <ChevronDown size={16} />
-        </div>
-        <div className="flex gap-2 flex-wrap mb-5">
-          {sizes?.map((size) => (
-            <Button
-              key={size.id}
-              variant={
-                selectedSizes.includes(size.id) ? "default" : "secondary"
-              }
-              size="sm"
-              onClick={() =>
-                setSelectedSizes((prev) => toggleId(prev, size.id))
-              }
+        </FilterSection>
+
+        <FilterSection title="Price">
+          <div>
+            <Slider.Root
+              value={price}
+              min={0}
+              max={500}
+              step={1}
+              onValueChange={setPrice}
+              className="relative flex w-full touch-none select-none items-center h-6"
             >
-              {size.name}
-            </Button>
-          ))}
-        </div>
-        <div className="h-[1px] bg-gray-100 mb-5"></div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold text-xl">Dress Style</h2>
-          <ChevronDown size={16} />
-        </div>
-        <div className="flex flex-col gap-5 justify-between items-center mb-6">
-          {categories?.map((cat) => (
-            <div key={cat.id} className="flex items-center gap-2 w-full">
-              <Checkbox
-                id={`cat-${cat.id}`}
-                checked={selectedCategories.includes(cat.id)}
-                onCheckedChange={() =>
-                  setSelectedCategories((prev) => toggleId(prev, cat.id))
+              <Slider.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-gray-200">
+                <Slider.Range className="absolute h-full rounded-full bg-black" />
+              </Slider.Track>
+
+              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-sm transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
+              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-sm transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
+            </Slider.Root>
+
+            <div className="flex items-center justify-between mt-4">
+              <span className="text-sm font-medium pl-9">${price[0]}</span>
+              <span className="text-sm font-medium pr-9">${price[1]}</span>
+            </div>
+          </div>
+        </FilterSection>
+
+        <FilterSection title="Colors">
+          <div className="flex gap-4 flex-wrap">
+            {colors?.map((color) => (
+              <button
+                key={color.id}
+                type="button"
+                aria-label={color.name}
+                className={cn(
+                  "w-8 h-8 rounded-full ring-1 ring-gray-200",
+                  selectedColors.includes(color.id) && "ring-2 ring-black",
+                )}
+                style={{ backgroundColor: color.hex }}
+                onClick={() =>
+                  setSelectedColors((prev) => toggleId(prev, color.id))
                 }
               />
-              <label
-                htmlFor={`cat-${cat.id}`}
-                className="text-base text-gray-600 cursor-pointer"
+            ))}
+          </div>
+        </FilterSection>
+
+        <FilterSection title="Size">
+          <div className="flex gap-2 flex-wrap">
+            {sizes?.map((size) => (
+              <Button
+                key={size.id}
+                type="button"
+                variant={
+                  selectedSizes.includes(size.id) ? "default" : "secondary"
+                }
+                size="sm"
+                onClick={() =>
+                  setSelectedSizes((prev) => toggleId(prev, size.id))
+                }
               >
-                {cat.name}
-              </label>
-            </div>
-          ))}
-        </div>
+                {size.name}
+              </Button>
+            ))}
+          </div>
+        </FilterSection>
+
+        <FilterSection title="Dress Style" defaultOpen={false}>
+          <div className="flex flex-col gap-5 justify-between items-center">
+            {categories?.map((cat) => (
+              <div key={cat.id} className="flex items-center gap-2 w-full">
+                <Checkbox
+                  id={`cat-${cat.id}`}
+                  checked={selectedCategories.includes(cat.id)}
+                  onCheckedChange={() =>
+                    setSelectedCategories((prev) => toggleId(prev, cat.id))
+                  }
+                />
+                <label
+                  htmlFor={`cat-${cat.id}`}
+                  className="text-base text-gray-600 cursor-pointer"
+                >
+                  {cat.name}
+                </label>
+              </div>
+            ))}
+          </div>
+        </FilterSection>
       </div>
     </>
+  );
+}
+
+function FilterSection({
+  title,
+  children,
+  defaultOpen = true,
+}: FilterSectionProps) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="flex w-full items-center justify-between mb-4 text-left"
+      >
+        <h2 className="font-bold text-xl">{title}</h2>
+        <ChevronDown
+          size={16}
+          className={cn("transition-transform duration-200", {
+            "rotate-180": isOpen,
+          })}
+        />
+      </button>
+
+      <div
+        className={cn(
+          "grid transition-all duration-200 ease-in-out",
+          isOpen
+            ? "grid-rows-[1fr] opacity-100 mb-6"
+            : "grid-rows-[0fr] opacity-0",
+        )}
+      >
+        <div className="overflow-hidden">{children}</div>
+      </div>
+
+      <div className="h-[1px] bg-gray-100 mb-5" />
+    </div>
   );
 }
