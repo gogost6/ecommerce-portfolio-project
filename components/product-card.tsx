@@ -27,7 +27,7 @@ export const ProductCard = ({
   const href = `/shop/${categories.slug}/${gender}/${product_types.slug}/${slug}`;
 
   return (
-    <div className="flex-shrink-0 max-w-48 md:max-w-72">
+    <div className="shrink-0 max-w-48 md:max-w-72">
       <Link href={href}>
         <Image
           src={url}

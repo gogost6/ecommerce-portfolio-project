@@ -167,7 +167,7 @@ export function ProductsListingFilters({
               Clear
             </Button>
           </div>
-          <div className="h-[1px] bg-gray-100 mt-5"></div>
+          <div className="h-px bg-gray-100 mt-5"></div>
         </div>
 
         <FilterSection title="Types">
@@ -206,8 +206,8 @@ export function ProductsListingFilters({
                 <Slider.Range className="absolute h-full rounded-full bg-black" />
               </Slider.Track>
 
-              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-sm transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
-              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-sm transition hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
+              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-xs transition hover:scale-105 focus-visible:outline-hidden focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
+              <Slider.Thumb className="block h-5 w-5 rounded-full bg-black shadow-xs transition hover:scale-105 focus-visible:outline-hidden focus-visible:ring-4 focus-visible:ring-black/20 disabled:pointer-events-none disabled:opacity-50" />
             </Slider.Root>
 
             <div className="flex items-center justify-between mt-4">
@@ -317,7 +317,7 @@ function FilterSection({
         <div className="overflow-hidden">{children}</div>
       </div>
 
-      <div className="h-[1px] bg-gray-100 mb-5" />
+      <div className="h-px bg-gray-100 mb-5" />
     </div>
   );
 }

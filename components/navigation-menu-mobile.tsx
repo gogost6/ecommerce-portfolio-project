@@ -12,7 +12,7 @@ export const NavigationMenuMobile = ({
     const menu = document.querySelector(".mobile-menu");
     if (menu) {
       menu.classList.toggle("opacity-0");
-      menu.classList.toggle("translate-x-[-100%]");
+      menu.classList.toggle("-translate-x-full");
     }
   };
 
@@ -26,7 +26,7 @@ export const NavigationMenuMobile = ({
       >
         <Menu />
       </Button>
-      <div className="mobile-menu w-screen h-screen md:hidden z-10 transition-all -top-8 left-0 absolute opacity-0 translate-x-[-100%] bg-white">
+      <div className="mobile-menu w-screen h-screen md:hidden z-10 transition-all -top-8 left-0 absolute opacity-0 -translate-x-full bg-white">
         <div className="flex flex-col gap-4 p-4">
           <div className="flex flex-row justify-between items-center mt-4 mb-2">
             <p className="font-black text-2xl">SHOP.CO</p>

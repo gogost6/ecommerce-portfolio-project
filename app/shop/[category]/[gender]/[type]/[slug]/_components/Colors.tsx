@@ -21,7 +21,7 @@ export function Colors({
               type="button"
               onClick={() => setSelectedColorId(c.id)}
               className={[
-                "w-8 h-8 rounded-full border-2 transition-colors focus:outline-none flex items-center justify-center",
+                "w-8 h-8 rounded-full border-2 transition-colors focus:outline-hidden flex items-center justify-center",
                 active
                   ? "border-gray-900"
                   : "border-gray-300 hover:border-gray-600",

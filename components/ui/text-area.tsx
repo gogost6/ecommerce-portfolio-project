@@ -26,7 +26,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             ref={ref}
             aria-invalid={!!error}
             className={cn(
-              "flex min-h-[100px] w-full rounded-md border bg-transparent py-2 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none",
+              "flex min-h-[100px] w-full rounded-md border bg-transparent py-2 text-base shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none",
               startIcon ? "pl-10 pr-3" : "px-3",
               !error && "border-input focus-visible:ring-ring",
               error && "border-red-500 focus-visible:ring-red-500",

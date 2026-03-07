@@ -53,7 +53,7 @@ export function ReviewsHeader({
           <DropdownMenuTrigger asChild>
             <Button variant={"outline"} className="hidden md:inline-flex">
               {mapping[option]}
-              <ArrowDown className="!w-4 !h-4" />
+              <ArrowDown className="w-4! h-4!" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>

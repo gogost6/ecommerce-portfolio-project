@@ -31,7 +31,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
   return (
     <section className="w-full max-w-4xl md:flex md:flex-row-reverse md:gap-4">
       {/* Main image */}
-      <div className="relative mx-auto aspect-[1/1] w-full md:h-[530px] md:aspect-auto">
+      <div className="relative mx-auto aspect-square w-full md:h-132.5 md:aspect-auto">
         <Image
           src={activeImage!.url}
           alt={activeImage!.alt || "Product image"}

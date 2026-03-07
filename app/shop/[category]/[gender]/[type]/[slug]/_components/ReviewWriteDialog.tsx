@@ -114,7 +114,7 @@ export function ReviewWriteDialog({ productId }: Props) {
 
                   <DropdownMenuContent
                     align="start"
-                    className="w-[var(--radix-dropdown-menu-trigger-width)]"
+                    className="w-(--radix-dropdown-menu-trigger-width)"
                   >
                     <DropdownMenuLabel>Choose rating</DropdownMenuLabel>
                     <DropdownMenuSeparator />

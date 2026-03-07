@@ -154,7 +154,7 @@ export default function ProductDetailsClient({
 
       {colors.length > 0 && (
         <>
-          <div className="h-[1px] bg-gray-100 mb-6" />
+          <div className="h-px bg-gray-100 mb-6" />
           <Colors
             colors={colors}
             selectedColorId={selectedColorId}
@@ -164,7 +164,7 @@ export default function ProductDetailsClient({
       )}
       {sizes.length > 0 && (
         <>
-          <div className="h-[1px] bg-gray-100 mb-6" />
+          <div className="h-px bg-gray-100 mb-6" />
           <Sizes
             sizes={sizes}
             selectedSizeId={selectedSizeId}
@@ -174,7 +174,7 @@ export default function ProductDetailsClient({
         </>
       )}
 
-      <div className="h-[1px] bg-gray-100 mb-6" />
+      <div className="h-px bg-gray-100 mb-6" />
       <AddToCard
         qty={qty}
         incQty={incQty}

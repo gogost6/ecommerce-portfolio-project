@@ -131,7 +131,7 @@ export const Footer = () => {
             </div>
           ))}
         </div>
-        <div className="h-[1px] bg-gray-300 mb-4"></div>
+        <div className="h-px bg-gray-300 mb-4"></div>
         <div className="flex flex-col justify-between md:flex-row mx-auto max-w-7xl">
           <p className="text-sm text-gray-600 mb-4 text-center">
             Shop.co © 2000-2021, All rights reserved

@@ -32,7 +32,7 @@ export const Hero = () => {
                   International Brands
                 </p>
               </div>
-              <div className="w-[1px] self-stretch bg-gray-200"></div>
+              <div className="w-px self-stretch bg-gray-200"></div>
               <div>
                 <p className="font-black md:font-bold text-2xl md:text-4xl">
                   2,000+
@@ -42,7 +42,7 @@ export const Hero = () => {
                 </p>
               </div>
             </div>
-            <div className="hidden md:block w-[1px] self-stretch bg-gray-200 mx-7"></div>
+            <div className="hidden md:block w-px self-stretch bg-gray-200 mx-7"></div>
             <div>
               <p className="font-black md:font-bold text-2xl md:text-4xl">
                 30,000+
