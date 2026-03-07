@@ -19,8 +19,7 @@ export default function Breadcrumbs() {
     <nav className="mx-auto mb-4 max-w-7xl px-4 text-sm text-gray-500 md:text-base">
       <ol className="flex flex-wrap items-center gap-2">
         {segments.map((segment, index) => {
-          let href = "/" + segments.slice(0, index + 1).join("/");
-          if (href === "/home") href = "/";
+          const href = "/" + segments.slice(1, index + 1).join("/");
           const isLast = index === segments.length - 1;
 
           return (
