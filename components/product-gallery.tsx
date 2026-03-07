@@ -15,6 +15,15 @@ type ProductGalleryProps = {
 
 export default function ProductGallery({ images }: ProductGalleryProps) {
   const sortedImages = [...images].sort((a, b) => a.sort_order - b.sort_order);
+  if (sortedImages.length === 0) {
+    sortedImages.push({
+      id: 0,
+      url: "https://tmfbysibhlpkahvvpoeu.supabase.co/storage/v1/object/public/shop.me/default-product.jpg",
+      alt: "Default product image",
+      sort_order: 0,
+      is_primary: true,
+    });
+  }
   const primary = sortedImages.find((img) => img.is_primary) || sortedImages[0];
   const [active, setActive] = useState(primary.id);
   const activeImage = useMemo(
