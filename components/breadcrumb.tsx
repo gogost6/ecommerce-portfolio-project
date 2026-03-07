@@ -13,12 +13,14 @@ export default function Breadcrumbs() {
   if (!pathname) return null;
 
   const segments = pathname.split("/").filter(Boolean);
+  segments.unshift("home");
 
   return (
-    <nav className="mb-4 px-4 text-sm text-gray-500 md:text-base">
+    <nav className="mx-auto mb-4 max-w-7xl px-4 text-sm text-gray-500 md:text-base">
       <ol className="flex flex-wrap items-center gap-2">
         {segments.map((segment, index) => {
-          const href = "/" + segments.slice(0, index + 1).join("/");
+          let href = "/" + segments.slice(0, index + 1).join("/");
+          if (href === "/home") href = "/";
           const isLast = index === segments.length - 1;
 
           return (
