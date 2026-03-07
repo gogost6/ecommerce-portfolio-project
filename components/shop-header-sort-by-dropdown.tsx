@@ -44,7 +44,7 @@ export function ShopHeaderSortByDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="flex items-center justify-center gap-2 text-base font-medium">
+        <div className="flex cursor-pointer items-center justify-center gap-2 text-base font-medium">
           {mapping[selected]}
           <ArrowDown className="h-4! w-4!" />
         </div>
