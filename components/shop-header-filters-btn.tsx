@@ -8,7 +8,12 @@ export function ShopHeaderFiltersBtn() {
   const { toggle } = useFiltersOpenerStore();
 
   return (
-    <Button variant={"secondary"} size={"icon"} onClick={toggle}>
+    <Button
+      variant={"secondary"}
+      size={"icon"}
+      onClick={toggle}
+      className="md:hidden"
+    >
       <SlidersVertical />
     </Button>
   );

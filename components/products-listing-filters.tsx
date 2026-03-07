@@ -3,7 +3,7 @@
 import { cn, parseIds } from "@/lib/utils";
 import { useFiltersOpenerStore } from "@/store/filters-opener-store";
 import * as Slider from "@radix-ui/react-slider";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, SlidersVertical, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
@@ -42,6 +42,20 @@ export function ProductsListingFilters({
   const [selectedColors, setSelectedColors] = useState<number[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<number[]>([]);
   const [price, setPrice] = useState<number[]>([0, 500]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setSelectedTypes(parseIds(searchParams.get("types") ?? undefined));
@@ -59,6 +73,7 @@ export function ProductsListingFilters({
 
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
+    setIsMobile(isMobile);
 
     if (!isMobile) return;
 
@@ -117,7 +132,7 @@ export function ProductsListingFilters({
 
   return (
     <>
-      {isOpen && (
+      {isOpen && isMobile && (
         <div
           className="fixed inset-0 bg-black/40 z-10 md:hidden"
           onClick={() => setIsOpen(false)}
@@ -126,8 +141,11 @@ export function ProductsListingFilters({
 
       <div
         className={cn(
-          "p-5 pt-0 pb-8 bg-white pointer-events-none rounded-t-2xl opacity-0 absolute z-20 w-full left-0 transform translate-y-full shadow-lg max-h-[85vh] overflow-y-auto",
-          { "-translate-y-16 opacity-100 pointer-events-auto": isOpen },
+          "p-5 pt-0 pb-8 bg-white pointer-events-none rounded-t-2xl opacity-0 absolute z-20 w-full left-0 transform translate-y-full shadow-lg max-h-[85vh] overflow-y-auto md:block md:relative md:translate-y-0 md:shadow-none md:max-w-80 md:pointer-events-auto md:opacity-100 md:border md:rounded-lg md:border-gray-100",
+          {
+            "-translate-y-16 opacity-100 pointer-events-auto":
+              isOpen && isMobile,
+          },
         )}
       >
         <div className="sticky top-0 bg-white z-30 pt-5 mb-5">
@@ -136,8 +154,9 @@ export function ProductsListingFilters({
             <X
               size={24}
               onClick={() => setIsOpen(false)}
-              className="cursor-pointer"
+              className="cursor-pointer md:hidden"
             />
+            <SlidersVertical className="hidden md:block text-gray-600" />
           </div>
 
           <div className="flex gap-2">
