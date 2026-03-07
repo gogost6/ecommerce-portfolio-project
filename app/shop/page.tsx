@@ -26,6 +26,7 @@ export default async function Page({
   const categories = parseIds(sp?.categories);
   const minPrice = getFirst(sp?.min) ? Number(getFirst(sp?.min)) : null;
   const maxPrice = getFirst(sp?.max) ? Number(getFirst(sp?.max)) : null;
+  const sort = getFirst(sp?.sort) || "latest";
 
   let filteredProductIds: number[] | null = null;
 
@@ -64,6 +65,10 @@ export default async function Page({
     )
     .eq("is_active", true);
 
+  if (sort === "latest") query.order("created_at", { ascending: false });
+  if (sort === "oldest") query.order("created_at", { ascending: true });
+  if (sort === "highest") query.order("rating", { ascending: false });
+  if (sort === "lowest") query.order("rating", { ascending: true });
   if (filteredProductIds) query.in("id", filteredProductIds);
   if (categories.length) query.in("categories.id", categories);
   if (types.length) query.in("product_types.id", types);
