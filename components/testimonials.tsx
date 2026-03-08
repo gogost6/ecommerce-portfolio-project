@@ -27,7 +27,7 @@ export default async function TestimonialsSection() {
           key={i}
           className="flex flex-[0_0_100%] px-4 md:flex-[0_0_33.333%]"
         >
-          <div className="h-full rounded-[32px] border border-gray-200 bg-white p-8 sm:p-10">
+          <div className="h-full w-full rounded-4xl border border-gray-200 bg-white p-8 sm:p-10">
             <StarRating rating={t.rating} className="mb-5" />
             <div className="mb-4 flex items-center gap-3">
               <p className="text-2xl font-bold">{t.name}</p>
