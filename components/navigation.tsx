@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CartBadge } from "./cart-badge";
 import { NavigationCategoriesDropdown } from "./navigation-categories-dropdown";
 import { NavigationMenuMobile } from "./navigation-menu-mobile";
-import { ProductSearch } from "./product-search";
+import { ProductSearch } from "./product-search/product-search";
 import { Button } from "./ui/button";
 
 const LINKS = [
