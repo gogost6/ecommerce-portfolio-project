@@ -83,7 +83,7 @@ export function ProductSearch() {
   }, [query]);
 
   return (
-    <div ref={wrapperRef}>
+    <div ref={wrapperRef} className="flex gap-2">
       <Button variant="ghost" size="icon" className="md:hidden">
         <Search />
       </Button>
