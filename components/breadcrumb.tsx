@@ -16,7 +16,7 @@ export default function Breadcrumbs() {
   segments.unshift("home");
 
   return (
-    <nav className="mx-auto mb-4 max-w-7xl px-4 text-sm text-gray-500 md:text-base">
+    <nav className="mx-auto mt-5 mb-4 max-w-7xl px-4 text-sm text-gray-500 md:mt-6 md:text-base">
       <ol className="flex flex-wrap items-center gap-2">
         {segments.map((segment, index) => {
           const href = "/" + segments.slice(1, index + 1).join("/");
