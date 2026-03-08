@@ -21,9 +21,10 @@ export const ProductCard = ({
   slug,
   gender,
 }: ProductCardProps) => {
-  const discountPercentage = discounted_price
-    ? Math.round(((price - discounted_price) / price) * 100)
-    : null;
+  const discountPercentage =
+    discounted_price && discounted_price < price
+      ? Math.round(((price - discounted_price) / price) * 100)
+      : null;
   const href = `/shop/${categories.slug}/${gender}/${product_types.slug}/${slug}`;
 
   return (
@@ -39,8 +40,8 @@ export const ProductCard = ({
       </Link>
       <h3 className="mb-1 text-base font-bold md:mb-2 md:text-xl">{title}</h3>
       <StarRating rating={rating} />
-      {discounted_price ? (
-        <div className="mt-1 flex items-center justify-start gap-2.5 text-xl font-bold md:mt-2 md:text-2xl">
+      {discountPercentage && discountPercentage > 0 ? (
+        <div className="mt-1 flex flex-wrap items-center justify-start gap-2.5 text-xl font-bold md:mt-2 md:text-2xl">
           <span>${discounted_price}</span>
           <span className="text-gray-500 line-through">${price}</span>{" "}
           <Badge variant={"red"}>-{discountPercentage}%</Badge>
