@@ -10,9 +10,20 @@ import { toast } from "react-toastify";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
+type ProductSearchResult = {
+  id: number;
+  title: string;
+  price: number;
+  gender: string;
+  slug: string;
+  categories: { slug: string };
+  product_types: { slug: string };
+  product_images: { url: string; alt: string | null; is_primary: boolean }[];
+};
+
 export function ProductSearch() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<ProductSearchResult[]>([]);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -32,19 +43,19 @@ export function ProductSearch() {
     };
   }, []);
 
-  const onSubmit = async (e: React.SubmitEvent) => {
-    e.preventDefault();
-
+  useEffect(() => {
     if (!query.trim()) {
       setResults([]);
       return;
     }
 
-    const supabase = createClient();
-    const { data, error } = await supabase
-      .from("products")
-      .select(
-        `
+    const timer = setTimeout(async () => {
+      const supabase = createClient();
+
+      const { data, error } = await supabase
+        .from("products")
+        .select(
+          `
           id,
           title,
           price,
@@ -58,15 +69,18 @@ export function ProductSearch() {
             is_primary
           )
         `,
-      )
-      .textSearch("title", query);
+        )
+        .ilike("title", `%${query}%`);
 
-    if (data) {
-      setResults(data);
-    } else if (error) {
-      toast.error("An error occurred while searching for products.");
-    }
-  };
+      if (data) {
+        setResults(data);
+      } else if (error) {
+        toast.error("An error occurred while searching for products.");
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [query]);
 
   return (
     <div ref={wrapperRef}>
@@ -74,10 +88,7 @@ export function ProductSearch() {
         <Search />
       </Button>
 
-      <form
-        className="relative mx-4 hidden w-full max-w-144.25 md:block"
-        onSubmit={onSubmit}
-      >
+      <div className="relative mx-4 hidden w-full max-w-144.25 md:block">
         <Input
           startIcon={<Search size={24} />}
           placeholder="Search for products..."
@@ -107,12 +118,12 @@ export function ProductSearch() {
               <div className="flex gap-2">
                 <Image
                   src={
-                    result.product_images?.find((img: any) => img.is_primary)
-                      ?.url || DEFAULT_PRODUCT_IMAGE_URL
+                    result.product_images?.find((img) => img.is_primary)?.url ||
+                    DEFAULT_PRODUCT_IMAGE_URL
                   }
                   alt={
-                    result.product_images?.find((img: any) => img.is_primary)
-                      ?.alt || "Placeholder"
+                    result.product_images?.find((img) => img.is_primary)?.alt ||
+                    "Placeholder"
                   }
                   width={64}
                   height={64}
@@ -128,7 +139,7 @@ export function ProductSearch() {
             </Link>
           ))}
         </div>
-      </form>
+      </div>
     </div>
   );
 }
