@@ -1,11 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
-import { CircleUser, Search, ShoppingCart } from "lucide-react";
+import { CircleUser, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { CartBadge } from "./cart-badge";
 import { NavigationCategoriesDropdown } from "./navigation-categories-dropdown";
 import { NavigationMenuMobile } from "./navigation-menu-mobile";
+import { ProductSearch } from "./product-search";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 
 const LINKS = [
   { name: "Shop", href: "/shop" },
@@ -70,18 +70,7 @@ export const Navigation = async () => {
       </div>
 
       <div className="flex flex-1 flex-row justify-end gap-1 text-2xl">
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Search />
-        </Button>
-
-        <form className="mx-4 hidden w-full max-w-[577px] md:block">
-          <Input
-            startIcon={<Search size={24} />}
-            placeholder="Search for products..."
-            name="search"
-          />
-        </form>
-
+        <ProductSearch />
         <Button variant="ghost" size="icon" asChild className="relative">
           <Link href="/cart" className="relative">
             <ShoppingCart />
