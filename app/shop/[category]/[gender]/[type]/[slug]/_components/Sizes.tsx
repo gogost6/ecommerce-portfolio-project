@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function Sizes({
   sizes,
@@ -23,7 +24,10 @@ export function Sizes({
               variant={active ? "default" : "outline"}
               onClick={() => setSelectedSizeId(s.id)}
               disabled={isSizeOutOfStock(s.id)}
-              className={isSizeOutOfStock(s.id) ? "line-through" : ""}
+              className={cn(
+                "h-9.75! w-9.75! rounded-full text-sm md:h-11.5! md:w-11.5! md:text-base",
+                isSizeOutOfStock(s.id) ? "line-through" : "",
+              )}
             >
               {s.name}
             </Button>
