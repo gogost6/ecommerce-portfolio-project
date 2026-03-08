@@ -99,7 +99,7 @@ export function CartClient({ initialItems }: CartClientProps) {
       <h1 className="text-3xl font-black">Cart</h1>
 
       <div className="flex flex-col gap-5 md:flex-row">
-        <div className="flex shrink-0 flex-col gap-4 rounded-xl border border-gray-100 p-3.5 md:w-178.75 md:gap-6">
+        <div className="flex flex-col gap-4 rounded-xl border border-gray-100 p-3.5 md:w-1/2 md:shrink-0 md:gap-6 lg:w-178.75">
           {items.map((item, index) => (
             <div key={item.id} className="flex flex-col gap-4">
               <CartItem
