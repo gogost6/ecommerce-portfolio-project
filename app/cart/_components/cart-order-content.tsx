@@ -98,14 +98,16 @@ export function CartOrderContent({
           </p>
         </div>
 
-        <div className="flex items-center justify-between text-base md:text-xl">
-          <p className="text-gray-600">
-            Discount (-{calculatedValues.discountPercentage}%)
-          </p>
-          <p className="font-bold text-red-500">
-            -${Number(calculatedValues.finalDiscount).toFixed(2)}
-          </p>
-        </div>
+        {calculatedValues.discountPercentage > 0 && (
+          <div className="flex items-center justify-between text-base md:text-xl">
+            <p className="text-gray-600">
+              Discount (-{calculatedValues.discountPercentage}%)
+            </p>
+            <p className="font-bold text-red-500">
+              -${Number(calculatedValues.finalDiscount).toFixed(2)}
+            </p>
+          </div>
+        )}
 
         <div
           className={cn(
