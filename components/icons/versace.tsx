@@ -2,8 +2,6 @@ export const Versace = ({ className }: { className?: string }) => {
   return (
     <svg
       className={className}
-      width="117"
-      height="24"
       viewBox="0 0 117 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -2,8 +2,6 @@ export const Zara = ({ className }: { className?: string }) => {
   return (
     <svg
       className={className}
-      width="64"
-      height="27"
       viewBox="0 0 64 27"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
