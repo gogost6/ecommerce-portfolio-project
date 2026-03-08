@@ -1,3 +1,4 @@
+import { QuantityBtns } from "@/components/quantity-btns";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { useCartStore } from "@/store/cart-store";
@@ -38,27 +39,7 @@ export function AddToCard({
 
   return (
     <div className="flex items-stretch justify-center gap-3">
-      <div className="flex items-stretch rounded-2xl bg-gray-100">
-        <button
-          type="button"
-          onClick={decQty}
-          className="flex items-center px-4 text-2xl"
-          aria-label="Decrease quantity"
-        >
-          -
-        </button>
-
-        <span className="flex items-center px-3">{qty}</span>
-
-        <button
-          type="button"
-          onClick={incQty}
-          className="flex items-center px-4 text-2xl"
-          aria-label="Increase quantity"
-        >
-          +
-        </button>
-      </div>
+      <QuantityBtns qty={qty} incQty={incQty} decQty={decQty} />
 
       <Button
         className="flex-1"

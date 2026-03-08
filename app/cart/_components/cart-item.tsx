@@ -1,5 +1,6 @@
 "use client";
 
+import { QuantityBtns } from "@/components/quantity-btns";
 import { Trash } from "lucide-react";
 import Image from "next/image";
 import { CartItemProps } from "../types";
@@ -60,27 +61,11 @@ export function CartItem({
             ${Number(price).toFixed(2)}
           </p>
 
-          <div className="flex items-stretch rounded-2xl bg-gray-100">
-            <button
-              type="button"
-              onClick={onDecrease}
-              className="flex items-center px-4 text-base disabled:cursor-not-allowed disabled:opacity-50 md:text-xl"
-              aria-label="Decrease quantity"
-            >
-              -
-            </button>
-            <span className="flex items-center px-3 text-sm font-medium">
-              {quantity}
-            </span>
-            <button
-              type="button"
-              onClick={onIncrease}
-              className="flex items-center px-4 text-base disabled:cursor-not-allowed disabled:opacity-50 md:text-xl"
-              aria-label="Increase quantity"
-            >
-              +
-            </button>
-          </div>
+          <QuantityBtns
+            qty={quantity}
+            incQty={onIncrease}
+            decQty={onDecrease}
+          />
         </div>
       </div>
     </div>
