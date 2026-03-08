@@ -24,6 +24,7 @@ export const Navigation = async () => {
 
   return (
     <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
+      <div className="absolute -bottom-1 left-1/2 w-[calc(100%-2rem)] -translate-1/2 transform border-b border-gray-100" />
       <div className="flex items-center gap-2">
         <NavigationMenuMobile links={LINKS} />
         <Link href={"/"} className="text-2xl font-black md:text-3xl">
