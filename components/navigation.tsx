@@ -11,8 +11,6 @@ const LINKS = [
   { name: "Shop", href: "/shop" },
   { name: "Men", href: "#" },
   { name: "Women", href: "#" },
-  { name: "About", href: "#" },
-  { name: "Contact", href: "#" },
 ];
 
 export const Navigation = async () => {
