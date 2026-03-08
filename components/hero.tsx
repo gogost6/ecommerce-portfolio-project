@@ -17,10 +17,10 @@ export const Hero = () => {
             style.
           </p>
           <Button asChild className="mb-5 w-full md:hidden">
-            <Link href="/products">Shop Now</Link>
+            <Link href="/shop">Shop Now</Link>
           </Button>
-          <Button className="mb-12 hidden w-52 md:block" size={"lg"}>
-            <Link href="/products">Shop Now</Link>
+          <Button className="mb-12 hidden w-52 md:flex" size={"lg"} asChild>
+            <Link href="/shop">Shop Now</Link>
           </Button>
           <div className="flex flex-col items-center justify-center md:flex-row md:justify-start">
             <div className="mb-3 flex items-center gap-7 md:mb-0">
