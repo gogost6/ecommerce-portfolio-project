@@ -8,7 +8,7 @@ export const Hero = () => {
     <section className="bg-gray-100">
       <div className="mx-auto flex max-w-7xl flex-col md:flex-row">
         <div className="px-4 pt-10 md:flex md:h-163.25 md:w-1/2 md:flex-col md:justify-center md:pt-0">
-          <h1 className="mb-5 text-4xl leading-14 font-black md:mb-8 md:text-6xl">
+          <h1 className="mb-5 text-4xl leading-8 font-black md:mb-8 md:text-6xl md:leading-14">
             FIND CLOTHES THAT MATCHES YOUR STYLE
           </h1>
           <p className="mb-6 text-sm text-gray-600 md:mb-8 md:text-base">
@@ -16,10 +16,11 @@ export const Hero = () => {
             designed to bring out your individuality and cater to your sense of
             style.
           </p>
-          <Button asChild className="mb-5 w-full md:hidden">
-            <Link href="/shop">Shop Now</Link>
-          </Button>
-          <Button className="mb-12 hidden w-52 md:flex" size={"lg"} asChild>
+          <Button
+            asChild
+            className="mb-5 w-full shrink-0 md:mb-12 md:flex md:w-52"
+            size={"lg"}
+          >
             <Link href="/shop">Shop Now</Link>
           </Button>
           <div className="flex flex-col items-center justify-center md:flex-row md:justify-start">
