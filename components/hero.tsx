@@ -7,8 +7,8 @@ export const Hero = () => {
   return (
     <section className="bg-gray-100">
       <div className="mx-auto flex max-w-7xl flex-col md:flex-row">
-        <div className="px-4 pt-10 md:flex md:h-[653px] md:w-1/2 md:flex-col md:justify-center md:pt-0">
-          <h1 className="mb-5 text-4xl leading-8 font-black md:mb-8 md:text-6xl">
+        <div className="px-4 pt-10 md:flex md:h-163.25 md:w-1/2 md:flex-col md:justify-center md:pt-0">
+          <h1 className="mb-5 text-4xl leading-14 font-black md:mb-8 md:text-6xl">
             FIND CLOTHES THAT MATCHES YOUR STYLE
           </h1>
           <p className="mb-6 text-sm text-gray-600 md:mb-8 md:text-base">
