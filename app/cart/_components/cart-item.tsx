@@ -25,7 +25,7 @@ export function CartItem({
   onIncrease,
 }: CartItemComponentProps) {
   return (
-    <div className={`flex gap-3.5 ${isPending ? "opacity-60" : "opacity-100"}`}>
+    <div className="flex gap-3.5">
       <Image
         src={src}
         alt={alt}
@@ -64,7 +64,6 @@ export function CartItem({
             <button
               type="button"
               onClick={onDecrease}
-              disabled={isPending}
               className="flex items-center px-4 text-base disabled:cursor-not-allowed disabled:opacity-50 md:text-xl"
               aria-label="Decrease quantity"
             >
@@ -76,7 +75,6 @@ export function CartItem({
             <button
               type="button"
               onClick={onIncrease}
-              disabled={isPending}
               className="flex items-center px-4 text-base disabled:cursor-not-allowed disabled:opacity-50 md:text-xl"
               aria-label="Increase quantity"
             >
