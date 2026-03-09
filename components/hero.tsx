@@ -7,7 +7,7 @@ export const Hero = () => {
   return (
     <section className="bg-gray-100">
       <div className="mx-auto flex max-w-7xl flex-col md:flex-row">
-        <div className="px-4 pt-10 md:flex md:h-163.25 md:w-1/2 md:flex-col md:justify-center md:pt-0">
+        <div className="px-4 pt-10 md:flex md:h-full md:w-1/2 md:flex-col md:justify-center md:p-10 lg:h-163.25 lg:p-0 lg:pt-0">
           <h1 className="mb-5 text-4xl leading-8 font-black md:mb-8 md:text-6xl md:leading-14">
             FIND CLOTHES THAT MATCHES YOUR STYLE
           </h1>
@@ -54,7 +54,7 @@ export const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="relative md:w-full">
+        <div className="relative overflow-hidden md:w-full">
           <Star className="absolute top-36 left-10 md:top-72 md:left-40 md:h-14 md:w-14" />
           <Star className="absolute top-16 right-10 md:h-28 md:w-28" />
           <Image

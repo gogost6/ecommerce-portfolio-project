@@ -37,8 +37,8 @@ export const SubscribeToNewsletter = () => {
   }, [state]);
 
   return (
-    <section className="absolute -top-34.25 mx-4 max-w-7xl rounded-xl bg-black px-6 py-10 md:-top-24 md:left-1/2 md:mx-0 md:flex md:w-full md:-translate-x-1/2 md:transform md:items-center md:px-16 md:py-11">
-      <h3 className="mb-8 text-3xl font-black text-white md:mb-0 md:text-5xl">
+    <section className="absolute -top-34.25 left-1/2 w-11/12 max-w-7xl -translate-x-1/2 transform rounded-xl bg-black px-6 py-10 md:-top-24 md:flex md:items-center md:px-16 md:py-11">
+      <h3 className="mb-8 text-3xl font-black text-white md:mb-0 lg:text-4xl xl:text-5xl">
         STAY UPTO DATE ABOUT <br className="hidden md:block" /> OUR LATEST
         OFFERS
       </h3>

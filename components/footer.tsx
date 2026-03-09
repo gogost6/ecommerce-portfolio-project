@@ -52,7 +52,7 @@ export const Footer = () => {
     <footer className="relative mt-44 bg-gray-200 px-4 pt-48 pb-20 md:pt-36">
       <SubscribeToNewsletter />
       <div className="mx-auto max-w-7xl">
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <h3 className="mb-3 text-3xl font-black">SHOP.CO</h3>
           <p className="mb-5 text-sm text-gray-600">
             We have clothes that suits your style and which you’re proud to
@@ -81,8 +81,8 @@ export const Footer = () => {
             </Button>
           </div>
         </div>
-        <div className="mb-10 grid grid-cols-2 gap-x-20 gap-y-12 md:flex md:justify-between">
-          <div className="hidden md:block">
+        <div className="mb-10 grid grid-cols-2 gap-x-20 gap-y-12 md:grid-cols-4 lg:grid-cols-5">
+          <div className="hidden lg:block">
             <h3 className="mb-6 text-4xl font-black md:leading-5">SHOP.CO</h3>
             <p className="mb-9 text-sm text-gray-600">
               We have clothes that suits your style and{" "}
