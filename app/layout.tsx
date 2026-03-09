@@ -4,6 +4,7 @@ import { Navigation } from "@/components/navigation";
 import { PromoBar } from "@/components/promo-bar";
 import { ScreenDim } from "@/components/screen-dim";
 import ToastProvider from "@/components/toast-provider";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist } from "next/font/google";
@@ -48,6 +49,7 @@ export default function RootLayout({
           </ToastProvider>
         </ThemeProvider>
         <CartSessionInit />
+        <Analytics />
       </body>
     </html>
   );
