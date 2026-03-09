@@ -2,9 +2,15 @@ import { ProductsListing } from "@/components/products-listing";
 import ShopHeader from "@/components/shop-header";
 import { createClient } from "@/lib/supabase/server";
 import { getFirst, parseIds } from "@/lib/utils";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 const PAGE_SIZE = 6;
+
+export const metadata: Metadata = {
+  title: "Shop",
+  description: "Browse our collection of products",
+};
 
 export default async function Page({
   searchParams,

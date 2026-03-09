@@ -5,6 +5,11 @@ import { CartClient } from "./_components/cart-client";
 import { EmptyCart } from "./_components/empty-cart";
 import { CartItemProps } from "./types";
 
+export const metadata = {
+  title: "Your Cart",
+  description: "Review the items in your cart and proceed to checkout",
+};
+
 export default async function Page() {
   const cookiesStore = await cookies();
   const supabase = await createClient();

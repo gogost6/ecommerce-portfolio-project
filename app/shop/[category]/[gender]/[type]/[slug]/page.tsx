@@ -1,11 +1,64 @@
 import ProductGallery from "@/components/product-gallery";
 import { ProductsScroll } from "@/components/products-scroll";
 import { createClient } from "@/lib/supabase/server";
+import { DEFAULT_PRODUCT_IMAGE_URL } from "@/lib/utils";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductTabs } from "./_components/ProductTabs";
 import ProductDetailsClient from "./product-details.client";
 
 export const REVIEWS_PAGE_SIZE = 4;
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> => {
+  const { slug } = await params;
+
+  const supabase = await createClient();
+
+  const { data: product } = await supabase
+    .from("products")
+    .select("title, description, product_images ( url, alt )")
+    .eq("slug", slug)
+    .eq("is_active", true)
+    .single();
+
+  if (!product) {
+    return {
+      title: "Product not found",
+      description: "The product you are looking for does not exist.",
+    };
+  }
+
+  const images = product.product_images.map((img) => ({
+    url: img.url,
+    alt: img.alt || product.title,
+  }));
+
+  if (images.length === 0) {
+    images.push({
+      url: `${DEFAULT_PRODUCT_IMAGE_URL}`,
+      alt: "Default product image",
+    });
+  }
+
+  return {
+    title: product.title,
+    description: product.description,
+    openGraph: {
+      title: product.title,
+      description: product.description || "Product from our shop",
+      images,
+    },
+    twitter: {
+      title: product.title,
+      description: product.description || "Product from our shop",
+      images,
+    },
+  };
+};
 
 export default async function Page({
   params,
@@ -27,6 +80,11 @@ export default async function Page({
       discounted_price,
       percent_discount,
       description,
+      gender,
+      created_at,
+      updated_at,
+      categories!inner ( slug ),
+      product_types!inner ( slug ),
       product_images (
         id,
         url,
@@ -81,18 +139,39 @@ export default async function Page({
     .eq("is_verified_purchase", true)
     .eq("is_published", true);
 
+  const defaultUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
+
   return (
-    <div className="mx-auto w-full max-w-7xl px-4">
-      <div className="mb-12 md:flex md:gap-10">
-        <ProductGallery images={product.product_images} />
-        <ProductDetailsClient product={product} />
-      </div>
-      <ProductTabs
-        initialReviews={initialReviews ?? []}
-        reviewsCount={reviewsCount ?? 0}
-        productId={product.id}
+    <>
+      <script
+        id="ld-json"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: product.title,
+            description: product.description,
+            url: `${defaultUrl}/shop/${product.categories.slug}/${product.gender}/${product.product_types.slug}/${slug}`,
+            datePublished: product.created_at,
+            dateModified: product.updated_at,
+          }),
+        }}
       />
-      <ProductsScroll title="YOU MIGHT ALSO LIKE" type="new-arrivals" />
-    </div>
+      <div className="mx-auto w-full max-w-7xl px-4">
+        <div className="mb-12 md:flex md:gap-10">
+          <ProductGallery images={product.product_images} />
+          <ProductDetailsClient product={product} />
+        </div>
+        <ProductTabs
+          initialReviews={initialReviews ?? []}
+          reviewsCount={reviewsCount ?? 0}
+          productId={product.id}
+        />
+        <ProductsScroll title="YOU MIGHT ALSO LIKE" type="new-arrivals" />
+      </div>
+    </>
   );
 }

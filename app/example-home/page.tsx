@@ -9,6 +9,11 @@ import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export const metadata = {
+  title: "Home",
+  description: "Welcome to the Next.js Supabase Starter!",
+};
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center">

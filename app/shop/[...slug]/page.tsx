@@ -6,6 +6,21 @@ import { notFound } from "next/navigation";
 
 const PAGE_SIZE = 6;
 
+export const generateMetadata = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) => {
+  const sp = await searchParams;
+  const category = getFirst(sp?.categories);
+  const title = category ? capitalize(category) : "All Products";
+
+  return {
+    title,
+    description: `Browse our collection of ${title.toLowerCase()} in our shop`,
+  };
+};
+
 export default async function Page({
   params,
   searchParams,

@@ -1,6 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Suspense } from "react";
 
+export const metadata = {
+  title: "Authentication Error",
+  description: "An error occurred during authentication. Please try again.",
+};
+
 async function ErrorContent({
   searchParams,
 }: {

@@ -16,8 +16,29 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  alternates: {
+    canonical: "/",
+  },
+  title: {
+    default: "G. Stoilkov Showcase Project",
+    template: "%s | G. Stoilkov Showcase Project",
+  },
+  description:
+    "Ecommerce shop built with Next.js 16, Supabase, and Tailwind CSS by Georgi Stoilkov",
+  openGraph: {
+    title: "G. Stoilkov Showcase Project",
+    type: "website",
+    description:
+      "Ecommerce shop built with Next.js 16, Supabase, and Tailwind CSS by Georgi Stoilkov",
+    url: defaultUrl,
+    siteName: "G. Stoilkov Showcase Project",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "G. Stoilkov Showcase Project",
+    description:
+      "Ecommerce shop built with Next.js 16, Supabase, and Tailwind CSS by Georgi Stoilkov",
+  },
 };
 
 const geistSans = Geist({

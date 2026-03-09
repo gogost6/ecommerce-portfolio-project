@@ -6,6 +6,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+export const metadata = {
+  title: "Sign Up Successful",
+  description:
+    "Your account has been created successfully. You can now log in.",
+};
+
 export default function Page() {
   return (
     <div className="min-h-svh-minus-nav flex w-full items-center justify-center p-6 md:p-10">
