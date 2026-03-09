@@ -1,3 +1,40 @@
+## Implementation Notice
+
+I have **fully implemented the following Figma design** using **Next.js, Tailwind CSS, Supabase, and shadcn/ui**.
+
+🎨 Figma Design  
+https://www.figma.com/community/file/1273571982885059508
+
+🚀 Live Demo (Hosted on Vercel)  
+https://ecommerce-portfolio-project-dusky.vercel.app/
+
+The implementation includes:
+
+- Full responsive UI
+- Authentication with Supabase
+- Product listing
+- Product variants (sizes, colors)
+- Reviews system
+- Cart functionality
+- Filters and search
+- Pagination
+- Tailwind CSS + radix-ui
+- Modern Next.js App Router architecture
+
+---
+
+### Contact
+
+If you are interested in **working with me or hiring me for a project**, feel free to contact me:
+
+📧 Email  
+g.stoilkov.business@gmail.com
+
+💼 Upwork  
+https://www.upwork.com/freelancers/~0149ed77663b79b6eb
+
+---
+
 <a href="https://demo-nextjs-with-supabase.vercel.app/">
   <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
   <h1 align="center">Next.js and Supabase Starter Kit</h1>
