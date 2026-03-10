@@ -21,6 +21,27 @@ The implementation includes:
 - Tailwind CSS + radix-ui
 - Modern Next.js App Router architecture
 
+## Database
+
+The project uses PostgreSQL via Supabase.
+
+Features:
+
+- relational product schema
+- product variants
+- cart system
+- review system
+- Row Level Security (RLS)
+- SQL functions for cart logic
+
+Database structure can be found in:
+
+/database
+
+Migration history is stored in:
+
+/supabase/migrations
+
 ---
 
 ### Contact
