@@ -1,6 +1,6 @@
 ## Implementation Notice
 
-I have **fully implemented the following Figma design** using **Next.js, Tailwind CSS, Supabase, and shadcn/ui**.
+I have **fully implemented the following Figma design** using **Next.js, Tailwind CSS, Supabase, and radix-ui**.
 
 🎨 Figma Design  
 https://www.figma.com/community/file/1273571982885059508
