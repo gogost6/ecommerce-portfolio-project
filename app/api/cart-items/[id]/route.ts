@@ -1,8 +1,7 @@
 import { db } from "@/drizzle";
-import { cartItems, carts } from "@/drizzle/schema";
-import { createClient } from "@/lib/supabase/server";
+import { cartItems } from "@/drizzle/schema";
+import { getActiveCart } from "@/lib/serverUtils";
 import { and, eq } from "drizzle-orm";
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 type RouteContext = {
@@ -12,27 +11,7 @@ type RouteContext = {
 };
 
 async function getOwnedCartItemIdOrNull(cartItemId: number) {
-  const supabase = await createClient();
-  const cookiesStore = await cookies();
-
-  const userId = (await supabase.auth.getUser()).data?.user?.id;
-  const sessionId = cookiesStore.get("cart_session_id")?.value;
-
-  const cartOwnerCondition = sessionId
-    ? and(eq(carts.isActive, true), eq(carts.sessionId, sessionId))
-    : userId
-      ? and(eq(carts.isActive, true), eq(carts.userId, userId))
-      : null;
-
-  if (!cartOwnerCondition) {
-    return null;
-  }
-
-  const [cart] = await db
-    .select({ id: carts.id })
-    .from(carts)
-    .where(cartOwnerCondition)
-    .limit(1);
+  const cart = await getActiveCart();
 
   if (!cart) {
     return null;

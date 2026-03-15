@@ -1,17 +1,15 @@
 import { db } from "@/drizzle";
 import {
   cartItems,
-  carts,
   colors,
   productImages,
   products,
   productVariants,
   sizes,
 } from "@/drizzle/schema";
-import { createClient } from "@/lib/supabase/server";
+import { getActiveCart } from "@/lib/serverUtils";
 import { DEFAULT_PRODUCT_IMAGE_URL } from "@/lib/utils";
-import { and, eq, inArray } from "drizzle-orm";
-import { cookies } from "next/headers";
+import { eq, inArray } from "drizzle-orm";
 import { CartClient } from "./_components/cart-client";
 import { EmptyCart } from "./_components/empty-cart";
 import { CartItemProps } from "./types";
@@ -22,26 +20,7 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const cookiesStore = await cookies();
-  const supabase = await createClient();
-  const userId = (await supabase.auth.getUser()).data?.user?.id;
-  const sessionId = cookiesStore.get("cart_session_id")?.value;
-
-  const cartCondition = sessionId
-    ? and(eq(carts.sessionId, sessionId), eq(carts.isActive, true))
-    : userId
-      ? and(eq(carts.userId, userId), eq(carts.isActive, true))
-      : null;
-
-  if (!cartCondition) {
-    return <EmptyCart />;
-  }
-
-  const [cart] = await db
-    .select({ id: carts.id })
-    .from(carts)
-    .where(cartCondition)
-    .limit(1);
+  const cart = await getActiveCart();
 
   if (!cart) {
     return <EmptyCart />;

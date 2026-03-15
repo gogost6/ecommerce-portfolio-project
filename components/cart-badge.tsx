@@ -1,6 +1,5 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
 import { useCartStore } from "@/store/cart-store";
 import { useEffect } from "react";
 
@@ -12,24 +11,12 @@ export function CartBadge() {
     let cancelled = false;
 
     const fetchCartItems = async () => {
-      const supabase = createClient();
-
-      const { data, error } = await supabase
-        .from("cart_items")
-        .select("quantity");
-
       if (cancelled) return;
 
-      if (error) {
-        // keep badge hidden if error
-        setCount(0);
-        return;
-      }
+      const res = await fetch("/api/cart-items/count");
+      const data = await res.json();
+      const total = data?.count ?? 0;
 
-      const total = (data ?? []).reduce(
-        (sum, row) => sum + (row.quantity ?? 0),
-        0,
-      );
       setCount(total);
     };
 
