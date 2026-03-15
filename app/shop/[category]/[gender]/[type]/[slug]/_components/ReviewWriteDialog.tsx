@@ -1,5 +1,6 @@
 "use client";
 
+import { submitProductReview } from "@/actions/submit-product-reviews";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,10 +12,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/text-area";
-import { createClient } from "@/lib/supabase/client";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { toast } from "react-toastify";
 
 type Props = {
@@ -22,60 +22,46 @@ type Props = {
 };
 
 export function ReviewWriteDialog({ productId }: Props) {
-  const supabase = createClient();
-
   const [rating, setRating] = useState(5);
   const [body, setBody] = useState("");
-  const [loading, setLoading] = useState(false);
   const [bodyError, setBodyError] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const handleSubmit = async () => {
     setBodyError(null);
 
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      toast("Please sign in to write a review.", { type: "error" });
-      return;
-    }
-
-    if (!body) {
+    if (!body.trim()) {
       setBodyError("Review body is required");
       toast("Please write your review", { type: "error" });
       return;
     }
 
-    try {
-      setLoading(true);
-
-      const { error } = await supabase.from("product_reviews").insert({
-        product_id: productId,
-        user_id: user.id,
-        reviewer_name: user.user_metadata?.fullName ?? user.email ?? "User",
-        reviewer_email: user.email,
+    startTransition(async () => {
+      const result = await submitProductReview({
+        productId,
         rating,
         body,
-        is_verified_purchase: false,
-        is_published: false,
       });
 
-      if (error) throw error;
+      if (!result.ok) {
+        if (result.error === "Review body is required") {
+          setBodyError(result.error);
+        }
+
+        toast(result.error, { type: "error" });
+        return;
+      }
 
       toast("Review submitted!", { type: "success" });
       setRating(5);
       setBody("");
-    } catch (err) {
-      console.error(err);
-      toast("Something went wrong", { type: "error" });
-    } finally {
-      setLoading(false);
-    }
+      setOpen(false);
+    });
   };
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
         <Button>Write a Review</Button>
       </Dialog.Trigger>
@@ -141,8 +127,8 @@ export function ReviewWriteDialog({ productId }: Props) {
               error={bodyError}
             />
 
-            <Button onClick={handleSubmit} disabled={loading}>
-              {loading ? "Submitting..." : "Submit Review"}
+            <Button onClick={handleSubmit} disabled={isPending}>
+              {isPending ? "Submitting..." : "Submit Review"}
             </Button>
           </div>
         </Dialog.Content>
