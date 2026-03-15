@@ -55,6 +55,7 @@ export function CartClient({ initialItems }: CartClientProps) {
   const deleteItem = async (id: number) => {
     const previousItems = items;
 
+    decBy(items.find((item) => item.id === id)?.quantity ?? 0);
     setItems((curr) => curr.filter((item) => item.id !== id));
     setItemPending(id, true);
 
