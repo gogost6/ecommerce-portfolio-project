@@ -3,7 +3,7 @@ import {
   ProductsListing,
 } from "@/components/products-listing";
 import ShopHeader from "@/components/shop-header";
-import { db } from "@/db";
+import { db } from "@/drizzle";
 import {
   categories,
   products,

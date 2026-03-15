@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { db } from "@/drizzle";
 import { testimonials } from "@/drizzle/schema";
 import { desc } from "drizzle-orm";
 import { CircleCheck } from "lucide-react";

@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { db } from "@/drizzle";
 import { productReviews } from "@/drizzle/schema";
 import { and, asc, desc, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";

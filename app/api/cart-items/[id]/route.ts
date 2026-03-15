@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { db } from "@/drizzle";
 import { cartItems, carts } from "@/drizzle/schema";
 import { createClient } from "@/lib/supabase/server";
 import { and, eq } from "drizzle-orm";

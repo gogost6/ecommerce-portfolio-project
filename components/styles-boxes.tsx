@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { db } from "@/drizzle";
 import { categories } from "@/drizzle/schema";
 import { cn } from "@/lib/utils";
 import { asc } from "drizzle-orm";

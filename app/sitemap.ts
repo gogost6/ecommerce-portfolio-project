@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { db } from "@/drizzle";
 import { categories, products, productTypes } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 import type { MetadataRoute } from "next";

@@ -1,6 +1,6 @@
 import ProductGallery from "@/components/product-gallery";
 import { ProductsScroll } from "@/components/products-scroll";
-import { db } from "@/db";
+import { db } from "@/drizzle";
 import { productReviews } from "@/drizzle/schema";
 import { DEFAULT_PRODUCT_IMAGE_URL } from "@/lib/utils";
 import { and, count, eq } from "drizzle-orm";
