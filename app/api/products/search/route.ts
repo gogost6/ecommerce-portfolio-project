@@ -2,8 +2,6 @@ import { db } from "@/drizzle";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
-  console.log("GET");
-
   const { searchParams } = new URL(req.url);
   const q = searchParams.get("q")?.trim() ?? "";
 
