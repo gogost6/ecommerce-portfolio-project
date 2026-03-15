@@ -1,4 +1,6 @@
-import { createClient } from "@/lib/supabase/server";
+import { db } from "@/db";
+import { categories } from "@/drizzle/schema";
+import { asc } from "drizzle-orm";
 import { CircleUser, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { CartBadge } from "./cart-badge";
@@ -14,13 +16,8 @@ const LINKS = [
 ];
 
 export const Navigation = async () => {
-  const supabase = await createClient();
-  const { data: categories } = await supabase
-    .from("categories")
-    .select("slug, name")
-    .order("name", { ascending: true });
-
-  const safeCategories = categories ?? [];
+  const cats = await db.select().from(categories).orderBy(asc(categories.name));
+  const safeCategories = cats ?? [];
 
   return (
     <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-5">

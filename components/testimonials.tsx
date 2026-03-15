@@ -1,14 +1,15 @@
-import { createClient } from "@/lib/supabase/server";
+import { db } from "@/db";
+import { testimonials } from "@/drizzle/schema";
+import { desc } from "drizzle-orm";
 import { CircleCheck } from "lucide-react";
 import { StarRating } from "./star-rating";
 import Testimonials from "./testimonials.client";
 
 export default async function TestimonialsSection() {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("testimonials")
+  const data = await db
     .select()
-    .order("created_at", { ascending: false })
+    .from(testimonials)
+    .orderBy(desc(testimonials.createdAt))
     .limit(6);
 
   if (!data) return null;
@@ -31,7 +32,7 @@ export default async function TestimonialsSection() {
             <StarRating rating={t.rating} className="mb-5" />
             <div className="mb-4 flex items-center gap-3">
               <p className="text-2xl font-bold">{t.name}</p>
-              {t.is_verified && (
+              {t.isVerified && (
                 <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-500">
                   <CircleCheck className="h-5 w-5 text-white" />
                 </span>

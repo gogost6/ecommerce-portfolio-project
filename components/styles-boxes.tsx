@@ -1,5 +1,7 @@
-import { createClient } from "@/lib/supabase/server";
+import { db } from "@/db";
+import { categories } from "@/drizzle/schema";
 import { cn } from "@/lib/utils";
+import { asc } from "drizzle-orm";
 import Link from "next/link";
 import { ImageWithSkeleton } from "./image-with-skeleton";
 
@@ -71,12 +73,10 @@ const StyleBox = ({
 };
 
 export const StylesBoxes = async () => {
-  const supabase = await createClient();
-
-  const { data: categories } = await supabase
-    .from("categories")
-    .select("*")
-    .order("created_at");
+  const cats = await db
+    .select()
+    .from(categories)
+    .orderBy(asc(categories.createdAt));
 
   return (
     <section className="mx-4 mb-12 max-w-7xl rounded-2xl bg-gray-200 px-6 pt-10 pb-7 md:mx-auto md:px-16 md:py-16">
@@ -85,7 +85,7 @@ export const StylesBoxes = async () => {
       </h3>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-5">
-        {categories?.map((category) => {
+        {cats?.map((category) => {
           const ui = categoryUIConfig[category.slug];
 
           if (!ui) return null; // skip if no UI config
