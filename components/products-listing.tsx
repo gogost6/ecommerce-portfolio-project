@@ -1,17 +1,21 @@
-import { Database } from "@/database.types";
+import { categories, products, productTypes } from "@/drizzle/schema";
 import { createClient } from "@/lib/supabase/server";
 import { DEFAULT_PRODUCT_IMAGE_URL } from "@/lib/utils";
+import { InferSelectModel } from "drizzle-orm";
 import Link from "next/link";
 import { ProductCard } from "./product-card";
 import { ProductsListingFilters } from "./products-listing-filters";
 import ShopHeader from "./shop-header";
 
-export type ProductCardParams =
-  Database["public"]["Tables"]["products"]["Row"] & {
-    alt?: string;
-    product_types: { slug: string };
-    categories: { slug: string };
-  };
+type ProductRow = InferSelectModel<typeof products>;
+type CategoryRow = InferSelectModel<typeof categories>;
+type ProductTypeRow = InferSelectModel<typeof productTypes>;
+
+export type ProductCardParams = ProductRow & {
+  alt?: string;
+  productType: Pick<ProductTypeRow, "slug">;
+  category: Pick<CategoryRow, "slug">;
+};
 
 type ProductsListingProps = {
   header: {

@@ -33,25 +33,25 @@ export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
   const formattedProducts = rows.map(
     (row) =>
       ({
-        rating: +row.products.rating,
-        price: +row.products.price,
-        discounted_price: Number(row.products.discountedPrice),
-        is_active: row.products.isActive,
-        category_type_id: row.products.categoryTypeId,
-        created_at: row.products.createdAt,
+        rating: row.products.rating,
+        price: row.products.price,
+        discountedPrice: row.products.discountedPrice,
+        isActive: row.products.isActive,
+        categoryTypeId: row.products.categoryTypeId,
+        createdAt: row.products.createdAt,
         description: row.products.description,
         gender: row.products.gender,
         id: row.products.id,
         title: row.products.title,
-        percent_discount: Number(row.products.percentDiscount || 0),
-        product_type_id: row.products.productTypeId,
+        percentDiscount: row.products.percentDiscount,
+        productTypeId: row.products.productTypeId,
         slug: row.products.slug,
-        updated_at: row.products.updatedAt,
+        updatedAt: row.products.updatedAt,
         alt: row.products.title,
-        product_types: {
+        productType: {
           slug: row.product_types?.slug || "",
         },
-        categories: {
+        category: {
           slug: row.categories?.slug || "",
         },
       }) satisfies ProductCardParams,
