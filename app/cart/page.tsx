@@ -47,35 +47,6 @@ export default async function Page() {
     return <EmptyCart />;
   }
 
-  const { data } = await supabase
-    .from("cart_items")
-    .select(
-      `
-        id,
-        quantity,
-        price_at_time,
-        product_variants (
-          id,
-          price,
-          sizes (
-            name
-          ),
-          colors (
-            name
-          ),
-          products (
-            title,
-            product_images (
-              url,
-              alt,
-              is_primary
-            )
-          )
-        )
-      `,
-    )
-    .eq("cart_id", cart.id);
-
   const cartRows = await db
     .select({
       id: cartItems.id,
@@ -115,7 +86,7 @@ export default async function Page() {
         .where(inArray(productImages.productId, productIds))
     : [];
 
-  if (!data || data.length === 0) {
+  if (!cartRows || cartRows.length === 0) {
     return <EmptyCart />;
   }
 
