@@ -1,5 +1,6 @@
 "use client";
 
+import { useCartStore } from "@/store/cart-store";
 import { useMemo, useState } from "react";
 import { CartItemProps } from "../types";
 import { CartItem } from "./cart-item";
@@ -13,6 +14,8 @@ type CartClientProps = {
 export function CartClient({ initialItems }: CartClientProps) {
   const [items, setItems] = useState<CartItemProps[]>(initialItems);
   const [pendingIds, setPendingIds] = useState<number[]>([]);
+  const incBy = useCartStore((s) => s.incBy);
+  const decBy = useCartStore((s) => s.decBy);
 
   const setItemPending = (id: number, pending: boolean) => {
     setPendingIds((curr) =>
@@ -113,8 +116,12 @@ export function CartClient({ initialItems }: CartClientProps) {
                   }
 
                   updateQuantity(item.id, item.quantity - 1);
+                  decBy(1);
                 }}
-                onIncrease={() => updateQuantity(item.id, item.quantity + 1)}
+                onIncrease={() => {
+                  updateQuantity(item.id, item.quantity + 1);
+                  incBy(1);
+                }}
               />
 
               {index < items.length - 1 && (
