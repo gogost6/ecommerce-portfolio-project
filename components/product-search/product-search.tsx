@@ -1,8 +1,6 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "react-toastify";
 import { ProductSearchDesktop } from "./product-search-desktop";
 import { ProductSearchMobile } from "./product-search-mobile";
 import { ProductSearchResult } from "./types";
@@ -41,33 +39,20 @@ export function ProductSearch() {
     }
 
     const timer = setTimeout(async () => {
-      const supabase = createClient();
+      try {
+        const res = await fetch(
+          `/api/products/search?q=${encodeURIComponent(query)}`,
+        );
 
-      const { data, error } = await supabase
-        .from("products")
-        .select(
-          `
-          id,
-          title,
-          price,
-          gender,
-          slug,
-          categories!inner ( slug ),
-          product_types!inner ( slug ),
-          product_images (
-            url,
-            alt,
-            is_primary
-          )
-        `,
-        )
-        .ilike("title", `%${query}%`)
-        .limit(5);
+        if (!res.ok) {
+          setResults([]);
+          return;
+        }
 
-      if (data) {
+        const data = await res.json();
         setResults(data);
-      } else if (error) {
-        toast.error("An error occurred while searching for products.");
+      } catch {
+        setResults([]);
       }
     }, 300);
 

@@ -26,16 +26,16 @@ export function ProductSearchResults({
     >
       {results.map((result, index) => {
         const primaryImage =
-          result.product_images?.find((img) => img.is_primary)?.url ||
+          result.productImages?.find((img) => img.isPrimary)?.url ||
           DEFAULT_PRODUCT_IMAGE_URL;
 
         const primaryAlt =
-          result.product_images?.find((img) => img.is_primary)?.alt ||
+          result.productImages?.find((img) => img.isPrimary)?.alt ||
           "Placeholder";
 
         return (
           <Link
-            href={`/shop/${result.categories.slug}/${result.gender}/${result.product_types.slug}/${result.slug}`}
+            href={`/shop/${result.category.slug}/${result.gender}/${result.productType.slug}/${result.slug}`}
             key={result.id + "-" + index}
             onClick={onSelect}
             className="hover:bg-accent rounded-md p-2 transition-colors"
