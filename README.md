@@ -20,6 +20,7 @@ The implementation includes:
 - Pagination
 - Tailwind CSS + radix-ui
 - Modern Next.js App Router architecture
+- A separate branch `with-drizzle` that uses Drizzle ORM
 
 ## Database
 
