@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/client";
 import { useState, useTransition } from "react";
 import { ReviewsHeader } from "./ReviewsHeader";
 import { ReviewsList } from "./ReviewsList";
@@ -17,15 +16,6 @@ export type Review = {
 };
 
 const REVIEWS_PAGE_SIZE = 4;
-const SELECT_REVIEWS_FIELDS = `
-  id,
-  reviewer_name,
-  rating,
-  body,
-  created_at,
-  is_verified_purchase,
-  is_published
-`;
 
 export function Reviews({
   initialReviews,
@@ -45,68 +35,62 @@ export function Reviews({
 
   const loadMoreReviews = () => {
     startTransition(async () => {
-      const supabase = createClient();
+      const offset = reviews.length;
 
-      const from = reviews.length;
-      const to = from + REVIEWS_PAGE_SIZE - 1;
+      const res = await fetch(
+        `/api/products/${productId}/reviews?offset=${offset}&limit=${REVIEWS_PAGE_SIZE}&orderBy=${orderBy}&order=${order}`,
+        {
+          method: "GET",
+        },
+      );
 
-      const { data } = await supabase
-        .from("product_reviews")
-        .select(SELECT_REVIEWS_FIELDS)
-        .eq("product_id", productId)
-        .eq("is_verified_purchase", true)
-        .eq("is_published", true)
-        .order(orderBy, { ascending: order === "asc" })
-        .order("id", { ascending: true })
-        .range(from, to);
+      if (!res.ok) return;
 
-      if (data?.length) {
-        setReviews((prev) => [...prev, ...(data as Review[])]);
+      const data: Review[] = await res.json();
+
+      if (data.length) {
+        setReviews((prev) => [...prev, ...data]);
       }
     });
   };
 
   const sortReviews = async (criteria: string) => {
-    const supabase = createClient();
-
-    let order: "asc" | "desc" = "desc";
-    let orderBy: "created_at" | "rating" = "created_at";
+    let nextOrder: "asc" | "desc" = "desc";
+    let nextOrderBy: "created_at" | "rating" = "created_at";
 
     switch (criteria) {
       case "latest":
-        orderBy = "created_at";
-        order = "desc";
+        nextOrderBy = "created_at";
+        nextOrder = "desc";
         break;
       case "oldest":
-        orderBy = "created_at";
-        order = "asc";
+        nextOrderBy = "created_at";
+        nextOrder = "asc";
         break;
       case "highest":
-        orderBy = "rating";
-        order = "desc";
+        nextOrderBy = "rating";
+        nextOrder = "desc";
         break;
       case "lowest":
-        orderBy = "rating";
-        order = "asc";
+        nextOrderBy = "rating";
+        nextOrder = "asc";
         break;
     }
 
-    setOrder(order);
-    setOrderBy(orderBy);
+    setOrder(nextOrder);
+    setOrderBy(nextOrderBy);
 
-    const { data } = await supabase
-      .from("product_reviews")
-      .select(SELECT_REVIEWS_FIELDS)
-      .eq("product_id", productId)
-      .eq("is_verified_purchase", true)
-      .eq("is_published", true)
-      .order(orderBy, { ascending: order === "asc" })
-      .order("id", { ascending: true })
-      .limit(reviews.length);
+    const res = await fetch(
+      `/api/products/${productId}/reviews?offset=0&limit=${reviews.length}&orderBy=${nextOrderBy}&order=${nextOrder}`,
+      {
+        method: "GET",
+      },
+    );
 
-    if (data) {
-      setReviews(data as Review[]);
-    }
+    if (!res.ok) return;
+
+    const data: Review[] = await res.json();
+    setReviews(data);
   };
 
   return (
