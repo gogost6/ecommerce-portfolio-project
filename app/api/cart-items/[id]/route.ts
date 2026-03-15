@@ -1,4 +1,7 @@
+import { db } from "@/db";
+import { cartItems, carts } from "@/drizzle/schema";
 import { createClient } from "@/lib/supabase/server";
+import { and, eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -15,28 +18,31 @@ async function getOwnedCartItemIdOrNull(cartItemId: number) {
   const userId = (await supabase.auth.getUser()).data?.user?.id;
   const sessionId = cookiesStore.get("cart_session_id")?.value;
 
-  let cartQuery = supabase.from("carts").select("id").eq("is_active", true);
+  const cartOwnerCondition = sessionId
+    ? and(eq(carts.isActive, true), eq(carts.sessionId, sessionId))
+    : userId
+      ? and(eq(carts.isActive, true), eq(carts.userId, userId))
+      : null;
 
-  if (sessionId) {
-    cartQuery = cartQuery.eq("session_id", sessionId);
-  } else if (userId) {
-    cartQuery = cartQuery.eq("user_id", userId);
-  } else {
+  if (!cartOwnerCondition) {
     return null;
   }
 
-  const { data: cart } = await cartQuery.single();
+  const [cart] = await db
+    .select({ id: carts.id })
+    .from(carts)
+    .where(cartOwnerCondition)
+    .limit(1);
 
   if (!cart) {
     return null;
   }
 
-  const { data: cartItem } = await supabase
-    .from("cart_items")
-    .select("id")
-    .eq("id", cartItemId)
-    .eq("cart_id", cart.id)
-    .single();
+  const [cartItem] = await db
+    .select({ id: cartItems.id })
+    .from(cartItems)
+    .where(and(eq(cartItems.id, cartItemId), eq(cartItems.cartId, cart.id)))
+    .limit(1);
 
   return cartItem?.id ?? null;
 }
@@ -69,21 +75,15 @@ export async function PATCH(req: NextRequest, context: RouteContext) {
       );
     }
 
-    const supabase = await createClient();
-
-    const { error } = await supabase
-      .from("cart_items")
-      .update({ quantity })
-      .eq("id", ownedCartItemId);
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    await db
+      .update(cartItems)
+      .set({ quantity })
+      .where(eq(cartItems.id, ownedCartItemId));
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "Unexpected server error" },
+      { error: "Unexpected server error", message: error.message },
       { status: 500 },
     );
   }
@@ -110,16 +110,7 @@ export async function DELETE(_: NextRequest, context: RouteContext) {
       );
     }
 
-    const supabase = await createClient();
-
-    const { error } = await supabase
-      .from("cart_items")
-      .delete()
-      .eq("id", ownedCartItemId);
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    await db.delete(cartItems).where(eq(cartItems.id, ownedCartItemId));
 
     return NextResponse.json({ ok: true });
   } catch {

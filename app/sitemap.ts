@@ -1,4 +1,6 @@
-import { createClient } from "@/lib/supabase/server";
+import { db } from "@/db";
+import { categories, products, productTypes } from "@/drizzle/schema";
+import { eq } from "drizzle-orm";
 import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -6,27 +8,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ? `https://${process.env.VERCEL_URL}`
     : "http://localhost:3000";
 
-  const supabase = await createClient();
-
-  const { data: products } = await supabase
-    .from("products")
-    .select(
-      `
-      slug,
-      updated_at,
-      gender,
-      categories ( slug ),
-      product_types ( slug )
-    `,
-    )
-    .eq("is_active", true);
+  const result = await db
+    .select({
+      slug: products.slug,
+      updatedAt: products.updatedAt,
+      gender: products.gender,
+      categorySlug: categories.slug,
+      productTypeSlug: productTypes.slug,
+    })
+    .from(products)
+    .where(eq(products.isActive, true))
+    .leftJoin(categories, eq(products.categoryTypeId, categories.id))
+    .leftJoin(productTypes, eq(products.productTypeId, productTypes.id));
 
   const productUrls =
-    products?.map((product) => ({
-      url: `${baseUrl}/shop/${product.gender}/${product.categories.slug}/${product.product_types.slug}/${product.slug}`,
-      lastModified: product.updated_at
-        ? new Date(product.updated_at)
-        : new Date(),
+    result?.map((data) => ({
+      url: `${baseUrl}/shop/${data.gender}/${data.categorySlug}/${data.productTypeSlug}/${data.slug}`,
+      lastModified: data.updatedAt ? new Date(data.updatedAt) : new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.7,
     })) ?? [];
