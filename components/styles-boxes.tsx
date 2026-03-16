@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
+import { ImageWithSkeleton } from "./image-with-skeleton";
 
 const categoryUIConfig: Record<
   string,
@@ -52,21 +52,20 @@ const StyleBox = ({
     <Link
       href={`/shop/${slug}`}
       className={cn(
-        "group relative h-48 w-full cursor-pointer overflow-hidden md:h-72",
+        "group relative h-48 w-full cursor-pointer overflow-hidden transition md:h-72",
         colClass,
       )}
     >
-      <Image
+      <ImageWithSkeleton
         src={src}
         alt={alt || src.split(".")[0]}
         fill
         sizes="(min-width: 1024px) 50vw, 100vw"
-        className={cn(
-          "h-full w-full rounded-lg object-cover transition group-hover:scale-105",
-          imgClass,
-        )}
+        className={cn(imgClass, "object-cover group-hover:scale-105")}
+        containerClassName={cn("h-full w-full rounded-lg", imgClass)}
+        skeletonClassName="z-10 rounded-lg w-full h-full bg-white"
       />
-      <p className="absolute top-4 left-6 text-2xl font-bold">{name}</p>
+      <p className="absolute top-4 left-6 z-20 text-2xl font-bold">{name}</p>
     </Link>
   );
 };

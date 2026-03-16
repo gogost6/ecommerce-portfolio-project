@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ImageWithSkeleton } from "./image-with-skeleton";
 import { ProductCardParams } from "./products-listing";
 import { StarRating } from "./star-rating";
 import { Badge } from "./ui/badge";
@@ -30,12 +30,13 @@ export const ProductCard = ({
   return (
     <div className="max-w-48 shrink-0 md:max-w-72">
       <Link href={href}>
-        <Image
+        <ImageWithSkeleton
           src={url}
           alt={alt || url.split(".")[0]}
           width={298}
           height={298}
-          className="mb-2.5 h-48 w-48 rounded-2xl object-cover transition-transform hover:scale-[1.01] md:mb-4 md:h-72 md:w-72"
+          containerClassName="mb-2.5 h-48 w-48 rounded-2xl object-cover transition-transform hover:scale-[1.01] md:mb-4 md:h-72 md:w-72"
+          skeletonClassName="rounded-2xl"
         />
       </Link>
       <h3 className="mb-1 text-base font-bold md:mb-2 md:text-xl">{title}</h3>
