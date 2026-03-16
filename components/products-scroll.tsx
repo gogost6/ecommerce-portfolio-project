@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 import { DEFAULT_PRODUCT_IMAGE_URL } from "@/lib/utils";
 import Link from "next/link";
 import { ProductCard } from "./product-card";
@@ -10,7 +10,7 @@ type ProductsScrollParams = {
 };
 
 export const ProductsScroll = async ({ title, type }: ProductsScrollParams) => {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: products } = await supabase
     .from("products")
     .select(
