@@ -1,6 +1,6 @@
 import { cn, DEFAULT_PRODUCT_IMAGE_URL } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
+import { ImageWithSkeleton } from "../image-with-skeleton";
 import { ProductSearchResult } from "./types";
 
 type ProductSearchResultsProps = {
@@ -41,12 +41,13 @@ export function ProductSearchResults({
             className="hover:bg-accent rounded-md p-2 transition-colors"
           >
             <div className="flex gap-3">
-              <Image
+              <ImageWithSkeleton
                 src={primaryImage}
                 alt={primaryAlt}
                 width={64}
                 height={64}
-                className="h-16 w-16 rounded-xl object-cover"
+                className="object-cover"
+                containerClassName="h-16 w-16 rounded-xl "
               />
               <div className="flex flex-col justify-center gap-1">
                 <h3 className="text-sm font-semibold">{result.title}</h3>
