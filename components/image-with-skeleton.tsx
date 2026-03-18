@@ -33,7 +33,7 @@ export const ImageWithSkeleton = ({
       <Image
         {...props}
         alt={alt || "image"}
-        onLoadingComplete={() => setLoading(false)}
+        onLoad={() => setLoading(false)}
         className={clsx(
           className,
           "transition-opacity duration-300",
